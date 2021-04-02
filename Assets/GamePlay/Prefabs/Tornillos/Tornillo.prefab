@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -1969030613629059313}
   m_Layer: 0
   m_Name: Tornillo
-  m_TagString: TornilloAparecer
+  m_TagString: Tornillo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

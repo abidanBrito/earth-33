@@ -168,7 +168,6 @@ public class AI_EnemyWithoutPet : MonoBehaviour
                 
             }
         }    
-          
     }
 
     public void OnTriggerEnter(Collider other) 

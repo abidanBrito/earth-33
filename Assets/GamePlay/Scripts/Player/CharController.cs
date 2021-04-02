@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharController : MonoBehaviour
 {
+
+    //Movement
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -11,17 +13,63 @@ public class CharController : MonoBehaviour
     public float jumpHeight = 1.0f;
     public float gravityValue = -9.81f;
     public float runSpeed = 7f;
+
+    // animator
     public Animator animator;
     private float speed;
     
+    // Spheres
+    private Collider[] _collidersDetected;
+
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 1.25f);
+    }
+
+    //Comprueba todos los Colliders dentro de _detecteds[]; si el tag es de 'Tornillo'
+    //Mueve el objeto hacia el 'Player' y muestra un mensaje por consola 
+    public void Recolection()
+    {
+        // Recoleting Tornillos to the player position
+        GameConstants.PlayerTargetPosition = transform.position;
+        _collidersDetected = Physics.OverlapSphere(transform.position, 3f);
+
+        foreach(Collider c in _collidersDetected)
+        {
+            if(c.gameObject.tag == "Tornillo") c.gameObject.GetComponent<Tornillos>()._Mode = 2;
+        }
+    }
+
+    public void Disparar()
+    {
+            if(GameConstants._usingBall == false && GameConstants.Esferas[0]._Mode == -2)
+            {
+                GameConstants.Esferas[0]._Mode = 0;
+                GameConstants._usingBall = true;
+            } 
+            else if(GameConstants._usingBall == false && GameConstants.Esferas[1]._Mode == -2)
+            {
+                GameConstants.Esferas[1]._Mode = 0;
+                GameConstants._usingBall = true;
+            } 
+            else if(GameConstants._usingBall == false && GameConstants.Esferas[2]._Mode == -2)
+            {
+                GameConstants.Esferas[2]._Mode = 0;
+                GameConstants._usingBall = true;
+            } 
+    }
     void Update()
     {
+        Recolection();
+
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {
@@ -58,11 +106,13 @@ public class CharController : MonoBehaviour
             
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
+
+        if(Input.GetKeyDown(KeyCode.Mouse1)){
+            Disparar();
+        }
         
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
-
-
         //animation
         animator.SetFloat("speed",speed);
     }

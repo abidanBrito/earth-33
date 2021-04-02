@@ -15,12 +15,13 @@ public class AttackBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         transform.rotation = _player.rotation;
 
             if(Input.GetKeyDown(KeyCode.Mouse0)) {
                 Rigidbody rb = Instantiate(_energyBall, transform.position,transform.rotation).GetComponent<Rigidbody>();
                 rb.AddForce(transform.forward *10f, ForceMode.Impulse);
-            }      
+            }   
     }
     
 }
