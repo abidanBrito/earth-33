@@ -26,6 +26,7 @@ public class CharController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        GameConstants._sphereModes = 0; // se pone en modo ataque
     }
 
     private void OnDrawGizmosSelected()
@@ -109,6 +110,12 @@ public class CharController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Mouse1)){
             Disparar();
+        }
+        if(Input.GetKeyDown(KeyCode.Tab)){
+            //cambia de modo
+            Debug.Log(GameConstants._sphereModes);
+            GameConstants._sphereModes++;
+            if(GameConstants._sphereModes > 2) GameConstants._sphereModes = 0;//vuelve al modo ataque
         }
         
         playerVelocity.y += gravityValue * Time.deltaTime;

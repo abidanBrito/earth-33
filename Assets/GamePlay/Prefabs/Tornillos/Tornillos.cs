@@ -14,7 +14,6 @@ public class Tornillos : MonoBehaviour
         get => _mode;
         set => _mode = value;
     }
-    
     void Start()
     {
         if(gameObject.tag == "TornilloAparecer")

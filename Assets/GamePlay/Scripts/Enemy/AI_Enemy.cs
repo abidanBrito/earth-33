@@ -116,10 +116,11 @@ public class AI_Enemy : MonoBehaviour
     {
         for(int i = 0; i <= Random.Range(3f, 6f); i++)
         {   
-            Instantiate(_tornillo, gameObject.transform);
-        }  
+            // Lo creo para que no coja el prefab.
+            GameObject tornillo =  Instantiate(_tornillo, gameObject.transform) as GameObject;
+            tornillo.transform.parent = null;
+        }
 
-        transform.DetachChildren();
         Destroy(gameObject);
     }
 
@@ -172,6 +173,14 @@ public class AI_Enemy : MonoBehaviour
 
     public void OnTriggerEnter(Collider other) 
     {
-       // if(other.gameObject.tag == "Esfera") _health -= 2.5f;
+        if(other.gameObject.tag == "Esfera")
+        {
+            Esfera esfera = other.GetComponent<Esfera>();
+
+            if(esfera._Mode == 0){
+                _health -= 2.5f;
+            }
+
+        }
     }
 }
