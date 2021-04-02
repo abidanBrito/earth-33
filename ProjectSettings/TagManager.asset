@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PositionGuard
+  - Enemy
+  - Pet
   layers:
   - Default
   - TransparentFX
@@ -11,12 +14,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - whatIsWall
+  - whatIsGround
+  - Player
+  - PositionGuard
+  - Enemy
+  - pet
   - 
   - 
   - 
