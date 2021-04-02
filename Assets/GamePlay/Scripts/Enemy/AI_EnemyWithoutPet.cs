@@ -9,8 +9,12 @@ public class AI_EnemyWithoutPet : MonoBehaviour
     public Transform player;
 
     public LayerMask whatIsGround, whatIsPlayer, whatIsPet;
-    public float health;
 
+    // Enemy 
+    [SerializeField]
+    public float _health = 10f;
+    public GameObject _tornillo;
+    
     //  Patroling
     private Vector3 walkPoint;
     bool walkPointSet;
@@ -108,14 +112,15 @@ public class AI_EnemyWithoutPet : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    public void Takedamage(int damage){
-            health -=damage;
-            if(health <=0) Invoke(nameof(DestroyEnemy), 0.5f);
-    }
-    
-    private void DestroyEnemy()
+    public void CreateDrop()
     {
-        Destroy(gameObject);    
+        for(int i = 0; i <= Random.Range(3f, 6f); i++)
+        {   
+            Instantiate(_tornillo, gameObject.transform);
+        }  
+
+        transform.DetachChildren();
+        Destroy(gameObject);
     }
 
     //Gizmos
@@ -130,7 +135,8 @@ public class AI_EnemyWithoutPet : MonoBehaviour
         
     }
     void Update()
-    {        
+    {       
+        if(_health <= 0) CreateDrop();  
         //si no tiene mascota la intelgencia aritificial siempre va a pegar al jugador   
         if(!ControlEnemies._HasPet){
                 //checks if player is in sight range and attack range
@@ -161,8 +167,12 @@ public class AI_EnemyWithoutPet : MonoBehaviour
                 
                 
             }
-        }
-        
-                
+        }    
+          
+    }
+
+    public void OnTriggerEnter(Collider other) 
+    {
+       // if(other.gameObject.tag == "Esfera") _health -= 2.5f;
     }
 }
