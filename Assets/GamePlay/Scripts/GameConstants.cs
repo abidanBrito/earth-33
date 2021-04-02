@@ -12,6 +12,7 @@ public class GameConstants
     public static List<Esfera> Esferas = new List<Esfera>();
     public static bool _usingBall = false;
     public static int _sphereModes = 0;
+    public static Esfera _sphereControlling;
 
     // Pet Control
     public static GameObject Pet;

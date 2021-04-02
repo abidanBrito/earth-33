@@ -96,6 +96,11 @@ public class Pet : MonoBehaviour
     void Update()
     {
         if(_EnemyControlled){
+            // Solo mueve la esfera en la misma posicion si es la que controla el enemigo
+            if(GameConstants._sphereControlling._Movements == 1){
+                GameConstants._sphereControlling.transform.position = _BallPosition.position;
+                //GameConstants._sphereControlling.transform.rotation = _BallPosition.transform.rotation;
+            }
             //Si el jugador controla el enemigo se ejecutan estas lineas de codigo            
             _EnemyInSightRange = Physics.CheckSphere(transform.position, _sightRangeControlled, whatIsEnemy);
             _EnemyInAttackRange = Physics.CheckSphere(transform.position, _attackRangeControlled, whatIsEnemy);
@@ -116,8 +121,6 @@ public class Pet : MonoBehaviour
                 if(_EnemyInSightRange && !_EnemyInAttackRange)   ChaseEnemy();
                 if(_EnemyInSightRange && _EnemyInAttackRange)   AttackEnemy();
             }
-            
-            _sphere.gameObject.transform.position = _BallPosition.position;
 
             //Si se pulsa click derecho el enemigo deja de controlarse
             if(Input.GetKeyDown(KeyCode.Mouse1)){
@@ -125,7 +128,6 @@ public class Pet : MonoBehaviour
                 _ControllingEnemy = false;
                 GameConstants._HasPet = false;
                 GameConstants.Pet = null;
-
                 //devuelve al enemigo a su estado original
                 gameObject.layer = 10;  //   Layer: Enemy
                 gameObject.tag = "Enemy";
@@ -143,10 +145,11 @@ public class Pet : MonoBehaviour
         if(_sphere != null){
             //si la bola esta en modo controlar
             if(_sphere._Mode == 2){
-                    //si no hay ningun enemigo controlado por el jugador lo hace directamente
+                //si no hay ningun enemigo controlado por el jugador lo hace directamente
                 if(!GameConstants._HasPet){
                     if(!_ControllingEnemy){
                                 _sphere._Movements = 1;
+                                GameConstants._sphereControlling = _sphere;
                                 GameConstants._usingBall = false;
                                 //controlando el enemigo
                                 _ControllingEnemy = true;
@@ -162,6 +165,9 @@ public class Pet : MonoBehaviour
                     if(GameConstants.Pet != gameObject){
                         if(!_ControllingEnemy){
                                 Destroy(GameConstants.Pet.gameObject);
+                                GameConstants._sphereControlling._Movements = -1;
+                                GameConstants._sphereControlling = _sphere;
+                                GameConstants._usingBall = false;
                                 _sphere._Movements = 1;
                                 _ControllingEnemy = true;
                                 GameConstants._HasPet = true;
@@ -172,7 +178,8 @@ public class Pet : MonoBehaviour
                                 agent.speed = 7;
                                 agent.acceleration = 100;
                         } //if
-                    } //if
+                    }
+                     //if
                 }// fin Else
             }
         }

@@ -20,15 +20,19 @@ public class Esfera : MonoBehaviour
         set => _mode = value;
     }
 
-    void Start(){}
+    void Start(){
+        //not doing anything
+        _Mode = -1;
+    }
 
     void Update()
     {
-        //si la esfera en concreto no esta siendo utilizada para controlarno hara el movimiento de volver
+        //si la esfera en concreto no esta siendo utilizada para controlar, no hara el movimiento de volver
         if(_movements !=1){
             if(_movements == 0) calcularRuta(GameConstants.MirillaPosition);
             if(_movements == -1) calcularRuta(transform.parent.position);
         }
+        
     }
 
     public void calcularRuta(Vector3 p)
@@ -46,7 +50,10 @@ public class Esfera : MonoBehaviour
                 _movements = -1;
                 GameConstants._usingBall = false;
             }
-            else if(_movements == -1) _movements = -2;
+            else if(_movements == -1){
+                _movements = -2;
+                _Mode = -1;
+            } 
         } 
     }
 }
