@@ -123,30 +123,36 @@ public class AI_Enemy : MonoBehaviour
 
         Destroy(gameObject);
     }
+    private void TakeDamage(Esfera esfera)
+    {
+        if(esfera._Mode == 0){
+            _health -= 2.5f;
+        }
+        if(_health <= 0) CreateDrop();  
+    }
 
     //Gizmos
     private void OnDrawGizmosSelected()
     {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, attackRange);
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, sightRange);
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, walkPointRange);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, sightRange);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, walkPointRange);
         
     }
     void Update()
     {       
-        if(_health <= 0) CreateDrop();  
         //si no tiene mascota la intelgencia aritificial siempre va a pegar al jugador   
         if(!GameConstants._HasPet){
-                //checks if player is in sight range and attack range
-                playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-                playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+            //checks if player is in sight range and attack range
+            playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+            playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-                if (!playerInSightRange &&!playerInAttackRange) Patroling();
-                if (playerInSightRange &&!playerInAttackRange)  ChasePlayer();
-                if (playerInSightRange && playerInAttackRange) AttackPlayer();    
+            if (!playerInSightRange &&!playerInAttackRange) Patroling();
+            if (playerInSightRange &&!playerInAttackRange)  ChasePlayer();
+            if (playerInSightRange && playerInAttackRange) AttackPlayer();    
 
         }else{
             //Si tiene mascota, comprueba que si es distinta a la mascota elegida pegara al jugador y la mascota
@@ -165,8 +171,6 @@ public class AI_Enemy : MonoBehaviour
                 if (!playerInSightRange && !playerInAttackRange) Patroling();
                 if (playerInSightRange && !playerInAttackRange)  ChasePlayer();
                 if (playerInSightRange && playerInAttackRange) AttackPlayer();    
-                
-                
             }
         }    
     }
@@ -175,12 +179,7 @@ public class AI_Enemy : MonoBehaviour
     {
         if(other.gameObject.tag == "Esfera")
         {
-            Esfera esfera = other.GetComponent<Esfera>();
-
-            if(esfera._Mode == 0){
-                _health -= 2.5f;
-            }
-
+            TakeDamage(other.GetComponent<Esfera>());
         }
     }
 }

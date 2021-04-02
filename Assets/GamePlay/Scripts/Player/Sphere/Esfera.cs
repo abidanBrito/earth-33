@@ -47,12 +47,13 @@ public class Esfera : MonoBehaviour
         {
             if (_movements == 0)
             {
-                _movements = -1;
-                GameConstants._usingBall = false;
+                _movements = -1;        // volviendo
+                GameConstants._usingBall = false;   // mientras vuelve puede usar otras esferas
             }
-            else if(_movements == -1){
-                _movements = -2;
-                _Mode = -1;
+            else if(_movements == -1)
+            {
+                _movements = -2;      // Estado estatico
+                _Mode = -1;           
             } 
         } 
     }

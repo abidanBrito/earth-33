@@ -42,8 +42,6 @@ public class CharController : MonoBehaviour
     {
         // Recoleting Tornillos to the player position
         GameConstants.PlayerTargetPosition = transform.position;
-        _collidersDetected = Physics.OverlapSphere(transform.position, 3f);
-
         foreach(Collider c in _collidersDetected)
         {
             if(c.gameObject.tag == "Tornillo") c.gameObject.GetComponent<Tornillos>()._Mode = 2;
@@ -53,6 +51,7 @@ public class CharController : MonoBehaviour
     public void Disparar()
     {
         int mode = GameConstants._sphereModes;
+        
             if(GameConstants._usingBall == false && GameConstants.Esferas[0]._Movements == -2)
             {
                 GameConstants.Esferas[0]._Movements = 0; //modo de movimiento de la esfera
@@ -73,11 +72,41 @@ public class CharController : MonoBehaviour
                 GameConstants._usingBall = true;
             } 
     }
+    private void CambiarModo()
+    {
+        //cambia de modo
+        GameConstants._sphereModes++;
+        Debug.Log(GameConstants._sphereModes);
+        if(GameConstants._sphereModes > 2) GameConstants._sphereModes = 0;//vuelve al modo ataque
+    }
     void Update()
     {
-        Recolection();
-
         groundedPlayer = controller.isGrounded;
+
+        _collidersDetected = Physics.OverlapSphere(transform.position, 3f);
+        if(_collidersDetected.Length > 0) Recolection();
+
+        if (Input.GetButtonDown("Jump") && groundedPlayer)
+        {
+            animator.SetBool("jumping", true);
+            
+            playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Mouse0)){
+            Disparar();
+        }
+        if(Input.GetKeyDown(KeyCode.Tab)){
+            CambiarModo();
+        }
+        if(GameConstants._HasPet){
+            if(Input.GetKeyDown(KeyCode.Mouse1)){
+               Pet petControl = GameConstants.Pet.GetComponent<Pet>();
+               petControl.StopControlingEnemy();
+            }
+        }
+        
+
         if (groundedPlayer && playerVelocity.y < 0)
         {
             animator.SetBool("jumping", false);
@@ -97,32 +126,12 @@ public class CharController : MonoBehaviour
             controller.Move(move * Time.deltaTime * playerSpeed);
             speed = playerSpeed;
         }
-
         if (move != Vector3.zero)
         {
             transform.forward = move;                
         }else{
             if(move.magnitude < 1)
             speed = 0;
-        }
-
-
-        if (Input.GetButtonDown("Jump") && groundedPlayer)
-        {
-            animator.SetBool("jumping", true);
-            
-            playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        }
-
-        if(Input.GetKeyDown(KeyCode.Mouse0)){
-            Disparar();
-        }
-        if(Input.GetKeyDown(KeyCode.Tab)){
-            //cambia de modo
-            
-            GameConstants._sphereModes++;
-            Debug.Log(GameConstants._sphereModes);
-            if(GameConstants._sphereModes > 2) GameConstants._sphereModes = 0;//vuelve al modo ataque
         }
         
         playerVelocity.y += gravityValue * Time.deltaTime;
