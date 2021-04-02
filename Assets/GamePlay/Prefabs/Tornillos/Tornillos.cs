@@ -14,7 +14,7 @@ public class Tornillos : MonoBehaviour
         get => _mode;
         set => _mode = value;
     }
-
+    
     void Start()
     {
         if(gameObject.tag == "TornilloAparecer")
@@ -44,6 +44,8 @@ public class Tornillos : MonoBehaviour
     //Si el tornillo ha llegado al punto aleatorio, se convierte al tag 'Tornillo'
     public void buscarPunto()
     {
+        GameConstants.PlayerTargetPosition.y +=1f;
+        
         if(_mode == 1) _towardsTarget = _targetPosition - transform.position;
         else if(_mode == 2) _towardsTarget = GameConstants.PlayerTargetPosition - transform.position; 
 

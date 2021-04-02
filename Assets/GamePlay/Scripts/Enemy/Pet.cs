@@ -124,8 +124,8 @@ public class Pet : MonoBehaviour
             //Si se pulsa click derecho el enemigo deja de controlarse
             if(Input.GetKeyDown(KeyCode.Mouse1)){
                 _ControllingEnemy = false;
-                ControlEnemies._HasPet = false;
-                ControlEnemies.Pet = null;
+                GameConstants._HasPet = false;
+                GameConstants.Pet = null;
 
                 //devuelve al enemigo a su estado original
                 gameObject.layer = 10;  //   Layer: Enemy
@@ -146,12 +146,12 @@ public class Pet : MonoBehaviour
             //si la bola esta en modo controlar
             if(ball._controlling){
                     //si no hay ningun enemigo controlado por el jugador lo hace directamente
-                if(!ControlEnemies._HasPet){
+                if(!GameConstants._HasPet){
                     if(!_ControllingEnemy){
                                 //controlando el enemigo
                                 _ControllingEnemy = ball._controlling;
-                                ControlEnemies._HasPet = true;
-                                ControlEnemies.Pet = gameObject;
+                                GameConstants._HasPet = true;
+                                GameConstants.Pet = gameObject;
                                 gameObject.layer = 11;  //   Layer: Pet
                                 gameObject.tag = "Pet";
                                 agent.speed = 7;
@@ -159,12 +159,12 @@ public class Pet : MonoBehaviour
                         }
                 }else{
                     //Si el enemigo es distinto al que controla el jugador, el que tiene el jugador se elimina y se pone el nuevo.
-                    if(ControlEnemies.Pet != gameObject){
+                    if(GameConstants.Pet != gameObject){
                         if(!_ControllingEnemy){
-                                Destroy(ControlEnemies.Pet.gameObject);
+                                Destroy(GameConstants.Pet.gameObject);
                                 _ControllingEnemy = ball._controlling;
-                                ControlEnemies._HasPet = true;
-                                ControlEnemies.Pet = gameObject;
+                                GameConstants._HasPet = true;
+                                GameConstants.Pet = gameObject;
                                 //turning layer into pet
                                 gameObject.layer = 11;  //   Layer: Pet
                                 gameObject.tag = "Pet";
