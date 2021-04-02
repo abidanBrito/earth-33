@@ -7,7 +7,13 @@ public class Esfera : MonoBehaviour
     private float _speed = 4f;
     private float _rotationSpeed = 10f;
     private Vector3 _towardTarget;
-    private int _mode = -2;
+    private int _movements = -2;
+    public int _Movements
+    {
+        get => _movements;
+        set => _movements = value;
+    }
+    private int _mode = 0;
     public int _Mode
     {
         get => _mode;
@@ -18,8 +24,11 @@ public class Esfera : MonoBehaviour
 
     void Update()
     {
-        if(_mode == 0) calcularRuta(GameConstants.MirillaPosition);
-        if(_mode == -1) calcularRuta(transform.parent.position);
+        //si la esfera en concreto no esta siendo utilizada para controlarno hara el movimiento de volver
+        if(_movements !=1){
+            if(_movements == 0) calcularRuta(GameConstants.MirillaPosition);
+            if(_movements == -1) calcularRuta(transform.parent.position);
+        }
     }
 
     public void calcularRuta(Vector3 p)
@@ -32,12 +41,12 @@ public class Esfera : MonoBehaviour
 
         if(_towardTarget.magnitude < 0.1f)
         {
-            if (_mode == 0)
+            if (_movements == 0)
             {
-                _mode = -1;
+                _movements = -1;
                 GameConstants._usingBall = false;
             }
-            else if(_mode == -1) _mode = -2;
+            else if(_movements == -1) _movements = -2;
         } 
     }
 }

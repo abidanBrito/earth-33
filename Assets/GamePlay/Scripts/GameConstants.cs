@@ -11,7 +11,7 @@ public class GameConstants
     public static Vector3 MirillaPosition;
     public static List<Esfera> Esferas = new List<Esfera>();
     public static bool _usingBall = false;
-    public static int _sphereModes;
+    public static int _sphereModes = 0;
 
     // Pet Control
     public static GameObject Pet;

@@ -27,6 +27,7 @@ public class CharController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         GameConstants._sphereModes = 0; // se pone en modo ataque
+        Debug.Log(GameConstants._sphereModes);
     }
 
     private void OnDrawGizmosSelected()
@@ -51,19 +52,24 @@ public class CharController : MonoBehaviour
 
     public void Disparar()
     {
-            if(GameConstants._usingBall == false && GameConstants.Esferas[0]._Mode == -2)
+        int mode = GameConstants._sphereModes;
+            if(GameConstants._usingBall == false && GameConstants.Esferas[0]._Movements == -2)
             {
-                GameConstants.Esferas[0]._Mode = 0;
+                GameConstants.Esferas[0]._Movements = 0; //modo de movimiento de la esfera
+                GameConstants.Esferas[0]._Mode = mode; //Modo de la esfera
                 GameConstants._usingBall = true;
             } 
-            else if(GameConstants._usingBall == false && GameConstants.Esferas[1]._Mode == -2)
+            else if(GameConstants._usingBall == false && GameConstants.Esferas[1]._Movements == -2)
             {
-                GameConstants.Esferas[1]._Mode = 0;
+                GameConstants.Esferas[1]._Movements = 0;
+                GameConstants.Esferas[1]._Mode = mode; //Modo de la esfera
+
                 GameConstants._usingBall = true;
             } 
-            else if(GameConstants._usingBall == false && GameConstants.Esferas[2]._Mode == -2)
+            else if(GameConstants._usingBall == false && GameConstants.Esferas[2]._Movements == -2)
             {
-                GameConstants.Esferas[2]._Mode = 0;
+                GameConstants.Esferas[2]._Movements = 0;
+                GameConstants.Esferas[2]._Mode = mode; //Modo de la esfera
                 GameConstants._usingBall = true;
             } 
     }
@@ -108,13 +114,14 @@ public class CharController : MonoBehaviour
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
 
-        if(Input.GetKeyDown(KeyCode.Mouse1)){
+        if(Input.GetKeyDown(KeyCode.Mouse0)){
             Disparar();
         }
         if(Input.GetKeyDown(KeyCode.Tab)){
             //cambia de modo
-            Debug.Log(GameConstants._sphereModes);
+            
             GameConstants._sphereModes++;
+            Debug.Log(GameConstants._sphereModes);
             if(GameConstants._sphereModes > 2) GameConstants._sphereModes = 0;//vuelve al modo ataque
         }
         
