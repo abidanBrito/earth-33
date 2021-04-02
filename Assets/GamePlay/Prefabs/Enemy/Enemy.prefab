@@ -110,9 +110,9 @@ GameObject:
   - component: {fileID: 2304045652235704300}
   - component: {fileID: 9134341283465552074}
   - component: {fileID: 6650561335774964462}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -230,9 +230,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ea29f3080b9b2547aebdd34b1be06d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  player: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 64
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256

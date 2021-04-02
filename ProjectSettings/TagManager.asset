@@ -14,8 +14,8 @@ TagManager:
   - 
   - Water
   - UI
-  - whatIsWall
   - whatIsGround
+  - 
   - Player
   - PositionGuard
   - Enemy
