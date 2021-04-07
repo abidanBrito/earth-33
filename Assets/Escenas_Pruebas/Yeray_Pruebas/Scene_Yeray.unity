@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 463743575}
   - component: {fileID: 463743577}
   m_Layer: 0
-  m_Name: CM vcam1
+  m_Name: CM_ThirdPerson
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -274,15 +274,15 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 2000
+  m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 200934091}
   m_Follow: {fileID: 200934093}
   m_Lens:
-    FieldOfView: 64
+    FieldOfView: 55
     OrthographicSize: 5
-    NearClipPlane: 0.3
-    FarClipPlane: 1000
+    NearClipPlane: 1.91
+    FarClipPlane: 200
     Dutch: 0
     LensShift: {x: 0, y: 0}
   m_Transitions:
@@ -300,8 +300,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 463743574}
-  m_LocalRotation: {x: 0.07799724, y: 0, z: 0, w: 0.9969536}
-  m_LocalPosition: {x: 0, y: 2.5353951, z: -4.29}
+  m_LocalRotation: {x: 0.18107577, y: 0, z: 0, w: 0.9834692}
+  m_LocalPosition: {x: 0, y: 3.8953953, z: -5.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 731453551}
@@ -386,9 +386,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damping: {x: 0, y: 0, z: 0}
   ShoulderOffset: {x: 0, y: -1.48, z: 0}
-  VerticalArmLength: 2.1
+  VerticalArmLength: 3.46
   CameraSide: 1
-  CameraDistance: 4.29
+  CameraDistance: 5.34
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 1
@@ -447,8 +447,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NoiseProfile: {fileID: 11400000, guid: 46965f9cbaf525742a6da4c2172a99cd, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 0.4
-  m_FrequencyGain: 0.4
+  m_AmplitudeGain: 0.3
+  m_FrequencyGain: 0.5
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1335895742
 GameObject:
@@ -534,9 +534,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 64
+  near clip plane: 1.91
+  far clip plane: 200
+  field of view: 55
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -561,8 +561,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1335895742}
-  m_LocalRotation: {x: 0.07799724, y: 0, z: 0, w: 0.9969536}
-  m_LocalPosition: {x: 0, y: 2.5353951, z: -4.29}
+  m_LocalRotation: {x: 0.18107577, y: 0, z: 0, w: 0.9834692}
+  m_LocalPosition: {x: 0, y: 3.8953953, z: -5.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

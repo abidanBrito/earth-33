@@ -10,6 +10,7 @@ TagManager:
   - Tornillo
   - Enemigo
   - Aparecer
+  - Esfera
   layers:
   - Default
   - TransparentFX
