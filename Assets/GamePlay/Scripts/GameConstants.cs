@@ -18,4 +18,10 @@ public class GameConstants
     public static GameObject Pet;
     public static bool _HasPet;
     
+    // Move Objects
+    public const string PLAYER_TAG = "Player";
+    public const string MOVABLE_OBJECTS_TAG = "MovableObject";
+    public static GameObject _collectedObject = null;
+    public static GameObject pointMovableObject;
+    public static Esfera _sphereObjectControl;
 }

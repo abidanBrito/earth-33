@@ -30,6 +30,9 @@ public class CharController : MonoBehaviour
     // Neck Follow for camera
     public GameObject followTransform;
 
+    // Control Object
+    
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -90,14 +93,12 @@ public class CharController : MonoBehaviour
     void Update()
     {
         groundedPlayer = controller.isGrounded;
-
         _collidersDetected = Physics.OverlapSphere(transform.position, 3f);
         if(_collidersDetected.Length > 0) Recolection();
 
         if (Input.GetButtonDown("Jump") && groundedPlayer)
         {
             animator.SetBool("jumping", true);
-            
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
 
@@ -113,7 +114,12 @@ public class CharController : MonoBehaviour
                petControl.StopControlingEnemy();
             }
         }
-        
+        if(GameConstants._collectedObject != null){
+            if(Input.GetKeyDown(KeyCode.R)){
+               MovableObject movableObject = GameConstants._collectedObject.GetComponent<MovableObject>();
+               movableObject.StopControlingObject();
+            }
+        }
 
         if (groundedPlayer && playerVelocity.y < 0)
         {
@@ -122,7 +128,6 @@ public class CharController : MonoBehaviour
         }
 
         //transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationPower, Vector3.up);
-
         followTransform.transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationPower, Vector3.up);
 
         #region Vertical Rotation
@@ -146,12 +151,9 @@ public class CharController : MonoBehaviour
         followTransform.transform.localEulerAngles = angles;
         #endregion
 
-
         //gets controller direction.
         // Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         move = (transform.forward * Input.GetAxis("Vertical")) + (transform.right * Input.GetAxis("Horizontal"));
-
-
         nextRotation = Quaternion.Lerp(followTransform.transform.rotation, nextRotation, Time.deltaTime * rotationLerp); //guarda la posicion de giro
 
         if (move.x == 0 && move.z == 0) 

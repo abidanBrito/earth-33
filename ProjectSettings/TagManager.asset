@@ -11,6 +11,7 @@ TagManager:
   - Enemigo
   - Aparecer
   - Esfera
+  - MovableObject
   layers:
   - Default
   - TransparentFX

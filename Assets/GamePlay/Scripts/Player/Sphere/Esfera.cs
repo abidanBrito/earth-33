@@ -28,11 +28,10 @@ public class Esfera : MonoBehaviour
     void Update()
     {
         //si la esfera en concreto no esta siendo utilizada para controlar, no hara el movimiento de volver
-        if(_movements !=1){
+        if(_movements != 1 || _movements != 2){
             if(_movements == 0) calcularRuta(GameConstants.MirillaPosition);
             if(_movements == -1) calcularRuta(transform.parent.position);
         }
-        
     }
 
     public void calcularRuta(Vector3 p)
