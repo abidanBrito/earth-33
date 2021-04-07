@@ -21,6 +21,21 @@ public class CharController : MonoBehaviour
     // Spheres
     private Collider[] _collidersDetected;
 
+    //new movement
+    public Vector2 _move;
+    public Vector2 _look;
+    public float aimValue;
+    public float fireValue;
+
+    public Vector3 nextPosition;
+    public Quaternion nextRotation;
+
+    public float rotationPower = 5f;
+    public float rotationLerp = 0.5f;
+    public GameObject followTransform;
+   
+
+
 
     private void Start()
     {
@@ -113,8 +128,44 @@ public class CharController : MonoBehaviour
             playerVelocity.y = -1f;                        
         }
 
+
+        //transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationPower, Vector3.up);
+
+        followTransform.transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationPower, Vector3.up);
+
+        #region Vertical Rotation
+        followTransform.transform.rotation *= Quaternion.AngleAxis(-Input.GetAxis("Mouse Y") * rotationPower, Vector3.right);
+
+        var angles = followTransform.transform.localEulerAngles;
+        angles.z = 0;
+
+        var angle = followTransform.transform.localEulerAngles.x;
+
+        //Clamp the Up/Down rotation
+        if (angle > 180 && angle < 340)
+        {
+            angles.x = 340;
+        }
+        else if(angle < 180 && angle > 40)
+        {
+            angles.x = 40;
+        }
+
+
+        followTransform.transform.localEulerAngles = angles;
+        #endregion
+
+
         //gets controller direction.
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        // Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector3 move = (transform.forward * Input.GetAxis("Vertical")) + (transform.right * Input.GetAxis("Horizontal"));
+
+
+        nextRotation = Quaternion.Lerp(followTransform.transform.rotation, nextRotation, Time.deltaTime * rotationLerp);
+
+        if (move.x == 0 && move.z == 0) 
+        {   
+            nextPosition = transform.position;
 
         //if shit is pressed and is grounded
         if (Input.GetButton("Fire3") && groundedPlayer)
@@ -128,15 +179,52 @@ public class CharController : MonoBehaviour
         }
         if (move != Vector3.zero)
         {
-            transform.forward = move;                
+            //transform.forward = move;          
         }else{
             if(move.magnitude < 1)
             speed = 0;
         }
+
+        playerVelocity.y += gravityValue * Time.deltaTime;
+        controller.Move(playerVelocity * Time.deltaTime);
+        //animation
+        animator.SetFloat("speed",speed);    
+
+
+            return; 
+        }
+
+        Vector3 position = (transform.forward * move.x * 5f) + (transform.right * move.z * 5f);
+        nextPosition = transform.position + position;  
         
+        
+        //if shit is pressed and is grounded
+        if (Input.GetButton("Fire3") && groundedPlayer)
+        {
+            controller.Move(move * Time.deltaTime * runSpeed);
+            speed =  runSpeed;
+            
+        }else{
+            controller.Move(move * Time.deltaTime * playerSpeed);
+            speed = playerSpeed;
+        }
+        if (move != Vector3.zero)
+        {
+            //transform.forward = move;          
+        }else{
+            if(move.magnitude < 1)
+            speed = 0;
+        }
+
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
         //animation
         animator.SetFloat("speed",speed);
+
+        transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
+        //reset the y rotation of the look transform
+        followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
+
+
     }
 }
