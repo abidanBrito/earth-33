@@ -31,5 +31,4 @@ public class BaseGame : MonoBehaviour
         objectTransform.position += objectTransform.forward * speed * Time.deltaTime * 2f;
         Debug.DrawLine(objectTransform.position, towardsTarget, Color.green); 
     }
-
 }

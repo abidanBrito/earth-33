@@ -32,6 +32,10 @@ public class Esfera : BaseGame
             if(movement == 0) calcularRuta(mirillaPosition);
             if(movement == -1) calcularRuta(transform.parent.position);
         }
+        if(movements != 1 || movements != 2){
+            if(movements == 0) calcularRuta(mirillaPosition);
+            if(movements == -1) calcularRuta(transform.parent.position);
+        }
     }
 
     public void calcularRuta(Vector3 p)
