@@ -16,7 +16,7 @@ public class Tornillos : MonoBehaviour
     }
     void Start()
     {
-        if(gameObject.tag == "TornilloAparecer")
+        if(gameObject.tag == "Aparecer")
         {
             var rg = gameObject.AddComponent <Rigidbody>();
             rg.useGravity = false;
@@ -43,10 +43,10 @@ public class Tornillos : MonoBehaviour
     //Si el tornillo ha llegado al punto aleatorio, se convierte al tag 'Tornillo'
     public void buscarPunto()
     {
-        GameConstants.PlayerTargetPosition.y +=1f;
+        BaseGame.PlayerTargetPosition.y +=1f;
         
         if(_mode == 1) _towardsTarget = _targetPosition - transform.position;
-        else if(_mode == 2) _towardsTarget = GameConstants.PlayerTargetPosition - transform.position; 
+        else if(_mode == 2) _towardsTarget = BaseGame.PlayerTargetPosition - transform.position; 
 
         Quaternion towardsTargetRotation = Quaternion.LookRotation(_towardsTarget, Vector3.up);
         transform.rotation = Quaternion.Lerp(transform.rotation, towardsTargetRotation, _rotationSpeed);

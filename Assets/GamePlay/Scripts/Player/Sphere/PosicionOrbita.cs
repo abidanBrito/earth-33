@@ -9,7 +9,7 @@ public class PosicionOrbita : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameConstants.Esferas.Add(Instantiate(_objectToCreate, transform).GetComponent<Esfera>());
+        BaseGame.Esferas.Add(Instantiate(_objectToCreate, transform).GetComponent<Esfera>());
     }
 
     // Update is called once per frame

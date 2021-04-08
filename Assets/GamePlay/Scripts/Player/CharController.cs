@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CharController : MonoBehaviour
 {
-
     //Movement
     private CharacterController controller;
     private Vector3 playerVelocity;
@@ -37,8 +36,8 @@ public class CharController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        GameConstants._sphereModes = 0; // se pone en modo ataque
-        Debug.Log(GameConstants._sphereModes);
+        BaseGame._sphereModes = 0; // se pone en modo ataque
+        Debug.Log(BaseGame._sphereModes);
     }
 
     private void OnDrawGizmosSelected()
@@ -52,7 +51,7 @@ public class CharController : MonoBehaviour
     public void Recolection()
     {
         // Recoleting Tornillos to the player position
-        GameConstants.PlayerTargetPosition = transform.position;
+        BaseGame.PlayerTargetPosition = transform.position;
         foreach(Collider c in _collidersDetected)
         {
             if(c.gameObject.tag == "Tornillo") c.gameObject.GetComponent<Tornillos>()._Mode = 2;
@@ -61,34 +60,34 @@ public class CharController : MonoBehaviour
 
     public void Disparar()
     {
-        int mode = GameConstants._sphereModes;
+        int mode = BaseGame._sphereModes;
         
-            if(GameConstants._usingBall == false && GameConstants.Esferas[0]._Movements == -2)
+            if(BaseGame._usingBall == false && BaseGame.Esferas[0]._Movements == -2)
             {
-                GameConstants.Esferas[0]._Movements = 0; //modo de movimiento de la esfera
-                GameConstants.Esferas[0]._Mode = mode; //Modo de la esfera
-                GameConstants._usingBall = true;
+                BaseGame.Esferas[0]._Movements = 0; //modo de movimiento de la esfera
+                BaseGame.Esferas[0]._Mode = mode; //Modo de la esfera
+                BaseGame._usingBall = true;
             } 
-            else if(GameConstants._usingBall == false && GameConstants.Esferas[1]._Movements == -2)
+            else if(BaseGame._usingBall == false && BaseGame.Esferas[1]._Movements == -2)
             {
-                GameConstants.Esferas[1]._Movements = 0;
-                GameConstants.Esferas[1]._Mode = mode; //Modo de la esfera
+                BaseGame.Esferas[1]._Movements = 0;
+                BaseGame.Esferas[1]._Mode = mode; //Modo de la esfera
 
-                GameConstants._usingBall = true;
+                BaseGame._usingBall = true;
             } 
-            else if(GameConstants._usingBall == false && GameConstants.Esferas[2]._Movements == -2)
+            else if(BaseGame._usingBall == false && BaseGame.Esferas[2]._Movements == -2)
             {
-                GameConstants.Esferas[2]._Movements = 0;
-                GameConstants.Esferas[2]._Mode = mode; //Modo de la esfera
-                GameConstants._usingBall = true;
+                BaseGame.Esferas[2]._Movements = 0;
+                BaseGame.Esferas[2]._Mode = mode; //Modo de la esfera
+                BaseGame._usingBall = true;
             } 
     }
     private void CambiarModo()
     {
         //cambia de modo
-        GameConstants._sphereModes++;
-        Debug.Log(GameConstants._sphereModes);
-        if(GameConstants._sphereModes > 2) GameConstants._sphereModes = 0;//vuelve al modo ataque
+        BaseGame._sphereModes++;
+        Debug.Log(BaseGame._sphereModes);
+        if(BaseGame._sphereModes > 2) BaseGame._sphereModes = 0;//vuelve al modo ataque
     }
     void Update()
     {
@@ -108,15 +107,15 @@ public class CharController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Tab)){
             CambiarModo();
         }
-        if(GameConstants._HasPet){
+        if(BaseGame._HasPet){
             if(Input.GetKeyDown(KeyCode.Mouse1)){
-               Pet petControl = GameConstants.Pet.GetComponent<Pet>();
+               Pet petControl = BaseGame.Pet.GetComponent<Pet>();
                petControl.StopControlingEnemy();
             }
         }
-        if(GameConstants._collectedObject != null){
+        if(BaseGame._collectedObject != null){
             if(Input.GetKeyDown(KeyCode.R)){
-               MovableObject movableObject = GameConstants._collectedObject.GetComponent<MovableObject>();
+               MovableObject movableObject = BaseGame._collectedObject.GetComponent<MovableObject>();
                movableObject.StopControlingObject();
             }
         }

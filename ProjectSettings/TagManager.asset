@@ -12,6 +12,7 @@ TagManager:
   - Aparecer
   - Esfera
   - MovableObject
+  - Part_1
   layers:
   - Default
   - TransparentFX

@@ -5,6 +5,6 @@ using UnityEngine;
 public class Mirilla : MonoBehaviour
 {
     void Update(){
-        GameConstants.MirillaPosition = transform.position;
-        }
+            BaseGame.MirillaPosition = transform.position;
+    }
 }

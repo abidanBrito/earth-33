@@ -29,7 +29,7 @@ public class Esfera : MonoBehaviour
     {
         //si la esfera en concreto no esta siendo utilizada para controlar, no hara el movimiento de volver
         if(_movements != 1 || _movements != 2){
-            if(_movements == 0) calcularRuta(GameConstants.MirillaPosition);
+            if(_movements == 0) calcularRuta(BaseGame.MirillaPosition);
             if(_movements == -1) calcularRuta(transform.parent.position);
         }
     }
@@ -47,7 +47,7 @@ public class Esfera : MonoBehaviour
             if (_movements == 0)
             {
                 _movements = -1;        // volviendo
-                GameConstants._usingBall = false;   // mientras vuelve puede usar otras esferas
+                BaseGame._usingBall = false;   // mientras vuelve puede usar otras esferas
             }
             else if(_movements == -1)
             {

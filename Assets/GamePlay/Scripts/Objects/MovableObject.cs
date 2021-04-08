@@ -7,37 +7,36 @@ public class MovableObject : MonoBehaviour
     private Esfera _sphere;
     private Rigidbody rb;
     public Transform _spherePosition;
-    
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        GameConstants.pointMovableObject = GameObject.Find("pointMovableObject");
+        BaseGame.pointMovableObject = GameObject.Find("pointMovableObject");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(GameConstants._collectedObject == gameObject){
-            transform.position = GameConstants.pointMovableObject.transform.position;
-            transform.rotation = GameConstants.pointMovableObject.transform.rotation;
-            if(GameConstants._sphereObjectControl._Movements == 2){
-                GameConstants._sphereObjectControl.transform.position = _spherePosition.position;
+        if(BaseGame._collectedObject == gameObject){
+            transform.position = BaseGame.pointMovableObject.transform.position;
+            transform.rotation = BaseGame.pointMovableObject.transform.rotation;
+            if(BaseGame._sphereObjectControl._Movements == 2){
+                BaseGame._sphereObjectControl.transform.position = _spherePosition.position;
             }
         }
     }
 
     private void ControlObject()
     {
-        if(!GameConstants._collectedObject){
+        if(!BaseGame._collectedObject){
             rb.useGravity = false;
-            transform.SetParent(GameConstants.pointMovableObject.gameObject.transform);
-            GameConstants._collectedObject = gameObject;
+            transform.SetParent(BaseGame.pointMovableObject.gameObject.transform);
+            BaseGame._collectedObject = gameObject;
             _sphere._Movements = 2;                         // Poniendo la esfera en estado de control 2 (Objetos)
-            GameConstants._sphereObjectControl = _sphere;     // Poniendo la esfera en las constantes para tener en cuenta cual es la que esta siendo utilizada para controlar
-            GameConstants._usingBall = false;               // Poniendo el estado de usando esferas a falso para que las demas puedan ser utilizadas
+            BaseGame._sphereObjectControl = _sphere;     // Poniendo la esfera en las constantes para tener en cuenta cual es la que esta siendo utilizada para controlar
+            BaseGame._usingBall = false;               // Poniendo el estado de usando esferas a falso para que las demas puedan ser utilizadas
         }else{
-            if(gameObject != GameConstants._collectedObject){
+            if(gameObject != BaseGame._collectedObject){
                 StopControlingObject();
                 ControlObject();
             }
@@ -45,11 +44,11 @@ public class MovableObject : MonoBehaviour
     }
     public void StopControlingObject()
     {
-        GameConstants._collectedObject.GetComponent<Rigidbody>().useGravity = true;
-        GameConstants._collectedObject.gameObject.transform.SetParent(null);
-        GameConstants._collectedObject = null;
-        GameConstants._sphereObjectControl._Movements = -1;                         // Poniendo la esfera en estado de control 2 (Objetos)
-        GameConstants._sphereObjectControl = null;     // Poniendo la esfera en las constantes para tener en cuenta cual es la que esta siendo utilizada para controlar
+        BaseGame._collectedObject.GetComponent<Rigidbody>().useGravity = true;
+        BaseGame._collectedObject.gameObject.transform.SetParent(null);
+        BaseGame._collectedObject = null;
+        BaseGame._sphereObjectControl._Movements = -1;                         // Poniendo la esfera en estado de control 2 (Objetos)
+        BaseGame._sphereObjectControl = null;     // Poniendo la esfera en las constantes para tener en cuenta cual es la que esta siendo utilizada para controlar
     }
     private void OnTriggerEnter(Collider other)
     {
