@@ -9,7 +9,7 @@ public class PosicionOrbita : BaseGame
     // Start is called before the first frame update
     void Start()
     {
-        BaseGame.Esferas.Add(Instantiate(_objectToCreate, transform).GetComponent<Esfera>());
+        esferas.Add(Instantiate(_objectToCreate, transform).GetComponent<Esfera>());
     }
 
     // Update is called once per frame

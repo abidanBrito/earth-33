@@ -241,8 +241,8 @@ MonoBehaviour:
   whatIsPet:
     serializedVersion: 2
     m_Bits: 2048
-  _health: 10
-  _tornillo: {fileID: 4989223974821525446, guid: 79c905368300dcf448af335b792e4920, type: 3}
+  health: 10
+  tornillo: {fileID: 0}
   walkPointRange: 2
   timeBetweenAttacks: 2
   projectile: {fileID: 1446380098884818681, guid: 58bf3637f6e906544a32a7f2e7ac188d, type: 3}
@@ -265,17 +265,18 @@ MonoBehaviour:
   health: 100
   timeBetweenAttacks: 2
   projectile: {fileID: 1446380098884818681, guid: 58bf3637f6e906544a32a7f2e7ac188d, type: 3}
-  _PositionGuard: {fileID: 0}
-  _sightRangeControlled: 6.5
-  _attackRangeControlled: 3.8
-  _RangeAwayFromPlayer: 13.5
+  positionGuard: {fileID: 0}
+  sightRangeControlled: 6.5
+  attackRangeControlled: 3
+  rangeAwayFromPlayer: 13
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 1024
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
-  _BallPosition: {fileID: 8027082803593107459}
+  ballPosition: {fileID: 8027082803593107459}
+  sphere: {fileID: 0}
 --- !u!1 &4608384956514598340
 GameObject:
   m_ObjectHideFlags: 0

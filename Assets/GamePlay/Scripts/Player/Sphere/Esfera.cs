@@ -4,54 +4,54 @@ using UnityEngine;
 
 public class Esfera : BaseGame
 {
-    private float _speed = 4f;
-    private float _rotationSpeed = 10f;
-    private Vector3 _towardTarget;
-    private int _movements = -2;
-    public int _Movements
+    private float speed = 4f;
+    private float rotationSpeed = 10f;
+    private Vector3 towardTarget;
+    private int movement = -2;
+    public int movements
     {
-        get => _movements;
-        set => _movements = value;
+        get => movement;
+        set => movement = value;
     }
-    private int _mode = 0;
-    public int _Mode
+    private int mode = 0;
+    public int modes
     {
-        get => _mode;
-        set => _mode = value;
+        get => mode;
+        set => mode = value;
     }
 
     void Start(){
         //not doing anything
-        _Mode = -1;
+        mode = -1;
     }
 
     void Update()
     {
         //si la esfera en concreto no esta siendo utilizada para controlar, no hara el movimiento de volver
-        if(_movements != 1 || _movements != 2){
-            if(_movements == 0) calcularRuta(BaseGame.MirillaPosition);
-            if(_movements == -1) calcularRuta(transform.parent.position);
+        if(movement != 1 || movement != 2){
+            if(movement == 0) calcularRuta(mirillaPosition);
+            if(movement == -1) calcularRuta(transform.parent.position);
         }
     }
 
     public void calcularRuta(Vector3 p)
     {
-        _towardTarget = p - transform.position;
+        towardTarget = p - transform.position;
 
-        suavizarMovimiento(transform, _towardTarget, _speed, _rotationSpeed);
+        suavizarMovimiento(transform, towardTarget, speed, rotationSpeed);
             
 
-        if(_towardTarget.magnitude < 0.1f)
+        if(towardTarget.magnitude < 0.1f)
         {
-            if (_movements == 0)
+            if (movement == 0)
             {
-                _movements = -1;        // volviendo
-                BaseGame._usingBall = false;   // mientras vuelve puede usar otras esferas
+                movement = -1;        // volviendo
+                usingBall = false;   // mientras vuelve puede usar otras esferas
             }
-            else if(_movements == -1)
+            else if(movement == -1)
             {
-                _movements = -2;      // Estado estatico
-                _Mode = -1;           
+                movement = -2;      // Estado estatico
+                mode = -1;           
             } 
         } 
     }

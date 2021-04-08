@@ -4,32 +4,32 @@ using UnityEngine;
 
 public class BaseGame : MonoBehaviour
 {
-    public static Vector3 PlayerTargetPosition;
-    public static Vector3 Puntuation;
+    public static Vector3 playerTargetPosition;
+    public static Vector3 puntuation;
 
     // Sphere Modes
-    public static Vector3 MirillaPosition;
-    public static List<Esfera> Esferas = new List<Esfera>();
-    public static bool _usingBall = false;
-    public static int _sphereModes = 0;
-    public static Esfera _sphereControlling;
+    public static Vector3 mirillaPosition;
+    public static List<Esfera> esferas = new List<Esfera>();
+    public static bool usingBall = false;
+    public static int sphereModes = 0;
+    public static Esfera sphereControlling;
 
     // Pet Control
-    public static GameObject Pet;
-    public static bool _HasPet;
+    public static GameObject pet;
+    public static bool hasPet;
     
     // Move Objects
-    public static GameObject _collectedObject = null;
+    public static GameObject collectedObject = null;
     public static GameObject pointMovableObject;
-    public static Esfera _sphereObjectControl;
+    public static Esfera sphereObjectControl;
 
     // Suavizar movimiento esferas, tornillos
-    public void suavizarMovimiento(Transform objectTransform, Vector3 _towardsTarget, float _speed, float _rotationSpeed)
+    public void suavizarMovimiento(Transform objectTransform, Vector3 towardsTarget, float speed, float rotationSpeed)
     {
-        Quaternion towardsTargetRotation = Quaternion.LookRotation(_towardsTarget, Vector3.up);
-        objectTransform.rotation = Quaternion.Lerp(objectTransform.rotation, towardsTargetRotation, _rotationSpeed);
-        objectTransform.position += objectTransform.forward * _speed * Time.deltaTime * 2f;
-        Debug.DrawLine(objectTransform.position, _towardsTarget, Color.green); 
+        Quaternion towardsTargetRotation = Quaternion.LookRotation(towardsTarget, Vector3.up);
+        objectTransform.rotation = Quaternion.Lerp(objectTransform.rotation, towardsTargetRotation, rotationSpeed);
+        objectTransform.position += objectTransform.forward * speed * Time.deltaTime * 2f;
+        Debug.DrawLine(objectTransform.position, towardsTarget, Color.green); 
     }
 
 }

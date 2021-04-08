@@ -27,19 +27,25 @@ public class CharController : BaseGame
     public float rotationPower = 5f;
     public float rotationLerp = 0.5f;
     // Neck Follow for camera
-    public GameObject followTransform;
+    private GameObject followGameObject;
+    
 
     // Control Object
     
+    private void Awake()
+    {
+        followGameObject = GameObject.FindWithTag(GameConstants.PLAYER_NECK_TAG);
+    }
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        BaseGame._sphereModes = 0; // se pone en modo ataque
-        Debug.Log(BaseGame._sphereModes);
+        sphereModes = 0; // se pone en modo ataque
+        
+        Debug.Log(sphereModes);
     }
-
+    
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -51,49 +57,49 @@ public class CharController : BaseGame
     public void Recolection()
     {
         // Recoleting Tornillos to the player position
-        BaseGame.PlayerTargetPosition = transform.position;
+        playerTargetPosition = transform.position;
         foreach(Collider c in _collidersDetected)
         {
-            if(c.gameObject.tag == GameConstants.TORNILLO_TAG) c.gameObject.GetComponent<Tornillos>()._Mode = 2;
+            if(c.gameObject.tag == GameConstants.TORNILLO_TAG) c.gameObject.GetComponent<Tornillos>().Mode = 2;
         }
     }
 
     public void Disparar()
     {
-        int mode = BaseGame._sphereModes;
+        int mode = sphereModes;
         
-            if(BaseGame._usingBall == false && BaseGame.Esferas[0]._Movements == -2)
+            if(usingBall == false && esferas[0].movements == -2)
             {
-                BaseGame.Esferas[0]._Movements = 0; //modo de movimiento de la esfera
-                BaseGame.Esferas[0]._Mode = mode; //Modo de la esfera
-                BaseGame._usingBall = true;
+                esferas[0].movements = 0; //modo de movimiento de la esfera
+                esferas[0].modes = mode; //Modo de la esfera
+                usingBall = true;
             } 
-            else if(BaseGame._usingBall == false && BaseGame.Esferas[1]._Movements == -2)
+            else if(usingBall == false && esferas[1].movements == -2)
             {
-                BaseGame.Esferas[1]._Movements = 0;
-                BaseGame.Esferas[1]._Mode = mode; //Modo de la esfera
+                esferas[1].movements = 0;
+                esferas[1].modes = mode; //Modo de la esfera
 
-                BaseGame._usingBall = true;
+                usingBall = true;
             } 
-            else if(BaseGame._usingBall == false && BaseGame.Esferas[2]._Movements == -2)
+            else if(usingBall == false && esferas[2].movements == -2)
             {
-                BaseGame.Esferas[2]._Movements = 0;
-                BaseGame.Esferas[2]._Mode = mode; //Modo de la esfera
-                BaseGame._usingBall = true;
+                esferas[2].movements = 0;
+                esferas[2].modes = mode; //Modo de la esfera
+                usingBall = true;
             } 
     }
     private void CambiarModo()
     {
         //cambia de modo
-        BaseGame._sphereModes++;
-        Debug.Log(BaseGame._sphereModes);
-        if(BaseGame._sphereModes > 2) BaseGame._sphereModes = 0;//vuelve al modo ataque
+        sphereModes++;
+        Debug.Log(sphereModes);
+        if(sphereModes > 2) sphereModes = 0;//vuelve al modo ataque
     }
     void Update()
     {
         groundedPlayer = controller.isGrounded;
         _collidersDetected = Physics.OverlapSphere(transform.position, 3f);
-        
+
         if(_collidersDetected.Length > 0)
         {
             Recolection();
@@ -111,15 +117,15 @@ public class CharController : BaseGame
         if(Input.GetKeyDown(KeyCode.Tab)){
             CambiarModo();
         }
-        if(BaseGame._HasPet){
+        if(hasPet){
             if(Input.GetKeyDown(KeyCode.Mouse1)){
-               Pet petControl = BaseGame.Pet.GetComponent<Pet>();
+               Pet petControl = pet.GetComponent<Pet>();
                petControl.StopControlingEnemy();
             }
         }
-        if(BaseGame._collectedObject != null){
+        if(collectedObject != null){
             if(Input.GetKeyDown(KeyCode.R)){
-               MovableObject movableObject = BaseGame._collectedObject.GetComponent<MovableObject>();
+               MovableObjects movableObject = collectedObject.GetComponent<MovableObjects>();
                movableObject.StopControlingObject();
             }
         }
@@ -130,16 +136,18 @@ public class CharController : BaseGame
             playerVelocity.y = -1f;                        
         }
 
+        // camara 
+
         //transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationPower, Vector3.up);
-        followTransform.transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationPower, Vector3.up);
+        followGameObject.transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationPower, Vector3.up);
 
         #region Vertical Rotation
-        followTransform.transform.rotation *= Quaternion.AngleAxis(-Input.GetAxis("Mouse Y") * rotationPower, Vector3.right);
+        followGameObject.transform.rotation *= Quaternion.AngleAxis(-Input.GetAxis("Mouse Y") * rotationPower, Vector3.right);
 
-        var angles = followTransform.transform.localEulerAngles;
+        var angles = followGameObject.transform.localEulerAngles;
         angles.z = 0;
 
-        var angle = followTransform.transform.localEulerAngles.x;
+        var angle = followGameObject.transform.localEulerAngles.x;
 
         //Clamp the Up/Down rotation
         if (angle > 180 && angle < 280)
@@ -151,13 +159,13 @@ public class CharController : BaseGame
             angles.x = 40;
         }
 
-        followTransform.transform.localEulerAngles = angles;
+        followGameObject.transform.localEulerAngles = angles;
         #endregion
 
         //gets controller direction.
         // Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         move = (transform.forward * Input.GetAxis("Vertical")) + (transform.right * Input.GetAxis("Horizontal"));
-        nextRotation = Quaternion.Lerp(followTransform.transform.rotation, nextRotation, Time.deltaTime * rotationLerp); //guarda la posicion de giro
+        nextRotation = Quaternion.Lerp(followGameObject.transform.rotation, nextRotation, Time.deltaTime * rotationLerp); //guarda la posicion de giro
 
         if (move.x == 0 && move.z == 0) 
         {   
@@ -170,9 +178,9 @@ public class CharController : BaseGame
         Vector3 position = (transform.forward * move.x * 5f) + (transform.right * move.z * 5f);
         nextPosition = transform.position + position;  
 
-        transform.rotation = Quaternion.Euler(0, followTransform.transform.rotation.eulerAngles.y, 0);
+        transform.rotation = Quaternion.Euler(0, followGameObject.transform.rotation.eulerAngles.y, 0);
         //reset the y rotation of the look transform
-        followTransform.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
+        followGameObject.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
     }
 
     private void ComprobarMovimiento(){

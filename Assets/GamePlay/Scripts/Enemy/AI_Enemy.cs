@@ -12,8 +12,8 @@ public class AI_Enemy : BaseGame
 
     // Enemy 
     [SerializeField]
-    public float _health = 10f;
-    public GameObject _tornillo;
+    public float health = 10f;
+    public GameObject tornillo;
     
     //  Patroling
     private Vector3 walkPoint;
@@ -27,7 +27,7 @@ public class AI_Enemy : BaseGame
 
     //  States
     public float sightRange, attackRange;
-    private bool playerInSightRange, playerInAttackRange, _petInSightRange, _petInAttackRange;
+    private bool playerInSightRange, playerInAttackRange, petInSightRange, petInAttackRange;
 
     //  Enemy under control by player
 
@@ -90,13 +90,13 @@ public class AI_Enemy : BaseGame
     // Part of code to attack the player's
     private void ChasePet()
     {
-        agent.SetDestination(BaseGame.Pet.transform.position);
+        agent.SetDestination(pet.transform.position);
     }
 
     private void AttackPet()
     {
         agent.SetDestination(transform.position);
-        transform.LookAt(BaseGame.Pet.transform);
+        transform.LookAt(pet.transform);
         if(!alreadyAttacked)
         {
             //Attack Code
@@ -117,18 +117,18 @@ public class AI_Enemy : BaseGame
         for(int i = 0; i <= Random.Range(3f, 6f); i++)
         {   
             // Lo creo para que no coja el prefab.
-            GameObject tornillo =  Instantiate(_tornillo, gameObject.transform) as GameObject;
-            tornillo.transform.parent = null;
+            GameObject tornilloCreado =  Instantiate(tornillo, gameObject.transform) as GameObject;
+            tornilloCreado.transform.parent = null;
         }
 
         Destroy(gameObject);
     }
     private void TakeDamage(Esfera esfera)
     {
-        if(esfera._Mode == 0){
-            _health -= 2.5f;
+        if(esfera.modes == 0){
+            health -= 2.5f;
         }
-        if(_health <= 0) CreateDrop();  
+        if(health <= 0) CreateDrop();  
     }
 
     //Gizmos
@@ -145,7 +145,7 @@ public class AI_Enemy : BaseGame
     void Update()
     {       
         //si no tiene mascota la intelgencia aritificial siempre va a pegar al jugador   
-        if(!BaseGame._HasPet){
+        if(!hasPet){
             //checks if player is in sight range and attack range
             playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
             playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
@@ -156,21 +156,23 @@ public class AI_Enemy : BaseGame
 
         }else{
             //Si tiene mascota, comprueba que si es distinta a la mascota elegida pegara al jugador y la mascota
-            if(BaseGame.Pet != gameObject){
+            if(pet != gameObject){
+                petInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPet);
+                petInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPet);
 
-                _petInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPet);
-                _petInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPet);
-
-                if (_petInSightRange && !_petInAttackRange)  ChasePet();
-                if (_petInSightRange  && _petInAttackRange) AttackPet(); 
+                if (petInSightRange && !petInAttackRange) ChasePet(); 
+                if (petInSightRange  && petInAttackRange) AttackPet(); 
 
                 // Same Code, with diferent layers, Siempre va a pegar al jugador si esta mas cerca
                 playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
                 playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-                if (!playerInSightRange && !playerInAttackRange) Patroling();
-                if (playerInSightRange && !playerInAttackRange)  ChasePlayer();
-                if (playerInSightRange && playerInAttackRange) AttackPlayer();    
+                if(!petInSightRange || playerInSightRange)
+                {
+                    if (!playerInSightRange && !playerInAttackRange) Patroling();
+                    if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+                    if (playerInSightRange && playerInAttackRange) AttackPlayer();    
+                }
             }
         }    
     }

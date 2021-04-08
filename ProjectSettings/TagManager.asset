@@ -12,6 +12,7 @@ TagManager:
   - Esfera
   - MovableObject
   - Part_1
+  - Neck
   layers:
   - Default
   - TransparentFX
@@ -23,8 +24,8 @@ TagManager:
   - 
   - Player
   - PositionGuard
-  - Enemy
-  - pet
+  - IsEnemy
+  - IsPet
   - 
   - 
   - 

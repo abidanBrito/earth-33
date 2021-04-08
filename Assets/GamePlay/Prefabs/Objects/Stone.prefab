@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1914177020138987185}
   - component: {fileID: 1914177020138987186}
   - component: {fileID: 1914177020138987187}
-  - component: {fileID: 6550968980749687039}
+  - component: {fileID: 5163972465210423143}
   m_Layer: 0
   m_Name: Stone
   m_TagString: MovableObject
@@ -114,7 +114,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6550968980749687039
+--- !u!114 &5163972465210423143
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,10 +123,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1914177020138987181}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6803c630ac0d76349b4e929d472e252b, type: 3}
+  m_Script: {fileID: 11500000, guid: 81ce83697a8134640b6291305e1eb14a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spherePosition: {fileID: 6018138398013696713}
+  spherePosition: {fileID: 6018138398013696713}
 --- !u!1 &6290870079875618862
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameConstants
 {   
     public const string PLAYER_TAG = "Player";
+    public const string PLAYER_NECK_TAG = "Neck";
     public const string MOVABLE_OBJECTS_TAG = "MovableObject";
     public const string ENEMY_TAG = "Enemy";
     public const string ESFERA_TAG = "Esfera";

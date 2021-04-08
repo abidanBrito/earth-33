@@ -4,38 +4,46 @@ using UnityEngine;
 
 public class Tornillos : BaseGame
 {
-    private float _speed = 4f;
-    private float _rotationSpeed = 10f;
-    private Vector3 _towardsTarget;
-    private Vector3 _targetPosition;
-    private int _mode = 0;
-    public int _Mode
+    private float speed = 4f;
+    private float rotationSpeed = 10f;
+    private Vector3 towardsTarget;
+    private Vector3 targetPosition;
+    private int mode = 0;
+    public int Mode
     {
-        get => _mode;
-        set => _mode = value;
+        get => mode;
+        set => mode = value;
     }
+
+    
     void Start()
     {
         if(gameObject.tag == GameConstants.APARECER_TORNILLO_TAG)
         {
             var rg = gameObject.AddComponent <Rigidbody>();
             rg.useGravity = false;
-            _targetPosition = transform.position + Random.insideUnitSphere * 2f;
-            _targetPosition.y = 1;
-            _mode = 1;
+            targetPosition = transform.position + Random.insideUnitSphere * 2f;
+            targetPosition.y = 1;
+            mode = 1;
         }
     }
 
     void Update()
     {
-        if(_mode == 1 || _mode == 2) buscarPunto();
+        if(mode == 1 || mode == 2)
+        {
+            buscarPunto();
+        } 
     }
 
     //Si se detecta un collider, se comprueba el tag; si es tipo 'Player',
     //se elimina el Tornillo (ha sido recolectado)
     public void OnTriggerEnter(Collider other) 
     {
-        if(other.gameObject.tag == GameConstants.PLAYER_TAG) Destroy(gameObject);
+        if(other.gameObject.tag == GameConstants.PLAYER_TAG)
+        {
+            Destroy(gameObject);
+        }
     }
 
     //Si aparece por muerte de enemigo, buscará un punto aleatorio
@@ -43,13 +51,13 @@ public class Tornillos : BaseGame
     //Si el tornillo ha llegado al punto aleatorio, se convierte al tag 'Tornillo'
     public void buscarPunto()
     {
-        BaseGame.PlayerTargetPosition.y +=1f;
+        playerTargetPosition.y +=1f;
         
-        if(_mode == 1) _towardsTarget = _targetPosition - transform.position;
-        else if(_mode == 2) _towardsTarget = BaseGame.PlayerTargetPosition - transform.position; 
+        if(mode == 1) towardsTarget = targetPosition - transform.position;
+        else if(mode == 2) towardsTarget = playerTargetPosition - transform.position; 
 
-        suavizarMovimiento(transform,_towardsTarget,_speed, _rotationSpeed);
+        suavizarMovimiento(transform,towardsTarget,speed, rotationSpeed);
 
-        if(_mode == 1 && _towardsTarget.magnitude < 0.1f) _mode = 0; gameObject.tag = GameConstants.TORNILLO_TAG;
+        if(mode == 1 && towardsTarget.magnitude < 0.1f) mode = 0; gameObject.tag = GameConstants.TORNILLO_TAG;
     }
 }
