@@ -242,7 +242,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   health: 10
-  tornillo: {fileID: 0}
+  tornillo: {fileID: 4989223974821525446, guid: 79c905368300dcf448af335b792e4920, type: 3}
   walkPointRange: 2
   timeBetweenAttacks: 2
   projectile: {fileID: 1446380098884818681, guid: 58bf3637f6e906544a32a7f2e7ac188d, type: 3}
