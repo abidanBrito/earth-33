@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tornillos : MonoBehaviour
+public class Tornillos : BaseGame
 {
     private float _speed = 4f;
     private float _rotationSpeed = 10f;
@@ -16,7 +16,7 @@ public class Tornillos : MonoBehaviour
     }
     void Start()
     {
-        if(gameObject.tag == "Aparecer")
+        if(gameObject.tag == GameConstants.APARECER_TORNILLO_TAG)
         {
             var rg = gameObject.AddComponent <Rigidbody>();
             rg.useGravity = false;
@@ -35,7 +35,7 @@ public class Tornillos : MonoBehaviour
     //se elimina el Tornillo (ha sido recolectado)
     public void OnTriggerEnter(Collider other) 
     {
-        if(other.gameObject.tag == "Player") Destroy(gameObject);
+        if(other.gameObject.tag == GameConstants.PLAYER_TAG) Destroy(gameObject);
     }
 
     //Si aparece por muerte de enemigo, buscará un punto aleatorio
@@ -48,11 +48,8 @@ public class Tornillos : MonoBehaviour
         if(_mode == 1) _towardsTarget = _targetPosition - transform.position;
         else if(_mode == 2) _towardsTarget = BaseGame.PlayerTargetPosition - transform.position; 
 
-        Quaternion towardsTargetRotation = Quaternion.LookRotation(_towardsTarget, Vector3.up);
-        transform.rotation = Quaternion.Lerp(transform.rotation, towardsTargetRotation, _rotationSpeed);
-        transform.position += transform.forward * _speed * Time.deltaTime * 2f;
-        Debug.DrawLine(transform.position, _towardsTarget, Color.green); 
+        suavizarMovimiento(transform,_towardsTarget,_speed, _rotationSpeed);
 
-        if(_mode == 1 && _towardsTarget.magnitude < 0.1f) _mode = 0; gameObject.tag = "Tornillo";
+        if(_mode == 1 && _towardsTarget.magnitude < 0.1f) _mode = 0; gameObject.tag = GameConstants.TORNILLO_TAG;
     }
 }

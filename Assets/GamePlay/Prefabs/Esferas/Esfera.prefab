@@ -109,7 +109,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cc2fbf352a6b3242baf7323b5b8f0b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distanciaAtaque: {fileID: 0}
 --- !u!54 &5843024865556316704
 Rigidbody:
   m_ObjectHideFlags: 0

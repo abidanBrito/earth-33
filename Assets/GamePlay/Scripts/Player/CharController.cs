@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharController : MonoBehaviour
+public class CharController : BaseGame
 {
     //Movement
     private CharacterController controller;
@@ -54,7 +54,7 @@ public class CharController : MonoBehaviour
         BaseGame.PlayerTargetPosition = transform.position;
         foreach(Collider c in _collidersDetected)
         {
-            if(c.gameObject.tag == "Tornillo") c.gameObject.GetComponent<Tornillos>()._Mode = 2;
+            if(c.gameObject.tag == GameConstants.TORNILLO_TAG) c.gameObject.GetComponent<Tornillos>()._Mode = 2;
         }
     }
 
@@ -93,7 +93,11 @@ public class CharController : MonoBehaviour
     {
         groundedPlayer = controller.isGrounded;
         _collidersDetected = Physics.OverlapSphere(transform.position, 3f);
-        if(_collidersDetected.Length > 0) Recolection();
+        
+        if(_collidersDetected.Length > 0)
+        {
+            Recolection();
+        } 
 
         if (Input.GetButtonDown("Jump") && groundedPlayer)
         {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-public class AI_Enemy : MonoBehaviour
+public class AI_Enemy : BaseGame
 {
 
     public NavMeshAgent agent;
@@ -177,7 +177,7 @@ public class AI_Enemy : MonoBehaviour
 
     public void OnTriggerEnter(Collider other) 
     {
-        if(other.gameObject.tag == "Esfera")
+        if(other.gameObject.tag == GameConstants.ESFERA_TAG)
         {
             TakeDamage(other.GetComponent<Esfera>());
         }

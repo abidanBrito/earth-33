@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Esfera : MonoBehaviour
+public class Esfera : BaseGame
 {
     private float _speed = 4f;
     private float _rotationSpeed = 10f;
@@ -37,10 +37,9 @@ public class Esfera : MonoBehaviour
     public void calcularRuta(Vector3 p)
     {
         _towardTarget = p - transform.position;
-        Quaternion towardsTargetRotation = Quaternion.LookRotation(_towardTarget, Vector3.up);
-        transform.rotation = Quaternion.Lerp(transform.rotation, towardsTargetRotation, _rotationSpeed);
-        transform.position += transform.forward * _speed * Time.deltaTime * 2f;
-        Debug.DrawLine(transform.position, _towardTarget, Color.green);      
+
+        suavizarMovimiento(transform, _towardTarget, _speed, _rotationSpeed);
+            
 
         if(_towardTarget.magnitude < 0.1f)
         {

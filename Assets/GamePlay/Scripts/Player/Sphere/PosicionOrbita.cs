@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PosicionOrbita : MonoBehaviour
+public class PosicionOrbita : BaseGame
 {
     public GameObject _objectToCreate;
 

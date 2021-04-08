@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-public class Pet : MonoBehaviour
+public class Pet : BaseGame
 {
     public NavMeshAgent agent;
     public Transform player;
@@ -124,7 +124,7 @@ public class Pet : MonoBehaviour
                 BaseGame.Pet = null;
                 //devuelve al enemigo a su estado original
                 gameObject.layer = 10;  //   Layer: Enemy
-                gameObject.tag = "Enemy";
+                gameObject.tag = GameConstants.ENEMY_TAG;
                 agent.speed = 4;
                 agent.acceleration = 20;
     }
@@ -153,7 +153,7 @@ public class Pet : MonoBehaviour
 
             _Enemies = Physics.OverlapSphere(transform.position, 10, whatIsEnemy);
             foreach(Collider c in _Enemies){
-                if(c.tag == "Enemy"){
+                if(c.tag == GameConstants.ENEMY_TAG){
                     _Enemy = c.transform;
                 }
             }
