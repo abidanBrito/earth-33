@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tornillos : BaseGame
+public class NutsAndBolts : BaseGame
 {
     private float speed = 4f;
     private float rotationSpeed = 10f;
@@ -14,13 +14,12 @@ public class Tornillos : BaseGame
         get => mode;
         set => mode = value;
     }
-
     
     void Start()
     {
         if(gameObject.tag == GameConstants.APARECER_TORNILLO_TAG)
         {
-            var rg = gameObject.AddComponent <Rigidbody>();
+            var rg = gameObject.AddComponent<Rigidbody>();
             rg.useGravity = false;
             targetPosition = transform.position + Random.insideUnitSphere * 2f;
             targetPosition.y = 1;
@@ -33,7 +32,7 @@ public class Tornillos : BaseGame
         if(mode == 1 || mode == 2)
         {
             buscarPunto();
-        } 
+        }
     }
 
     //Si se detecta un collider, se comprueba el tag; si es tipo 'Player',
@@ -54,9 +53,9 @@ public class Tornillos : BaseGame
         playerTargetPosition.y +=1f;
         
         if(mode == 1) towardsTarget = targetPosition - transform.position;
-        else if(mode == 2) towardsTarget = playerTargetPosition - transform.position; 
+        else if(mode == 2) towardsTarget = playerTargetPosition - transform.position;
 
-        suavizarMovimiento(transform,towardsTarget,speed, rotationSpeed);
+        smoothMovement(transform, towardsTarget, speed, rotationSpeed);
 
         if(mode == 1 && towardsTarget.magnitude < 0.1f) mode = 0; gameObject.tag = GameConstants.TORNILLO_TAG;
     }
