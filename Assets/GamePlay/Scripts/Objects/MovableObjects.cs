@@ -6,12 +6,13 @@ public class MovableObjects : BaseGame
 {
     private EnergyBall sphere;
     private Rigidbody rb;
-    public Transform spherePosition;
+    private Transform spherePosition;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         pointMovableObject = GameObject.Find("pointMovableObject");
+        spherePosition = transform.GetChild(0).GetChild(0).transform;
     }
 
     // Update is called once per frame

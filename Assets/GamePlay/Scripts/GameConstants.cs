@@ -13,5 +13,6 @@ public class GameConstants
     public const string POSITION_GUARD_TAG = "PositionGuard";
     public const string APARECER_TORNILLO_TAG = "Aparecer";
     public const string SPACESHIP_PART_TAG = "Part_1";
+    public const string ENVIROMENT_TAG = "Enviroment";
     
 }

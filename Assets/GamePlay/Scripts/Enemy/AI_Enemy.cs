@@ -103,7 +103,7 @@ public class AI_Enemy : BaseGame
             Pet petController = pet.GetComponent<Pet>();
             petController.StopControlingEnemy();
         }
-
+        agent = null;
         Destroy(gameObject);
     }
     private void TakeDamage(EnergyBall esfera)
@@ -193,5 +193,4 @@ public class AI_Enemy : BaseGame
             Destroy(projectile);
         }
     }
-        
 }

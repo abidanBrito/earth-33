@@ -13,6 +13,7 @@ TagManager:
   - MovableObject
   - Part_1
   - Neck
+  - Enviroment
   layers:
   - Default
   - TransparentFX

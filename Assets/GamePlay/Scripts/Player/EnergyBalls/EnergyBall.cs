@@ -55,8 +55,46 @@ public class EnergyBall : BaseGame
             else if(movement == -1)
             {
                 movement = -2;      // Estado estatico
+                usingBall = false;   // mientras vuelve puede usar otras esferas
                 mode = -1;           
             } 
         } 
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == GameConstants.ENVIROMENT_TAG)
+        {
+            if(movements != -2){
+                movements  = -1;
+                usingBall = false;   // mientras vuelve puede usar otras esferas
+            }
+        }
+
+        if(other.gameObject.tag == GameConstants.MOVABLE_OBJECTS_TAG)
+        {
+            if(modes != 1)
+            {
+                if(collectedObject)
+                {
+                    if(collectedObject != gameObject)
+                    {
+                        if(movements != -2)
+                        {
+                            movements  = -1;
+                            usingBall = false;   // mientras vuelve puede usar otras esferas
+                        }
+                    }
+                }else
+                {
+                    if(movements != -2)
+                    {
+                        movements  = -1;
+                        usingBall = false;   // mientras vuelve puede usar otras esferas
+                    }
+                }
+            }
+        }
+    }
+  
 }
