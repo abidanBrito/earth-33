@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MovableObjects : BaseGame
 {
-    private Esfera sphere;
+    private EnergyBall sphere;
     private Rigidbody rb;
     public Transform spherePosition;
     // Start is called before the first frame update
@@ -52,7 +52,7 @@ public class MovableObjects : BaseGame
     }
     private void OnTriggerEnter(Collider other)
     {
-        sphere = other.gameObject.GetComponent<Esfera>();
+        sphere = other.gameObject.GetComponent<EnergyBall>();
         if(sphere != null){
             //si la bola esta en modo controlar
             if(sphere.modes == 1 && sphere.movements != -1 && sphere.movements != -2){
