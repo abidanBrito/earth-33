@@ -8,11 +8,11 @@ public class BaseGame : MonoBehaviour
     public static Vector3 puntuation;
 
     // Sphere Modes
-    public static Vector3 mirillaPosition;
-    public static List<Esfera> esferas = new List<Esfera>();
+    public static Vector3 hitPosition;
+    public static List<EnergyBall> esferas = new List<EnergyBall>();
     public static bool usingBall = false;
     public static int sphereModes = 0;
-    public static Esfera sphereControlling;
+    public static EnergyBall sphereControlling;
 
     // Pet Control
     public static GameObject pet;
@@ -21,10 +21,10 @@ public class BaseGame : MonoBehaviour
     // Move Objects
     public static GameObject collectedObject = null;
     public static GameObject pointMovableObject;
-    public static Esfera sphereObjectControl;
+    public static EnergyBall sphereObjectControl;
 
     // Suavizar movimiento esferas, tornillos
-    public void suavizarMovimiento(Transform objectTransform, Vector3 towardsTarget, float speed, float rotationSpeed)
+    public void smoothMovement(Transform objectTransform, Vector3 towardsTarget, float speed, float rotationSpeed)
     {
         Quaternion towardsTargetRotation = Quaternion.LookRotation(towardsTarget, Vector3.up);
         objectTransform.rotation = Quaternion.Lerp(objectTransform.rotation, towardsTargetRotation, rotationSpeed);

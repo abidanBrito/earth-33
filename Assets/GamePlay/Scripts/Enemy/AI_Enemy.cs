@@ -5,14 +5,16 @@ using UnityEngine.AI;
 public class AI_Enemy : BaseGame
 {
 
-    public NavMeshAgent agent;
-    public Transform player;
+    private NavMeshAgent agent;
+    private Transform player;
 
     public LayerMask whatIsGround, whatIsPlayer, whatIsPet;
 
     // Enemy 
     [SerializeField]
     public float health = 10f;
+    private Transform shootPosition;
+
     public GameObject tornillo;
     
     //  Patroling
@@ -33,8 +35,9 @@ public class AI_Enemy : BaseGame
 
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
+        player = GameObject.Find("Neck").transform;
         agent = GetComponent<NavMeshAgent>();
+        shootPosition = transform.GetChild(2).transform;
     }
 
     private void Patroling()
@@ -61,53 +64,28 @@ public class AI_Enemy : BaseGame
         if(Physics.Raycast(walkPoint,-transform.up, 2f, whatIsGround)){
             walkPointSet = true;
         }
-        
     }
 
-    private void ChasePlayer()
+    private void chase(Transform objectTransform)
     {
-       agent.SetDestination(player.position);
+       agent.SetDestination(objectTransform.position);
     }
-    private void AttackPlayer()
+    private void attack(Transform objectTransform)
     {
-        //  Enemy Doesnt Move
         agent.SetDestination(transform.position);
-
-        transform.LookAt(player);
-
+        transform.LookAt(objectTransform);
         if(!alreadyAttacked)
         {
             //Attack Code
-            Rigidbody rb = Instantiate(projectile, transform.position,Quaternion.identity).GetComponent<Rigidbody>();
+            Rigidbody rb = Instantiate(projectile, shootPosition.position ,Quaternion.identity).GetComponent<Rigidbody>();
+
             rb.AddForce(transform.forward *32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
-
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
-
-        }
-    }
-    // Part of code to attack the player's
-    private void ChasePet()
-    {
-        agent.SetDestination(pet.transform.position);
-    }
-
-    private void AttackPet()
-    {
-        agent.SetDestination(transform.position);
-        transform.LookAt(pet.transform);
-        if(!alreadyAttacked)
-        {
-            //Attack Code
-            Rigidbody rb = Instantiate(projectile, transform.position,Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward *32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
+    
     private void ResetAttack(){
         alreadyAttacked = false;
     }
@@ -123,7 +101,7 @@ public class AI_Enemy : BaseGame
 
         Destroy(gameObject);
     }
-    private void TakeDamage(Esfera esfera)
+    private void TakeDamage(EnergyBall esfera)
     {
         if(esfera.modes == 0){
             health -= 2.5f;
@@ -140,19 +118,18 @@ public class AI_Enemy : BaseGame
         Gizmos.DrawWireSphere(transform.position, sightRange);
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, walkPointRange);
-        
     }
     void Update()
-    {       
+    {      
+        if(health <= 0) CreateDrop();  
         //si no tiene mascota la intelgencia aritificial siempre va a pegar al jugador   
-        if(!hasPet){
+        if(!pet){
             //checks if player is in sight range and attack range
             playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
             playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-            if (!playerInSightRange &&!playerInAttackRange) Patroling();
-            if (playerInSightRange &&!playerInAttackRange)  ChasePlayer();
-            if (playerInSightRange && playerInAttackRange) AttackPlayer();    
+            if (!playerInSightRange && !playerInAttackRange) Patroling();
+            enemyFunctions(playerInSightRange, playerInAttackRange, player);   
 
         }else{
             //Si tiene mascota, comprueba que si es distinta a la mascota elegida pegara al jugador y la mascota
@@ -160,8 +137,7 @@ public class AI_Enemy : BaseGame
                 petInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPet);
                 petInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPet);
 
-                if (petInSightRange && !petInAttackRange) ChasePet(); 
-                if (petInSightRange  && petInAttackRange) AttackPet(); 
+                enemyFunctions(petInSightRange, petInAttackRange, pet.transform);   
 
                 // Same Code, with diferent layers, Siempre va a pegar al jugador si esta mas cerca
                 playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
@@ -169,19 +145,42 @@ public class AI_Enemy : BaseGame
 
                 if(!petInSightRange || playerInSightRange)
                 {
-                    if (!playerInSightRange && !playerInAttackRange) Patroling();
-                    if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-                    if (playerInSightRange && playerInAttackRange) AttackPlayer();    
+                if (!playerInSightRange && !playerInAttackRange) Patroling();
+                    enemyFunctions(playerInSightRange, playerInAttackRange, player);   
                 }
             }
         }    
     }
 
+    private void enemyFunctions(bool inSightRange, bool inAttackRange, Transform objectTransform)
+    {
+        if (inSightRange && !inAttackRange)
+        {
+            // ChasePlayer();
+            chase(objectTransform);
+        } 
+        if (inSightRange && inAttackRange)
+        {
+            // AttackPlayer();
+            attack(objectTransform);
+        }    
+    }
     public void OnTriggerEnter(Collider other) 
     {
         if(other.gameObject.tag == GameConstants.ESFERA_TAG)
         {
-            TakeDamage(other.GetComponent<Esfera>());
+            TakeDamage(other.GetComponent<EnergyBall>());
+        }
+        
+    }
+    private void OnCollisionEnter(Collision other)
+    {
+        Projectile projectile = other.gameObject.GetComponent<Projectile>();
+        if(projectile != null)
+        {
+            health -= 2f;
+            Destroy(projectile);
         }
     }
+        
 }

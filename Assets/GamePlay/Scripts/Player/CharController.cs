@@ -43,7 +43,7 @@ public class CharController : BaseGame
         animator = GetComponent<Animator>();
         sphereModes = 0; // se pone en modo ataque
         
-        Debug.Log(sphereModes);
+        Debug.Log("Sphere mode: " + sphereModes);
     }
     
     private void OnDrawGizmosSelected()
@@ -60,7 +60,7 @@ public class CharController : BaseGame
         playerTargetPosition = transform.position;
         foreach(Collider c in _collidersDetected)
         {
-            if(c.gameObject.tag == GameConstants.TORNILLO_TAG) c.gameObject.GetComponent<Tornillos>().Mode = 2;
+            if(c.gameObject.tag == GameConstants.TORNILLO_TAG) c.gameObject.GetComponent<NutsAndBolts>().Mode = 2;
         }
     }
 
