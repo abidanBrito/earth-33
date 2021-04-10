@@ -68,7 +68,9 @@ public class AI_Enemy : BaseGame
 
     public void chase(Transform objectTransform)
     {
-       agent.SetDestination(objectTransform.position);
+        agent.SetDestination(objectTransform.position);
+        transform.LookAt(objectTransform);
+
     }
     public void attack(Transform objectTransform)
     {

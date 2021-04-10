@@ -55,7 +55,6 @@ public class EnergyBall : BaseGame
             else if(movement == -1)
             {
                 movement = -2;      // Estado estatico
-                usingBall = false;   // mientras vuelve puede usar otras esferas
                 mode = -1;           
             } 
         } 

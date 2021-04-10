@@ -117,7 +117,7 @@ public class CharController : BaseGame
         if(Input.GetKeyDown(KeyCode.Tab)){
             CambiarModo();
         }
-        if(hasPet){
+        if(pet != null){
             if(Input.GetKeyDown(KeyCode.Mouse1)){
                Pet petControl = pet.GetComponent<Pet>();
                petControl.StopControlingEnemy();
@@ -137,8 +137,6 @@ public class CharController : BaseGame
         }
 
         // camara 
-
-        //transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationPower, Vector3.up);
         followGameObject.transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationPower, Vector3.up);
 
         #region Vertical Rotation

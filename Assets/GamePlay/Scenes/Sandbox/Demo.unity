@@ -194,6 +194,18 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.15692866
       objectReference: {fileID: 0}
+    - target: {fileID: 4610169473747531679, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
+      propertyPath: m_IgnoreTag
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610169473747531679, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
+      propertyPath: m_DistanceLimit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610169473747531679, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
+      propertyPath: m_CollideAgainst.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5329918747416423576, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -3212,6 +3224,64 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d7198c8d1dfd684e8a05e18d3597487, type: 3}
+--- !u!1001 &1199829166
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7424380451098286012, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
+      propertyPath: m_Name
+      value: RockMovable (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801186747573931270, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801186747573931270, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801186747573931270, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801186747573931270, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 88.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801186747573931270, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.073370814
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801186747573931270, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.00000000597679
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801186747573931270, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9973048
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801186747573931270, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000008124088
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801186747573931270, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801186747573931270, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801186747573931270, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7424380451098286003, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
 --- !u!1001 &1224079713
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5920,6 +5990,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2143155002707247618, guid: a0e6e756f994ba849b60fa138a4c7e90, type: 3}
+--- !u!1 &2030313745 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7424380451098286012, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
+  m_PrefabInstance: {fileID: 1199829166}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &2030313746
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030313745}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &2064182040
 PrefabInstance:
   m_ObjectHideFlags: 0

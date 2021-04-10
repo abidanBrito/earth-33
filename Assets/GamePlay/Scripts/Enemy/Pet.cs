@@ -60,6 +60,17 @@ public class Pet : BaseGame
             }
         }// fin Else
     }
+    private void enemyControl()
+    {
+        sphereControlling = sphere;     // Poniendo la esfera en las constantes para tener en cuenta cual es la que esta siendo utilizada para controlar
+        sphereControlling.movements = 1;                         // Poniendo la esfera en estado de control
+        usingBall = false;               // Poniendo el estado de usando esferas a falso para que las demas puedan ser utilizadas
+        controllingEnemy = true;                       // Controlando Enemigo
+        pet = gameObject;                 // La mascota es el transform
+        gameObject.layer = 11;  //   Layer: Pet         // Poniendo en layer Pet para que los enemigos puedan encontrar la mascota y atacarla
+        agent.speed = 7;                                // Agent Speed Growing
+        agent.acceleration = 100;                       // Agent A: Growing
+    }
     public void StopControlingEnemy()
     {
                 sphereControlling.movements =-1; // La esfera vuelve a su posicion
@@ -89,7 +100,8 @@ public class Pet : BaseGame
         if(enemyControlled){
             // Solo mueve la esfera en la misma posicion si es la que controla el enemigo
             if(sphereControlling.movements == 1){
-                sphereControlling.transform.position = ballPosition.position;
+                sphereControlling.transform.position = Vector3.Lerp(sphereControlling.transform.position, ballPosition.position,10f*Time.deltaTime);
+                // sphereControlling.transform.position = ballPosition.position;
                 //sphereControlling.transform.rotation = ballPosition.transform.rotation;
             }
             //Si el jugador controla el enemigo se ejecutan estas lineas de codigo            
@@ -130,15 +142,5 @@ public class Pet : BaseGame
         }
     }
 
-    private void enemyControl()
-    {
-        sphereControlling = sphere;     // Poniendo la esfera en las constantes para tener en cuenta cual es la que esta siendo utilizada para controlar
-        sphereControlling.movements = 1;                         // Poniendo la esfera en estado de control
-        usingBall = false;               // Poniendo el estado de usando esferas a falso para que las demas puedan ser utilizadas
-        controllingEnemy = true;                       // Controlando Enemigo
-        pet = gameObject;                 // La mascota es el transform
-        gameObject.layer = 11;  //   Layer: Pet         // Poniendo en layer Pet para que los enemigos puedan encontrar la mascota y atacarla
-        agent.speed = 7;                                // Agent Speed Growing
-        agent.acceleration = 100;                       // Agent A: Growing
-    }
+   
 }

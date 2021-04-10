@@ -18,7 +18,6 @@ public class MovableObjects : BaseGame
         spherePosition = transform.GetChild(0).GetChild(0).transform;
         player = GameObject.Find("Player");
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -27,22 +26,18 @@ public class MovableObjects : BaseGame
             distance = Vector3.Distance(transform.position, pointMovableObject.transform.position);
             if(!collided){
                 transform.position =  Vector3.Lerp(transform.position, pointer.position, 5f*Time.deltaTime);
-                // transform.position = pointMovableObject.transform.position;
-                // transform.rotation = pointMovableObject.transform.rotation;
                 rb.Sleep();
-
             }
             if(sphereObjectControl.movements == 2){
                 sphereObjectControl.transform.position = spherePosition.position;
             }
         }
     }
-
     private void ControlObject()
     {
         if(!collectedObject){
             rb.useGravity = false;
-            //transform.SetParent(pointMovableObject.gameObject.transform);
+            transform.SetParent(pointMovableObject.gameObject.transform);
             collectedObject = gameObject;
             sphere.movements = 2;                         // Poniendo la esfera en estado de control 2 (Objetos)
             sphereObjectControl = sphere;     // Poniendo la esfera en las constantes para tener en cuenta cual es la que esta siendo utilizada para controlar
@@ -72,8 +67,6 @@ public class MovableObjects : BaseGame
             }
         }
     }
-
-
     private void OnCollisionStay(Collision other)
     {
         if(other.gameObject.tag == GameConstants.ENVIROMENT_TAG)
@@ -87,7 +80,6 @@ public class MovableObjects : BaseGame
             }
         }
     }
-
     private void OnCollisionExit(Collision other)
     {
         if(collectedObject == gameObject){
