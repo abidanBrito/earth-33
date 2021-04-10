@@ -1452,7 +1452,6 @@ MonoBehaviour:
   nextRotation: {x: 0, y: 0, z: 0, w: 0}
   rotationPower: 3
   rotationLerp: 0.5
-  followTransform: {fileID: 0}
 --- !u!114 &5665934440654503903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2221,7 +2220,7 @@ GameObject:
   - component: {fileID: 4098062507311991749}
   m_Layer: 8
   m_Name: Neck
-  m_TagString: Untagged
+  m_TagString: Neck
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
