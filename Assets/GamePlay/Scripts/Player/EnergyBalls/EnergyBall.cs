@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Esfera : BaseGame
+public class EnergyBall : BaseGame
 {
     private float speed = 4f;
     private float rotationSpeed = 10f;
@@ -29,11 +29,11 @@ public class Esfera : BaseGame
     {
         //si la esfera en concreto no esta siendo utilizada para controlar, no hara el movimiento de volver
         if(movement != 1 || movement != 2){
-            if(movement == 0) calcularRuta(mirillaPosition);
+            if(movement == 0) calcularRuta(hitPosition);
             if(movement == -1) calcularRuta(transform.parent.position);
         }
         if(movements != 1 || movements != 2){
-            if(movements == 0) calcularRuta(mirillaPosition);
+            if(movements == 0) calcularRuta(hitPosition);
             if(movements == -1) calcularRuta(transform.parent.position);
         }
     }
@@ -42,7 +42,7 @@ public class Esfera : BaseGame
     {
         towardTarget = p - transform.position;
 
-        suavizarMovimiento(transform, towardTarget, speed, rotationSpeed);
+        smoothMovement(transform, towardTarget, speed, rotationSpeed);
             
 
         if(towardTarget.magnitude < 0.1f)

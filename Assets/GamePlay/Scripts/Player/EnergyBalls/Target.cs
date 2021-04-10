@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mirilla : BaseGame
+public class Target : BaseGame
 {
     void Update(){
-            mirillaPosition = transform.position;
+            hitPosition = transform.position;
     }
 }
