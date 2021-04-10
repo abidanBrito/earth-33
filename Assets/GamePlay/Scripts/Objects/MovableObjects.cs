@@ -8,6 +8,8 @@ public class MovableObjects : BaseGame
     private Rigidbody rb;
     private Transform spherePosition;
     private GameObject player;
+    private float distance; 
+    private Transform pointer;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +23,15 @@ public class MovableObjects : BaseGame
     void Update()
     {
         if(collectedObject == gameObject){
-            transform.position = pointMovableObject.transform.position;
-            transform.rotation = pointMovableObject.transform.rotation;
+            pointer = GameObject.Find("pointMovableObject").transform;
+            distance = Vector3.Distance(transform.position, pointMovableObject.transform.position);
+            if(!collided){
+                transform.position =  Vector3.Lerp(transform.position, pointer.position, 5f*Time.deltaTime);
+                // transform.position = pointMovableObject.transform.position;
+                // transform.rotation = pointMovableObject.transform.rotation;
+                rb.Sleep();
+
+            }
             if(sphereObjectControl.movements == 2){
                 sphereObjectControl.transform.position = spherePosition.position;
             }
@@ -33,7 +42,7 @@ public class MovableObjects : BaseGame
     {
         if(!collectedObject){
             rb.useGravity = false;
-            transform.SetParent(pointMovableObject.gameObject.transform);
+            //transform.SetParent(pointMovableObject.gameObject.transform);
             collectedObject = gameObject;
             sphere.movements = 2;                         // Poniendo la esfera en estado de control 2 (Objetos)
             sphereObjectControl = sphere;     // Poniendo la esfera en las constantes para tener en cuenta cual es la que esta siendo utilizada para controlar
@@ -73,6 +82,8 @@ public class MovableObjects : BaseGame
             {
                 if(collectedObject == gameObject){
                     collided = true;
+                    transform.position =  Vector3.Lerp(transform.position, pointer.position, 0.2f*Time.deltaTime);
+                    // rb.Sleep();
                 }
             }
         }
