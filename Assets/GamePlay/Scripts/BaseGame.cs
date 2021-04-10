@@ -22,6 +22,7 @@ public class BaseGame : MonoBehaviour
     public static GameObject collectedObject = null;
     public static GameObject pointMovableObject;
     public static EnergyBall sphereObjectControl;
+    public static bool collided = false;
 
     // Suavizar movimiento esferas, tornillos
     public void smoothMovement(Transform objectTransform, Vector3 towardsTarget, float speed, float rotationSpeed)

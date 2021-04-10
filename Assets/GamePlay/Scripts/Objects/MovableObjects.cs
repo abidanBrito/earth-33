@@ -7,12 +7,14 @@ public class MovableObjects : BaseGame
     private EnergyBall sphere;
     private Rigidbody rb;
     private Transform spherePosition;
+    private GameObject player;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         pointMovableObject = GameObject.Find("pointMovableObject");
         spherePosition = transform.GetChild(0).GetChild(0).transform;
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -59,6 +61,27 @@ public class MovableObjects : BaseGame
             if(sphere.modes == 1 && sphere.movements != -1 && sphere.movements != -2){
                 ControlObject();
             }
+        }
+    }
+
+
+    private void OnCollisionStay(Collision other)
+    {
+        if(other.gameObject.tag == GameConstants.ENVIROMENT_TAG)
+        {
+            if(collectedObject)
+            {
+                if(collectedObject == gameObject){
+                    collided = true;
+                }
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if(collectedObject == gameObject){
+            collided = false;
         }
     }
 }

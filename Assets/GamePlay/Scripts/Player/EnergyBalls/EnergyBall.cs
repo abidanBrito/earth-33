@@ -65,9 +65,16 @@ public class EnergyBall : BaseGame
     {
         if(other.gameObject.tag == GameConstants.ENVIROMENT_TAG)
         {
-            if(movements != -2){
-                movements  = -1;
-                usingBall = false;   // mientras vuelve puede usar otras esferas
+            if(movements != 1)
+            {
+                if(movements != 2)
+                {
+                    if(movements != -2)
+                    {
+                        movements  = -1;
+                        usingBall = false;   // mientras vuelve puede usar otras esferas
+                    }
+                }
             }
         }
 
@@ -96,5 +103,4 @@ public class EnergyBall : BaseGame
             }
         }
     }
-  
 }
