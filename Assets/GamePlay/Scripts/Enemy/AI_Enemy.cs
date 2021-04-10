@@ -66,11 +66,11 @@ public class AI_Enemy : BaseGame
         }
     }
 
-    private void chase(Transform objectTransform)
+    public void chase(Transform objectTransform)
     {
        agent.SetDestination(objectTransform.position);
     }
-    private void attack(Transform objectTransform)
+    public void attack(Transform objectTransform)
     {
         agent.SetDestination(transform.position);
         transform.LookAt(objectTransform);
@@ -157,7 +157,7 @@ public class AI_Enemy : BaseGame
         }    
     }
 
-    private void enemyFunctions(bool inSightRange, bool inAttackRange, Transform objectTransform)
+    public void enemyFunctions(bool inSightRange, bool inAttackRange, Transform objectTransform)
     {
         if (inSightRange && !inAttackRange)
         {

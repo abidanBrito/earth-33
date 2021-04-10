@@ -7,10 +7,6 @@ public class Pet : BaseGame
     private NavMeshAgent agent;
     private Transform player;
     //  Attacking
-    public float timeBetweenAttacks;
-    bool alreadyAttacked;
-    public GameObject projectile;
-
     //  Enemy under control by player
     private Transform positionGuard;
     private bool enemyControlled;
@@ -30,7 +26,7 @@ public class Pet : BaseGame
     private Transform ballPosition;
     private EnergyBall sphere;
     private Transform shootPosition;
-
+    private AI_Enemy aiController;
 
     private void Awake()
     {
@@ -39,41 +35,12 @@ public class Pet : BaseGame
         positionGuard = GameObject.Find("guardPosition").transform;
         ballPosition =  transform.GetChild(1).transform;    // 1 = Ball Position.
         shootPosition = transform.GetChild(2).transform;    // 2 = Shot Position.
+        aiController = GetComponent<AI_Enemy>();
     }
-
-    private void ResetAttack(){
-        alreadyAttacked = false;
-    }
-
-    private void DestroyEnemy()
-    {
-        Destroy(gameObject);    
-    }
-
     //  Following the player as pet
     private void FollowPlayer(){
         agent.SetDestination(positionGuard.position);
         transform.rotation = player.rotation;
-    }
-    private void ChaseEnemy()
-    {
-        agent.SetDestination(enemy.position);
-    }
-    private void AttackEnemy()
-    {
-        agent.SetDestination(transform.position);
-
-        transform.LookAt(enemy);
-
-        if(!alreadyAttacked)
-        {
-            //Attack Code
-            Rigidbody rb = Instantiate(projectile,shootPosition.position,Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward *32f, ForceMode.Impulse);
-
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
-        }
     }
     private void ControlingEnemy()
     {
@@ -146,14 +113,7 @@ public class Pet : BaseGame
                 if(!enemyInSightRange && !enemyInAttackRange){
                     FollowPlayer();
                 } 
-                if(enemyInSightRange && !enemyInAttackRange)
-                {
-                    ChaseEnemy();
-                }   
-                if(enemyInSightRange && enemyInAttackRange)
-                {
-                    AttackEnemy();
-                }  
+                aiController.enemyFunctions(enemyInSightRange,enemyInAttackRange, enemy);
             }
         }
     }
