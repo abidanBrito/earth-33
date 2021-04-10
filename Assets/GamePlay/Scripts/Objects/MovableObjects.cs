@@ -67,7 +67,7 @@ public class MovableObjects : BaseGame
         sphere = other.gameObject.GetComponent<EnergyBall>();
         if(sphere != null){
             //si la bola esta en modo controlar
-            if(sphere.modes == 1 && sphere.movements != -1 && sphere.movements != -2){
+            if(sphere.modes == 1 && sphere.movements != -1 && sphere.movements != -2 && sphere.movements != 2 && sphere.movements != 1){
                 ControlObject();
             }
         }
@@ -83,7 +83,6 @@ public class MovableObjects : BaseGame
                 if(collectedObject == gameObject){
                     collided = true;
                     transform.position =  Vector3.Lerp(transform.position, pointer.position, 0.2f*Time.deltaTime);
-                    // rb.Sleep();
                 }
             }
         }
