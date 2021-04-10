@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class GameConstants
 {   
     public const string PLAYER_TAG = "Player";
@@ -14,5 +10,6 @@ public class GameConstants
     public const string APARECER_TORNILLO_TAG = "Aparecer";
     public const string SPACESHIP_PART_TAG = "Part_1";
     public const string ENVIROMENT_TAG = "Enviroment";
-    
+    public const string RESPAWN_POSITION_TAG = "RespawnPosition";
+    public const string RESPAWN_TRIGGER_TAG = "RespawnTrigger";
 }
