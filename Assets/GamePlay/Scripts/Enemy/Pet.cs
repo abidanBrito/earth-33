@@ -4,16 +4,15 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Pet : BaseGame
 {
-    public NavMeshAgent agent;
-    public Transform player;
-    public float health;
+    private NavMeshAgent agent;
+    private Transform player;
     //  Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
     public GameObject projectile;
 
     //  Enemy under control by player
-    public Transform positionGuard;
+    private Transform positionGuard;
     private bool enemyControlled;
     private  bool controllingEnemy{
         get => enemyControlled;                 // el => es == a {}
@@ -28,26 +27,24 @@ public class Pet : BaseGame
     private Transform enemy;
     public LayerMask whatIsEnemy, whatIsPlayer;
     private Collider[] enemies;
-    public Transform ballPosition;
-    public Esfera sphere;
+    private Transform ballPosition;
+    private EnergyBall sphere;
+    private Transform shootPosition;
 
 
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
-        positionGuard = GameObject.Find("PositionPet").transform;
+        positionGuard = GameObject.Find("guardPosition").transform;
+        ballPosition =  transform.GetChild(1).transform;    // 1 = Ball Position.
+        shootPosition = transform.GetChild(2).transform;    // 2 = Shot Position.
     }
 
     private void ResetAttack(){
         alreadyAttacked = false;
     }
 
-    public void Takedamage(int damage){
-            health -=damage;
-            if(health <=0) Invoke(nameof(DestroyEnemy), 0.5f);
-    }
-    
     private void DestroyEnemy()
     {
         Destroy(gameObject);    
@@ -71,9 +68,8 @@ public class Pet : BaseGame
         if(!alreadyAttacked)
         {
             //Attack Code
-            Rigidbody rb = Instantiate(projectile, transform.position,Quaternion.identity).GetComponent<Rigidbody>();
+            Rigidbody rb = Instantiate(projectile,shootPosition.position,Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward *32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
@@ -82,37 +78,20 @@ public class Pet : BaseGame
     private void ControlingEnemy()
     {
         //si no hay ningun enemigo controlado por el jugador lo hace directamente
-                if(!hasPet){
-                    if(!controllingEnemy){
-                                sphere.movements = 1;                         // Poniendo la esfera en estado de control
-                                sphereControlling = sphere;     // Poniendo la esfera en las constantes para tener en cuenta cual es la que esta siendo utilizada para controlar
-                                usingBall = false;               // Poniendo el estado de usando esferas a falso para que las demas puedan ser utilizadas
-                                controllingEnemy = true;                       // Controlando Enemigo
-                                hasPet = true;                   // Poniendo que el jugador tiene mascota
-                                pet = gameObject;                 // La mascota es el transform
-                                gameObject.layer = 11;  //   Layer: Pet         // Poniendo en layer Pet para que los enemigos puedan encontrar la mascota y atacarla
-                                agent.speed = 7;                                // Agent Speed Growing
-                                agent.acceleration = 100;                       // Agent A: Growing
-                        }
-                }else{
-                    //Si el enemigo es distinto al que controla el jugador, el que tiene el jugador se elimina y se pone el nuevo.
-                    if(pet != gameObject){
-                        if(!controllingEnemy){
-                                Destroy(pet.gameObject);
-                                sphereControlling.movements = -1; // Poniendo la esfera anterior a que vuelva a su posicion
-                                sphereControlling = sphere;       // Poniendo la nueva esfera como la actual controlando el enemigo
-                                usingBall = false;               // Poniendo el estado de usando esferas a falso para que las demas puedan ser utilizadas
-                                sphere.movements = 1;                         // La nueva esfera pasa a estar en estado controlando
-                                controllingEnemy = true;                       // Enemigo controlado
-                                hasPet = true;                   // Pet = true
-                                pet = gameObject;                 // La nueva mascota es el nuevo tranform
-                                gameObject.layer = 11;  //   Layer: Pet         // Poniendo en layer Pet para que los enemigos puedan encontrar la mascota y atacarla
-                                agent.speed = 7;                                // Agent Speed
-                                agent.acceleration = 100;                       // Agent ac
-                        } //if
-                    }
-                     //if
-                }// fin Else
+        if(!pet){
+            if(!controllingEnemy){
+                enemyControl();
+            }
+        }else{
+            //Si el enemigo es distinto al que controla el jugador, el que tiene el jugador se elimina y se pone el nuevo.
+            if(pet != gameObject){
+                if(!controllingEnemy){
+                    Destroy(pet.gameObject); // Se destruye porque hay un bug
+                    sphereControlling.movements = -1; // Poniendo la esfera anterior a que vuelva a su posicion
+                    enemyControl();
+                } //if
+            }
+        }// fin Else
     }
     public void StopControlingEnemy()
     {
@@ -120,7 +99,6 @@ public class Pet : BaseGame
                 sphereControlling.modes = -1;     // Mientras vuelve se le quita el modo 
                 sphereControlling = null;         // Global = null
                 controllingEnemy = false;                       
-                hasPet = false;
                 pet = null;
                 //devuelve al enemigo a su estado original
                 gameObject.layer = 10;  //   Layer: Enemy
@@ -160,20 +138,29 @@ public class Pet : BaseGame
 
             // Si esta fuera de rango del jugador le seguira
             bool playerInRange = Physics.CheckSphere(transform.position, rangeAwayFromPlayer, whatIsPlayer);
-            if(!playerInRange){
+            if(!playerInRange)
+            {
                 FollowPlayer();
-            }else{
-                if(!enemyInSightRange && !enemyInAttackRange) FollowPlayer();
-                if(enemyInSightRange && !enemyInAttackRange)   ChaseEnemy();
-                if(enemyInSightRange && enemyInAttackRange)   AttackEnemy();
+            }else
+            {
+                if(!enemyInSightRange && !enemyInAttackRange){
+                    FollowPlayer();
+                } 
+                if(enemyInSightRange && !enemyInAttackRange)
+                {
+                    ChaseEnemy();
+                }   
+                if(enemyInSightRange && enemyInAttackRange)
+                {
+                    AttackEnemy();
+                }  
             }
         }
-           
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        sphere = other.gameObject.GetComponent<Esfera>();
+        sphere = other.gameObject.GetComponent<EnergyBall>();
 
         if(sphere != null){
             //si la bola esta en modo controlar
@@ -181,5 +168,17 @@ public class Pet : BaseGame
                 ControlingEnemy();
             }
         }
+    }
+
+    private void enemyControl()
+    {
+        sphereControlling = sphere;     // Poniendo la esfera en las constantes para tener en cuenta cual es la que esta siendo utilizada para controlar
+        sphereControlling.movements = 1;                         // Poniendo la esfera en estado de control
+        usingBall = false;               // Poniendo el estado de usando esferas a falso para que las demas puedan ser utilizadas
+        controllingEnemy = true;                       // Controlando Enemigo
+        pet = gameObject;                 // La mascota es el transform
+        gameObject.layer = 11;  //   Layer: Pet         // Poniendo en layer Pet para que los enemigos puedan encontrar la mascota y atacarla
+        agent.speed = 7;                                // Agent Speed Growing
+        agent.acceleration = 100;                       // Agent A: Growing
     }
 }
