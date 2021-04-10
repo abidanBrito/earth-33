@@ -98,10 +98,14 @@ public class Pet : BaseGame
     void Update()
     {
         if(enemyControlled){
+            if(sphereControlling.movements != 1){
+                sphereControlling.movements = 1;
+            }
             // Solo mueve la esfera en la misma posicion si es la que controla el enemigo
             if(sphereControlling.movements == 1){
+                Debug.Log("Moviendo");
                 sphereControlling.transform.position = Vector3.Lerp(sphereControlling.transform.position, ballPosition.position,10f*Time.deltaTime);
-                // sphereControlling.transform.position = ballPosition.position;
+                //sphereControlling.transform.position = ballPosition.position;
                 //sphereControlling.transform.rotation = ballPosition.transform.rotation;
             }
             //Si el jugador controla el enemigo se ejecutan estas lineas de codigo            
