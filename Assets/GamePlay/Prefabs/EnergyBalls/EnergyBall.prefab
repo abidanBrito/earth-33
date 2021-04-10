@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3801205168353482473}
   - component: {fileID: 5843024865556316704}
   m_Layer: 0
-  m_Name: Esfera
+  m_Name: EnergyBall
   m_TagString: Esfera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: b0cee2277725d1c4fb40ebffd06f514f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
