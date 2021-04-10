@@ -98,6 +98,11 @@ public class AI_Enemy : BaseGame
             GameObject tornilloCreado =  Instantiate(tornillo, gameObject.transform) as GameObject;
             tornilloCreado.transform.parent = null;
         }
+        if(pet == gameObject)
+        {
+            Pet petController = pet.GetComponent<Pet>();
+            petController.StopControlingEnemy();
+        }
 
         Destroy(gameObject);
     }
@@ -120,7 +125,7 @@ public class AI_Enemy : BaseGame
         Gizmos.DrawWireSphere(transform.position, walkPointRange);
     }
     void Update()
-    {      
+    {   
         if(health <= 0) CreateDrop();  
         //si no tiene mascota la intelgencia aritificial siempre va a pegar al jugador   
         if(!pet){
@@ -169,7 +174,13 @@ public class AI_Enemy : BaseGame
     {
         if(other.gameObject.tag == GameConstants.ESFERA_TAG)
         {
-            TakeDamage(other.GetComponent<EnergyBall>());
+            if(!pet)
+            {
+                TakeDamage(other.GetComponent<EnergyBall>());
+            }else if(pet != gameObject)
+            {
+                TakeDamage(other.GetComponent<EnergyBall>());
+            }
         }
         
     }

@@ -264,12 +264,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   health: 10
-  tornillo: {fileID: 1446380098884818681, guid: 58bf3637f6e906544a32a7f2e7ac188d, type: 3}
-  walkPointRange: 0
-  timeBetweenAttacks: 0
-  projectile: {fileID: 0}
-  sightRange: 0
-  attackRange: 0
+  tornillo: {fileID: 6323151807724312418, guid: 5b265ac997bef37449204f7d64ba124f, type: 3}
+  walkPointRange: 2
+  timeBetweenAttacks: 2
+  projectile: {fileID: 1446380098884818681, guid: 58bf3637f6e906544a32a7f2e7ac188d, type: 3}
+  sightRange: 10
+  attackRange: 5
 --- !u!1 &3385821517320979902
 GameObject:
   m_ObjectHideFlags: 0

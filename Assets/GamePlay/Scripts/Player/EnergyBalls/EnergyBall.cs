@@ -49,7 +49,7 @@ public class EnergyBall : BaseGame
         {
             if (movement == 0)
             {
-                movement = -1;        // volviendo
+                movement = -1;       // volviendo
                 usingBall = false;   // mientras vuelve puede usar otras esferas
             }
             else if(movement == -1)
