@@ -1,5 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class BaseGame : MonoBehaviour
@@ -31,5 +31,13 @@ public class BaseGame : MonoBehaviour
         objectTransform.rotation = Quaternion.Lerp(objectTransform.rotation, towardsTargetRotation, rotationSpeed);
         objectTransform.position += objectTransform.forward * speed * Time.deltaTime * 2f;
         Debug.DrawLine(objectTransform.position, towardsTarget, Color.green); 
+    }
+
+    public void ClearConsoleLogs()
+    {
+        var assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
+        var type = assembly.GetType("UnityEditor.LogEntries");
+        var method = type.GetMethod("Clear");
+        method.Invoke(new object(), null);
     }
 }

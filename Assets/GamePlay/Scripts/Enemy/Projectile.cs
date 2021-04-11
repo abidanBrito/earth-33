@@ -1,8 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : BaseGame
 {
-    public float damage = 2;
+    [SerializeField] private uint hitDamage;   // Unsigned to avoid negative damage input
+    public uint HitDamage
+    {
+        get => hitDamage;
+        set => hitDamage = value;
+    }
 }

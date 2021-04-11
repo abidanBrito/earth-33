@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Respawn : BaseGame
+public class CharRespawn : BaseGame
 {
     GameObject respawnPosition, respawnTrigger;
     BoxCollider respawnTriggerCollider;
