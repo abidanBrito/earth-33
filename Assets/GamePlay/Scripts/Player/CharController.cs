@@ -14,7 +14,7 @@ public class CharController : BaseGame
     public float runSpeed = 7f;
 
     // animator
-    public Animator animator;
+    private Animator animator;
     private float speed;
     
     // Spheres
@@ -24,15 +24,16 @@ public class CharController : BaseGame
 
     //new movement with Camera
     Vector3 move;
-    public Vector3 nextPosition;
-    public Quaternion nextRotation;
-    public float rotationPower = 5f;
-    public float rotationLerp = 0.5f;
+    private Vector3 nextPosition;
+    private Quaternion nextRotation;
+    public float rotationPowerCam = 5f;
+    public float rotationLerpCam = 0.5f;
     // Neck Follow for camera
     private GameObject followGameObject;
 
     // Mirillas
     private Transform rotatorEngine;
+    public float rotationSpeedSpheres = 3;
 
     private void Awake()
     {
@@ -64,7 +65,7 @@ public class CharController : BaseGame
     void Update()
     {
         rotatorEngine = GameObject.Find("Rotator").transform;
-        rotatorEngine.Rotate(new Vector3(0f,3f,0f)*Time.deltaTime*10);
+        rotatorEngine.Rotate(new Vector3(0f,rotationSpeedSpheres,0f)*Time.deltaTime*10);
 
         
         groundedPlayer = controller.isGrounded;
@@ -106,10 +107,10 @@ public class CharController : BaseGame
             playerVelocity.y = -1f;                        
         }
         // camara 
-        followGameObject.transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationPower, Vector3.up);
+        followGameObject.transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationPowerCam, Vector3.up);
 
         #region Vertical Rotation
-        followGameObject.transform.rotation *= Quaternion.AngleAxis(-Input.GetAxis("Mouse Y") * rotationPower, Vector3.right);
+        followGameObject.transform.rotation *= Quaternion.AngleAxis(-Input.GetAxis("Mouse Y") * rotationPowerCam, Vector3.right);
 
         var angles = followGameObject.transform.localEulerAngles;
         angles.z = 0;
@@ -132,7 +133,7 @@ public class CharController : BaseGame
         //gets controller direction.
         // Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         move = (transform.forward * Input.GetAxis("Vertical")) + (transform.right * Input.GetAxis("Horizontal"));
-        nextRotation = Quaternion.Lerp(followGameObject.transform.rotation, nextRotation, Time.deltaTime * rotationLerp); //guarda la posicion de giro
+        nextRotation = Quaternion.Lerp(followGameObject.transform.rotation, nextRotation, Time.deltaTime * rotationLerpCam); //guarda la posicion de giro
 
         if (move.x == 0 && move.z == 0) 
         {   
