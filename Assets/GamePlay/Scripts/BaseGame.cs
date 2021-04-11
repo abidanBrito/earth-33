@@ -24,6 +24,14 @@ public class BaseGame : MonoBehaviour
     public static EnergyBall sphereObjectControl;
     public static bool collided = false;
 
+    private void Update()
+    {
+        pointMovableObject = GameObject.Find("pointMovableObject");
+        hitPosition = GameObject.Find("hitPosition").transform.position;
+        playerTargetPosition = GameObject.Find("Player").transform.position;
+    }
+
+    //rotator Engine
     // Suavizar movimiento esferas, tornillos
     public void smoothMovement(Transform objectTransform, Vector3 towardsTarget, float speed, float rotationSpeed)
     {
@@ -40,4 +48,5 @@ public class BaseGame : MonoBehaviour
         var method = type.GetMethod("Clear");
         method.Invoke(new object(), null);
     }
+    
 }

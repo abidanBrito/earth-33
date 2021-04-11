@@ -18,6 +18,8 @@ public class CharController : BaseGame
     private float speed;
     
     // Spheres
+    EnergyBall sphereController;
+
     private Collider[] _collidersDetected;
 
     //new movement with Camera
@@ -28,10 +30,10 @@ public class CharController : BaseGame
     public float rotationLerp = 0.5f;
     // Neck Follow for camera
     private GameObject followGameObject;
-    
 
-    // Control Object
-    
+    // Mirillas
+    private Transform rotatorEngine;
+
     private void Awake()
     {
         followGameObject = GameObject.FindWithTag(GameConstants.PLAYER_NECK_TAG);
@@ -42,61 +44,29 @@ public class CharController : BaseGame
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         sphereModes = 0; // se pone en modo ataque
-        
+        sphereController = GetComponentInChildren<EnergyBall>();
         Debug.Log("Sphere mode: " + sphereModes);
     }
     
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 1.25f);
-    }
-
     //Comprueba todos los Colliders dentro de _detecteds[]; si el tag es de 'Tornillo'
     //Mueve el objeto hacia el 'Player' y muestra un mensaje por consola 
     public void Recolection()
     {
         // Recoleting Tornillos to the player position
-        playerTargetPosition = transform.position;
         foreach(Collider c in _collidersDetected)
         {
             if(c.gameObject.tag == GameConstants.TORNILLO_TAG) c.gameObject.GetComponent<NutsAndBolts>().Mode = 2;
         }
     }
 
-    public void Disparar()
-    {
-        int mode = sphereModes;
-        
-            if(usingBall == false && esferas[0].movements == -2)
-            {
-                esferas[0].movements = 0; //modo de movimiento de la esfera
-                esferas[0].modes = mode; //Modo de la esfera
-                usingBall = true;
-            } 
-            else if(usingBall == false && esferas[1].movements == -2)
-            {
-                esferas[1].movements = 0;
-                esferas[1].modes = mode; //Modo de la esfera
-
-                usingBall = true;
-            } 
-            else if(usingBall == false && esferas[2].movements == -2)
-            {
-                esferas[2].movements = 0;
-                esferas[2].modes = mode; //Modo de la esfera
-                usingBall = true;
-            } 
-    }
-    private void CambiarModo()
-    {
-        //cambia de modo
-        sphereModes++;
-        Debug.Log(sphereModes);
-        if(sphereModes > 2) sphereModes = 0;//vuelve al modo ataque
-    }
+    
+    
     void Update()
     {
+        rotatorEngine = GameObject.Find("Rotator").transform;
+        rotatorEngine.Rotate(new Vector3(0f,3f,0f)*Time.deltaTime*10);
+
+        
         groundedPlayer = controller.isGrounded;
         _collidersDetected = Physics.OverlapSphere(transform.position, 3f);
 
@@ -112,10 +82,10 @@ public class CharController : BaseGame
         }
 
         if(Input.GetKeyDown(KeyCode.Mouse0)){
-            Disparar();
+            sphereController.Disparar();
         }
         if(Input.GetKeyDown(KeyCode.Tab)){
-            CambiarModo();
+            sphereController.CambiarModo();
         }
         if(pet != null){
             if(Input.GetKeyDown(KeyCode.Mouse1)){
@@ -135,7 +105,6 @@ public class CharController : BaseGame
             animator.SetBool("jumping", false);
             playerVelocity.y = -1f;                        
         }
-
         // camara 
         followGameObject.transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationPower, Vector3.up);
 

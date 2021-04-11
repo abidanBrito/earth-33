@@ -38,12 +38,33 @@ public class EnergyBall : BaseGame
         }
     }
 
+    public void Disparar()
+    {
+        int mode = sphereModes;
+        
+        for(int i = 0;i<3; i++)
+        {
+            if(usingBall == false && esferas[i].movements == -2)
+            {
+                esferas[i].movements = 0; //modo de movimiento de la esfera
+                esferas[i].modes = mode; //Modo de la esfera
+                usingBall = true;
+            } 
+        }
+    }
+    public void CambiarModo()
+    {
+        //cambia de modo
+        sphereModes++;
+        Debug.Log(sphereModes);
+        if(sphereModes > 2) sphereModes = 0;//vuelve al modo ataque
+    }
+
     public void calcularRuta(Vector3 p)
     {
         towardTarget = p - transform.position;
 
         smoothMovement(transform, towardTarget, speed, rotationSpeed);
-            
 
         if(towardTarget.magnitude < 0.1f)
         {

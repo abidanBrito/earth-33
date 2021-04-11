@@ -9,12 +9,10 @@ public class MovableObjects : BaseGame
     private Transform spherePosition;
     private GameObject player;
     private float distance; 
-    private Transform pointer;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        pointMovableObject = GameObject.Find("pointMovableObject");
         spherePosition = transform.GetChild(0).GetChild(0).transform;
         player = GameObject.Find("Player");
     }
@@ -22,10 +20,9 @@ public class MovableObjects : BaseGame
     void Update()
     {
         if(collectedObject == gameObject){
-            pointer = GameObject.Find("pointMovableObject").transform;
             distance = Vector3.Distance(transform.position, pointMovableObject.transform.position);
             if(!collided){
-                transform.position =  Vector3.Lerp(transform.position, pointer.position, 5f*Time.deltaTime);
+                transform.position =  Vector3.Lerp(transform.position, pointMovableObject.transform.position, 5f*Time.deltaTime);
                 rb.Sleep();
             }
             if(sphereObjectControl.movements == 2){
@@ -75,7 +72,7 @@ public class MovableObjects : BaseGame
             {
                 if(collectedObject == gameObject){
                     collided = true;
-                    transform.position =  Vector3.Lerp(transform.position, pointer.position, 0.2f*Time.deltaTime);
+                    transform.position =  Vector3.Lerp(transform.position, pointMovableObject.transform.position, 0.2f*Time.deltaTime);
                 }
             }
         }
