@@ -1348,7 +1348,7 @@ GameObject:
   - component: {fileID: 5665934440654503902}
   - component: {fileID: 5665934440654503897}
   - component: {fileID: 5665934440654503898}
-  - component: {fileID: 5665934440654503903}
+  - component: {fileID: 5684656376229047920}
   - component: {fileID: 3917465304148818410}
   m_Layer: 8
   m_Name: Player
@@ -1451,7 +1451,7 @@ MonoBehaviour:
   nextRotation: {x: 0, y: 0, z: 0, w: 0}
   rotationPower: 3
   rotationLerp: 0.5
---- !u!114 &5665934440654503903
+--- !u!114 &5684656376229047920
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1460,10 +1460,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4782849791100635544}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13ff9a10416daba46970f858c577d913, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a133c4559335544e98843902e22e6e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 5665934440654503897}
 --- !u!136 &3917465304148818410
 CapsuleCollider:
   m_ObjectHideFlags: 0
