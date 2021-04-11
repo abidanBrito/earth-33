@@ -12,4 +12,5 @@ public class GameConstants
     public const string ENVIROMENT_TAG = "Enviroment";
     public const string RESPAWN_POSITION_TAG = "RespawnPosition";
     public const string RESPAWN_TRIGGER_TAG = "RespawnTrigger";
+    public const string PROJECTILE_TAG = "Projectile";
 }
