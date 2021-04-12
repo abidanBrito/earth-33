@@ -231,9 +231,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 210f0315112bc25478b5a030527e3881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightRangeControlled: 6.5
-  attackRangeControlled: 3
-  rangeAwayFromPlayer: 13
+  sightRangeControlled: 12
+  attackRangeControlled: 8
+  rangeAwayFromPlayer: 15
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 1024
@@ -268,6 +268,7 @@ MonoBehaviour:
   projectile: {fileID: 1446380098884818681, guid: 58bf3637f6e906544a32a7f2e7ac188d, type: 3}
   sightRange: 10
   attackRange: 5
+  isBossEnemy: 0
 --- !u!1 &3385821517320979902
 GameObject:
   m_ObjectHideFlags: 0
