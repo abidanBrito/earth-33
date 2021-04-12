@@ -206,7 +206,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2304045652235704297}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.19
+  m_Radius: 0.68
   m_Speed: 4
   m_Acceleration: 20
   avoidancePriority: 51
@@ -231,8 +231,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 210f0315112bc25478b5a030527e3881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenAttacks: 2
-  projectile: {fileID: 1446380098884818681, guid: 58bf3637f6e906544a32a7f2e7ac188d, type: 3}
   sightRangeControlled: 6.5
   attackRangeControlled: 3
   rangeAwayFromPlayer: 13

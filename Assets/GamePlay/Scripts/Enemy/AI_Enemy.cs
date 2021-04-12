@@ -31,7 +31,8 @@ public class AI_Enemy : BaseGame
     public float sightRange, attackRange;
     private bool playerInSightRange, playerInAttackRange, petInSightRange, petInAttackRange;
 
-    //  Enemy under control by player
+    //  BOSS = ?
+    public bool isBossEnemy = false;
 
     private void Awake()
     {
@@ -94,17 +95,25 @@ public class AI_Enemy : BaseGame
 
     public void CreateDrop()
     {
-        for(int i = 0; i <= Random.Range(3f, 6f); i++)
-        {   
-            // Lo creo para que no coja el prefab.
-            GameObject tornilloCreado =  Instantiate(tornillo, gameObject.transform) as GameObject;
-            tornilloCreado.transform.parent = null;
-        }
-        if(pet == gameObject)
+        if(!isBossEnemy)
         {
-            Pet petController = pet.GetComponent<Pet>();
-            petController.StopControlingEnemy();
+            for(int i = 0; i <= Random.Range(3f, 6f); i++)
+            {   
+                // Lo creo para que no coja el prefab.
+                GameObject tornilloCreado =  Instantiate(tornillo, gameObject.transform) as GameObject;
+                tornilloCreado.transform.parent = null;
+            }
+            if(pet == gameObject)
+            {
+                Pet petController = pet.GetComponent<Pet>();
+                petController.StopControlingEnemy();
+            }
+        }else if(isBossEnemy)
+        {
+            GameObject itemSpaceShip =  Instantiate(tornillo, gameObject.transform) as GameObject;
+            itemSpaceShip.transform.parent = null;
         }
+        
         agent = null;
         Destroy(gameObject);
     }

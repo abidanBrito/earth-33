@@ -29,7 +29,6 @@ public class BaseGame : MonoBehaviour
         pointMovableObject = GameObject.Find("pointMovableObject");
         hitPosition = GameObject.Find("hitPosition").transform.position;
         playerTargetPosition = GameObject.Find("Player").transform.position;
-        
     }
 
     //rotator Engine
