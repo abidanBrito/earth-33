@@ -47,6 +47,7 @@ public class CharController : BaseGame
         sphereModes = 0; // se pone en modo ataque
         sphereController = GetComponentInChildren<EnergyBall>();
         Debug.Log("Sphere mode: " + sphereModes);
+        Cursor.visible = false;
     }
     
     //Comprueba todos los Colliders dentro de _detecteds[]; si el tag es de 'Tornillo'
