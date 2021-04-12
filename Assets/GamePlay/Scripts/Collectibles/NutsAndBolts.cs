@@ -41,6 +41,8 @@ public class NutsAndBolts : BaseGame
     {
         if(other.gameObject.tag == GameConstants.PLAYER_TAG)
         {
+            Inventory.boltsQuantity++;
+            Debug.Log(Inventory.boltsQuantity);
             Destroy(gameObject);
         }
     }

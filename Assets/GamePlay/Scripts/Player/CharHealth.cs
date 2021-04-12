@@ -5,24 +5,23 @@ public class CharHealth : BaseGame
 {
     [SerializeField] private int health = 100;
     private int hitDamage;
-    private bool isFirstCollision = true;
-
+    
     void OnCollisionEnter(Collision collision)
     {
         Collider other = collision.collider;
         if (other.CompareTag(GameConstants.PROJECTILE_TAG)) 
         {
+            Projectile projectileController = other.gameObject.GetComponent<Projectile>();
+            if(projectileController.firstCollision){
+                projectileController.firstCollision = false;
+            
             // Get projectile hit damage on first collision
-            if (isFirstCollision == true) 
-            {
-                hitDamage = (int) other.gameObject.GetComponent<Projectile>().HitDamage;
-                isFirstCollision = false;
-            }
+            hitDamage = (int) other.gameObject.GetComponent<Projectile>().HitDamage;
             
             // Update health level
             health -= hitDamage;
             Debug.Log("Health level: " + health);
-            
+        }
             // Reload the scene upon death
             if (health <= 0) 
             { 
