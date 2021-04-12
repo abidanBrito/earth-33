@@ -3,8 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class CharHealth : BaseGame
 {
-    [SerializeField] private int health = 100;
+    [SerializeField] public int health = 100;
     private int hitDamage;
+    
     
     void OnCollisionEnter(Collision collision)
     {
