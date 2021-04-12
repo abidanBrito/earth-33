@@ -11,12 +11,14 @@ public class HudController : MonoBehaviour
     CharHealth health;
     Text playerHealth;
     Text sphereMode;
+    Text itemSpaceship;
 
     void Start()
     {
         text = GameObject.Find("ContadorTornillos").GetComponent<Text>();
         playerHealth = GameObject.Find("playerHealthHUD").GetComponent<Text>();
         sphereMode = GameObject.Find("sphereModeHUD").GetComponent<Text>();
+        itemSpaceship = GameObject.Find("itemSpaceshipHUD").GetComponent<Text>();
 
     }
 
@@ -35,5 +37,9 @@ public class HudController : MonoBehaviour
         }else if(BaseGame.sphereModes == 2){
             sphereMode.text = "Modo: Controlar Enemigos";
         }
+
+        itemSpaceship.text = "ItemNave: " + Inventory.quantity.ToString();
+
+
     }
 }
