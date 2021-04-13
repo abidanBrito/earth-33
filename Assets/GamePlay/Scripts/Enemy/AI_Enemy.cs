@@ -46,7 +46,9 @@ public class AI_Enemy : BaseGame
         if(!walkPointSet) SearchWalkPoint();
 
         if(walkPointSet){
-            agent.SetDestination(walkPoint);
+            if(agent){
+                agent.SetDestination(walkPoint);
+            }
         }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
@@ -75,7 +77,9 @@ public class AI_Enemy : BaseGame
     }
     public void attack(Transform objectTransform)
     {
-        agent.SetDestination(transform.position);
+        if(agent){
+            agent.SetDestination(transform.position);
+        }
         transform.LookAt(objectTransform);
         if(!alreadyAttacked)
         {
@@ -137,6 +141,7 @@ public class AI_Enemy : BaseGame
     }
     void Update()
     {   
+        player = GameObject.Find("Neck").transform;
         if(health <= 0) CreateDrop();  
         //si no tiene mascota la intelgencia aritificial siempre va a pegar al jugador   
         if(!pet){
