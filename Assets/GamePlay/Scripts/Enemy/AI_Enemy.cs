@@ -71,25 +71,28 @@ public class AI_Enemy : BaseGame
 
     public void chase(Transform objectTransform)
     {
-        agent.SetDestination(objectTransform.position);
-        transform.LookAt(objectTransform);
+        if(agent){
+            agent.SetDestination(objectTransform.position);
+            transform.LookAt(objectTransform);
+        }
 
     }
     public void attack(Transform objectTransform)
     {
         if(agent){
             agent.SetDestination(transform.position);
-        }
-        transform.LookAt(objectTransform);
-        if(!alreadyAttacked)
-        {
-            //Attack Code
-            Rigidbody rb = Instantiate(projectile, shootPosition.position ,Quaternion.identity).GetComponent<Rigidbody>();
+        
+            transform.LookAt(objectTransform);
+            if(!alreadyAttacked)
+            {
+                //Attack Code
+                Rigidbody rb = Instantiate(projectile, shootPosition.position ,Quaternion.identity).GetComponent<Rigidbody>();
 
-            rb.AddForce(transform.forward *32f, ForceMode.Impulse);
+                rb.AddForce(transform.forward *32f, ForceMode.Impulse);
 
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+                alreadyAttacked = true;
+                Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            }
         }
     }
     
