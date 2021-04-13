@@ -103,7 +103,7 @@ public class Pet : BaseGame
             }
             // Solo mueve la esfera en la misma posicion si es la que controla el enemigo
             if(sphereControlling.movements == 1){
-                Debug.Log("Moviendo");
+                //Debug.Log("Moviendo");
                 sphereControlling.transform.position = Vector3.Lerp(sphereControlling.transform.position, ballPosition.position,10f*Time.deltaTime);
                 //sphereControlling.transform.position = ballPosition.position;
                 //sphereControlling.transform.rotation = ballPosition.transform.rotation;

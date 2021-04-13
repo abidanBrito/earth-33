@@ -5,7 +5,12 @@ public class CharHealth : BaseGame
 {
     [SerializeField] public int health = 100;
     private int hitDamage;
-    
+    GameObject respawnPosition;
+
+    void Awake()
+    {
+        respawnPosition = GameObject.FindGameObjectWithTag(GameConstants.RESPAWN_POSITION_TAG);
+    }
     
     void OnCollisionEnter(Collision collision)
     {
@@ -26,9 +31,11 @@ public class CharHealth : BaseGame
             // Reload the scene upon death
             if (health <= 0) 
             { 
-                Debug.Log("--- GAME OVER! ---");
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 ClearConsoleLogs();
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                Debug.Log("--- GAME OVER! ---");
+                health = 100;
+                this.transform.position = respawnPosition.transform.position;
                 Debug.Log("--- NEW GAME! ---");
             }
         }
