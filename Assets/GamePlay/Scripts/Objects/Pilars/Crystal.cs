@@ -12,6 +12,7 @@ public class Crystal : BaseGame
     private bool active = true;
     private BoxCollider cd;
     
+
     void Start()
     {
         spherePosition = transform.GetChild(0).transform;
@@ -77,6 +78,10 @@ public class Crystal : BaseGame
                 for(int i = 0; i<pilarsController.crystals.Count;i++)
                 {
                     if(pilarsController.crystals[i].Equals(gameObject)){
+                        if(GetComponent<ParticleSystem>() != null)
+                        {
+                            Destroy(GetComponent<ParticleSystem>());
+                        }
                         pilarsController.crystals.Remove(gameObject);
                         active = false;
                     }
