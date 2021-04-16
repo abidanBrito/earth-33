@@ -17,6 +17,7 @@ TagManager:
   - Projectile
   - RespawnPosition
   - RespawnTrigger
+  - Crystal
   layers:
   - Default
   - TransparentFX

@@ -97,8 +97,15 @@ public class CharController : BaseGame
         }
         if(collectedObject != null){
             if(Input.GetKeyDown(KeyCode.R)){
-               MovableObjects movableObject = collectedObject.GetComponent<MovableObjects>();
-               movableObject.StopControlingObject();
+              if(collectedObject.tag == GameConstants.MOVABLE_OBJECTS_TAG)
+                {
+                    MovableObjects movableObject = collectedObject.GetComponent<MovableObjects>();
+                    movableObject.StopControlingObject();
+                }else if(collectedObject.tag == GameConstants.CRYSTAL_TAG)
+                {
+                    Crystal crystal = collectedObject.GetComponent<Crystal>();
+                    crystal.StopControlingObject();
+                }
             }
         }
 
