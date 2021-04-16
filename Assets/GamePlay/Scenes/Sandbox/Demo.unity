@@ -11738,8 +11738,12 @@ PrefabInstance:
       objectReference: {fileID: 1994971470}
     - target: {fileID: 1244734335021843254, guid: 9210acfa387af7f43ba2718ce5a2af00, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1244734335021843255, guid: 9210acfa387af7f43ba2718ce5a2af00, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 89bb5c0cd332bfd48a1e10089a6e2d5c, type: 2}
     - target: {fileID: 6182116480325360738, guid: 9210acfa387af7f43ba2718ce5a2af00, type: 3}
       propertyPath: tornillo
       value: 

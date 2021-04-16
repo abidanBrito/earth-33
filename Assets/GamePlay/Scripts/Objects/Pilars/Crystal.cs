@@ -9,7 +9,7 @@ public class Crystal : BaseGame
     private float distance; 
     private Rigidbody rb;
     private PilarsController pilarsController;
-    
+    private bool active = true;
     private BoxCollider cd;
     
     void Start()
@@ -22,6 +22,11 @@ public class Crystal : BaseGame
     }
     void Update()
     {
+
+        if(active)
+        {
+            transform.Rotate (0,25*Time.deltaTime,0); //rotates 50 degrees per second around z axis
+        }
         if(collectedObject == gameObject){
             distance = Vector3.Distance(transform.position, pointMovableObject.transform.position);
             if(!collided){
@@ -73,6 +78,7 @@ public class Crystal : BaseGame
                 {
                     if(pilarsController.crystals[i].Equals(gameObject)){
                         pilarsController.crystals.Remove(gameObject);
+                        active = false;
                     }
                 }
                 ControlObject();
