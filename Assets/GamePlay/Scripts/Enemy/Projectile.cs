@@ -13,7 +13,7 @@ public class Projectile : BaseGame
 
     private void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.tag == GameConstants.PLAYER_TAG)
+        if(other.gameObject.tag == GameConstants.PLAYER_TAG || other.gameObject.tag == GameConstants.ENEMY_TAG)
         {
             Destroy(gameObject);
         }

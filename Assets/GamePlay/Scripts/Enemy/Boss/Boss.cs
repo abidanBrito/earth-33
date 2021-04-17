@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-public class AI_Enemy : BaseGame
-{
 
-    private NavMeshAgent agent;
+public class Boss : BaseGame
+{
+    private BossShiled shield;
+    
+private NavMeshAgent agent;
     private Transform player;
 
     public LayerMask whatIsGround, whatIsPlayer, whatIsPet;
 
     // Enemy 
     [SerializeField]
-    public float health = 10f;
+    public float health = 20f;
     private Transform shootPosition;
 
     public GameObject tornillo;
@@ -20,20 +22,25 @@ public class AI_Enemy : BaseGame
     //  Patroling
     private Vector3 walkPoint;
     bool walkPointSet;
-    public float walkPointRange;
+    public float walkPointRange = 0;
 
     //  Attacking
-    public float timeBetweenAttacks;
+    public float timeBetweenAttacks = 2;
     bool alreadyAttacked;
     public GameObject projectile;
 
     //  States
-    public float sightRange, attackRange;
+    public float sightRange = 10, attackRange = 5;
     private bool playerInSightRange, playerInAttackRange, petInSightRange, petInAttackRange;
+    private Vector3 defaultPosition;
 
     //  BOSS = ?
-    public bool isBossEnemy = false;
 
+    void Start()
+    {
+        shield = GetComponentInChildren<BossShiled>();
+        defaultPosition = transform.position;
+    }
     private void Awake()
     {
         player = GameObject.Find("Neck").transform;
@@ -41,59 +48,38 @@ public class AI_Enemy : BaseGame
         shootPosition = transform.GetChild(2).transform;
     }
 
-    private void Patroling()
-    {
-        if(!walkPointSet) SearchWalkPoint();
-
-        if(walkPointSet){
-            if(agent){
-                agent.SetDestination(walkPoint);
-            }
-        }
-
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
-
-        if(distanceToWalkPoint.magnitude <= 0f)
-            walkPointSet = false;
-    }
-
-    private void SearchWalkPoint()
-    {
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
-
-        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-    
-        if(Physics.Raycast(walkPoint,-transform.up, 2f, whatIsGround)){
-            walkPointSet = true;
-        }
-    }
-
-    public void chase(Transform objectTransform)
+    private void chase(Transform objectTransform)
     {
         if(agent){
             agent.SetDestination(objectTransform.position);
             transform.LookAt(objectTransform);
         }
-
     }
-    public void attack(Transform objectTransform)
+
+    private void goDefaultPos(){
+        agent.SetDestination(defaultPosition);
+    }
+    private void attack(Transform objectTransform)
     {
-        if(agent){
-            agent.SetDestination(transform.position);
-        
-            transform.LookAt(objectTransform);
-            if(!alreadyAttacked)
-            {
-                //Attack Code
-                Rigidbody rb = Instantiate(projectile, shootPosition.position ,Quaternion.identity).GetComponent<Rigidbody>();
 
-                rb.AddForce(transform.forward *32f, ForceMode.Impulse);
+        if(shield){
+            if(agent){
+                agent.SetDestination(transform.position);
+            
+                transform.LookAt(objectTransform);
+                if(!alreadyAttacked)
+                {
+                    //Attack Code
+                    Rigidbody rb = Instantiate(projectile, shootPosition.position ,Quaternion.identity).GetComponent<Rigidbody>();
 
-                alreadyAttacked = true;
-                Invoke(nameof(ResetAttack), timeBetweenAttacks);
-            }
+                    rb.AddForce(transform.forward *32f, ForceMode.Impulse);
+
+                    alreadyAttacked = true;
+                    Invoke(nameof(ResetAttack), timeBetweenAttacks);
+                }
+            }    
         }
+        
     }
     
     private void ResetAttack(){
@@ -102,25 +88,10 @@ public class AI_Enemy : BaseGame
 
     public void CreateDrop()
     {
-        if(!isBossEnemy)
-        {
-            for(int i = 0; i <= Random.Range(3f, 6f); i++)
-            {   
-                // Lo creo para que no coja el prefab.
-                GameObject tornilloCreado =  Instantiate(tornillo, gameObject.transform) as GameObject;
-                tornilloCreado.transform.parent = null;
-            }
-            if(pet == gameObject)
-            {
-                Pet petController = pet.GetComponent<Pet>();
-                petController.StopControlingEnemy();
-            }
-        }else if(isBossEnemy)
-        {
-            GameObject itemSpaceShip =  Instantiate(tornillo, gameObject.transform) as GameObject;
-            itemSpaceShip.transform.parent = null;
-        }
         
+        GameObject itemSpaceShip =  Instantiate(tornillo, gameObject.transform) as GameObject;
+        itemSpaceShip.transform.parent = null;
+
         agent = null;
         Destroy(gameObject);
     }
@@ -144,6 +115,9 @@ public class AI_Enemy : BaseGame
     }
     void Update()
     {   
+        if(!shield){
+            attackRange = 2;
+        }
         player = GameObject.Find("Neck").transform;
         if(health <= 0) CreateDrop();  
         //si no tiene mascota la intelgencia aritificial siempre va a pegar al jugador   
@@ -152,7 +126,7 @@ public class AI_Enemy : BaseGame
             playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
             playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-            if (!playerInSightRange && !playerInAttackRange) Patroling();
+            if(!playerInSightRange && !playerInAttackRange) goDefaultPos();
             enemyFunctions(playerInSightRange, playerInAttackRange, player);   
 
         }else{
@@ -169,7 +143,7 @@ public class AI_Enemy : BaseGame
 
                 if(!petInSightRange || playerInSightRange)
                 {
-                if (!playerInSightRange && !playerInAttackRange) Patroling();
+                    if(!playerInSightRange && !playerInAttackRange) goDefaultPos();
                     enemyFunctions(playerInSightRange, playerInAttackRange, player);   
                 }
             }
@@ -180,36 +154,40 @@ public class AI_Enemy : BaseGame
     {
         if (inSightRange && !inAttackRange)
         {
-            // ChasePlayer();
             chase(objectTransform);
         } 
         if (inSightRange && inAttackRange)
         {
-            // AttackPlayer();
+            
             attack(objectTransform);
         }    
     }
     public void OnTriggerEnter(Collider other) 
     {
-        if(other.gameObject.tag == GameConstants.ESFERA_TAG)
+        if(!shield)
         {
-            if(!pet)
+            if(other.gameObject.tag == GameConstants.ESFERA_TAG)
             {
-                TakeDamage(other.GetComponent<EnergyBall>());
-            }else if(pet != gameObject)
-            {
-                TakeDamage(other.GetComponent<EnergyBall>());
+                if(!pet)
+                {
+                    TakeDamage(other.GetComponent<EnergyBall>());
+                }else if(pet != gameObject)
+                {
+                    TakeDamage(other.GetComponent<EnergyBall>());
+                }
             }
         }
-        
     }
     private void OnCollisionEnter(Collision other)
     {
-        Projectile projectile = other.gameObject.GetComponent<Projectile>();
-        if(projectile != null)
+        if(!shield)
         {
-            health -= 2f;
-            Destroy(projectile);
+            Projectile projectile = other.gameObject.GetComponent<Projectile>();
+            if(projectile != null)
+            {
+                health -= 2f;
+                Destroy(projectile);
+            }
         }
     }
 }

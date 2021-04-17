@@ -128,8 +128,10 @@ public class Pet : BaseGame
             {
                 if(!enemyInSightRange && !enemyInAttackRange){
                     FollowPlayer();
-                } 
-                aiController.enemyFunctions(enemyInSightRange,enemyInAttackRange, enemy);
+                }
+                if(enemy){
+                    aiController.enemyFunctions(enemyInSightRange,enemyInAttackRange, enemy);
+                }
             }
         }
     }
