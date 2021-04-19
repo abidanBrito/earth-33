@@ -5,13 +5,17 @@ using UnityEngine.AI;
 
 public class ExploteEnemy : BaseGame
 {
-    private float cooldownInSeconds = 10;
+    // Cooldown
     public KeyCode key = KeyCode.F;
-    //  Explosion
+
+    //  Explosion Status
     private float damage = 7f;
     private float radius = 7.0F;
     private float power = 600.0f;
-    public void ExplodeEnemy(){
+  
+
+    public void ExplodeEnemy()
+    {
         if(pet)
         {
             GameObject explosion = gameObject.GetComponent<AI_Enemy>().explosionEffect;
@@ -68,6 +72,4 @@ public class ExploteEnemy : BaseGame
             }
         }
     }
-    
-   
 }
