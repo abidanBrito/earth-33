@@ -3239,6 +3239,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6668575121499131352, guid: 5b265ac997bef37449204f7d64ba124f, type: 3}
   m_PrefabInstance: {fileID: 1670627501}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &587869741 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1244734335021843209, guid: 9210acfa387af7f43ba2718ce5a2af00, type: 3}
+  m_PrefabInstance: {fileID: 1629920310568338841}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &592311348 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b8248df12cad36548ba42828443f15c2, type: 3}
@@ -3511,6 +3516,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7617945608572538312, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: CollisionModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7617945608572538312, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: CollisionModule.collidesWith.m_Bits
+      value: 5206
+      objectReference: {fileID: 0}
+    - target: {fileID: 8137416273599813870, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: Target
+      value: 
+      objectReference: {fileID: 587869741}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
 --- !u!1 &652355228 stripped
@@ -10235,7 +10252,7 @@ PrefabInstance:
     - target: {fileID: 8137416273599813870, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: Target
       value: 
-      objectReference: {fileID: 7529206101656386981}
+      objectReference: {fileID: 587869741}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
 --- !u!1 &1866039457
@@ -11727,6 +11744,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7617945608572538312, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7617945608572538312, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8137416273599813870, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: Target
+      value: 
+      objectReference: {fileID: 587869741}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
 --- !u!1001 &1629920310568338841
