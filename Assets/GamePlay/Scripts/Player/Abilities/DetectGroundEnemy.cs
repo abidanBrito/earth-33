@@ -50,7 +50,7 @@ public class DetectGroundEnemy : BaseGame
             {
                 enemy.CreateDrop();  
             }
-            StartCoroutine(Timer(3));
+            StartCoroutine(Timer(2));
         }
     }
 

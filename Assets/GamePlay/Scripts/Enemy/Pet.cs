@@ -68,8 +68,8 @@ public class Pet : BaseGame
         controllingEnemy = true;                       // Controlando Enemigo
         pet = gameObject;                 // La mascota es el transform
         gameObject.layer = 11;  //   Layer: Pet         // Poniendo en layer Pet para que los enemigos puedan encontrar la mascota y atacarla
-        agent.speed = 7;                                // Agent Speed Growing
-        agent.acceleration = 100;                       // Agent A: Growing
+        agent.speed = 9;                                // Agent Speed Growing
+        agent.acceleration = 200;                       // Agent A: Growing
     }
     public void StopControlingEnemy()
     {
@@ -141,9 +141,11 @@ public class Pet : BaseGame
         sphere = other.gameObject.GetComponent<EnergyBall>();
 
         if(sphere != null){
-            //si la bola esta en modo controlar
-            if(sphere.modes == 2){
-                ControlingEnemy();
+            if(agent.enabled){
+                //si la bola esta en modo controlar
+                if(sphere.modes == 2){
+                    ControlingEnemy();
+                }
             }
         }
     }

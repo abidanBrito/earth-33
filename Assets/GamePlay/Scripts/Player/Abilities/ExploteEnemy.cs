@@ -10,7 +10,7 @@ public class ExploteEnemy : BaseGame
     //  Explosion
     private float damage = 7f;
     private float radius = 7.0F;
-    private float power = 800.0F;
+    private float power = 600.0f;
     public void ExplodeEnemy(){
         if(pet)
         {
@@ -18,7 +18,6 @@ public class ExploteEnemy : BaseGame
 
             // if pet es explotable (hay que añadir)
             Vector3 explosionPos = transform.position;
-            explosionPos.y = explosionPos.y-3f; // se crea la esfera un poco mas hacia abajo para que los enemigos salgan volando
             Collider[] colliders = Physics.OverlapSphere(explosionPos, radius);
 
             Pet petController = pet.GetComponent<Pet>();
@@ -32,7 +31,7 @@ public class ExploteEnemy : BaseGame
             foreach (Collider hit in colliders)
             {
                 // para todos los enemigos afectados se crean
-                if(hit.GetComponent<AI_Enemy>())
+                if(hit.tag == GameConstants.ENEMY_TAG)
                 {
                     AI_Enemy enemy = hit.GetComponent<AI_Enemy>();
                     NavMeshAgent agent = hit.GetComponent<NavMeshAgent>();
@@ -43,11 +42,12 @@ public class ExploteEnemy : BaseGame
                         if(!enemy.GetComponent<Rigidbody>())
                         {
                             //Desactiva algunos componentes para que funcione la explosion
-                            agent.enabled = false; 
                             enemy.enabled = false;
+                            agent.enabled = false; 
                             enemy.GetComponent<Pet>().enabled = false;
                             
                             Rigidbody rb = enemy.gameObject.AddComponent<Rigidbody>();
+
                             if (rb != null)
                             {
                                 rb.AddExplosionForce(power, explosionPos, radius, 3.0F);
@@ -58,6 +58,12 @@ public class ExploteEnemy : BaseGame
                             }
                         }
                     }
+                }
+
+                if(hit.gameObject.GetComponent<Boss>())
+                {
+                    Boss boss = hit.gameObject.GetComponent<Boss>();
+                    boss.health -= damage;
                 }
             }
         }
