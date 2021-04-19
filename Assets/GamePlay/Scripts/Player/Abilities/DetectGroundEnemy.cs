@@ -16,14 +16,12 @@ public class DetectGroundEnemy : BaseGame
             enemy = value;
         }
     }
-
     public NavMeshAgent Agent{
         get => this.agent;
         set{
             agent = value;
         }
     }
-
 
     private void Start()
     {

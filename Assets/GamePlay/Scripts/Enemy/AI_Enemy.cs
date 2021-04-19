@@ -33,12 +33,15 @@ public class AI_Enemy : BaseGame
 
     //  BOSS = ?
     public bool isBossEnemy = false;
+    public GameObject explosionEffect;
 
     private void Awake()
     {
         player = GameObject.Find("Neck").transform;
         agent = GetComponent<NavMeshAgent>();
         shootPosition = transform.GetChild(2).transform;
+        ParticleSystem particleSystem = GetComponent<ParticleSystem>();
+        particleSystem.Stop();
     }
 
     private void Patroling()

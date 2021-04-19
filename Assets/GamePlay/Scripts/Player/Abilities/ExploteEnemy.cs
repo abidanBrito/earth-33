@@ -5,16 +5,17 @@ using UnityEngine.AI;
 
 public class ExploteEnemy : BaseGame
 {
-    public float cooldownInSeconds;
+    private float cooldownInSeconds = 10;
     public KeyCode key = KeyCode.F;
     //  Explosion
-    public float damage = 7f;
-    public float radius = 7.0F;
-    public float power = 800.0F;
-
+    private float damage = 7f;
+    private float radius = 7.0F;
+    private float power = 800.0F;
     public void ExplodeEnemy(){
         if(pet)
         {
+            GameObject explosion = gameObject.GetComponent<AI_Enemy>().explosionEffect;
+
             // if pet es explotable (hay que añadir)
             Vector3 explosionPos = transform.position;
             explosionPos.y = explosionPos.y-3f; // se crea la esfera un poco mas hacia abajo para que los enemigos salgan volando
@@ -25,6 +26,9 @@ public class ExploteEnemy : BaseGame
             
             gameObject.GetComponent<AI_Enemy>().CreateDrop();   // lo mata
             
+            GameObject newExplosion = Instantiate(explosion, transform.position, transform.rotation); // crea el efecto de explotar
+            Destroy(newExplosion, 1.5f);
+
             foreach (Collider hit in colliders)
             {
                 // para todos los enemigos afectados se crean
@@ -59,4 +63,5 @@ public class ExploteEnemy : BaseGame
         }
     }
     
+   
 }
