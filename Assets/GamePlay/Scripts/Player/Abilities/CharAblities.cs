@@ -11,17 +11,26 @@ public class CharAblities : BaseGame
     private bool canUseExplosionEnemy = true;
 
 
-
     // Update is called once per frame
     void Update()
     {
-        CheckExploteEnemy();
+        if(Input.GetKeyDown(KeyCode.F)){
+            if(sphereModes == 2 && canUseExplosionEnemy){
+                // Reseting cooldown
+                ExploteEnemy();
+                canUseExplosionEnemy = false;
+                cooldownExplodeEnemy = 20;
+            }
+        }
+        // si se puede usar
         if(!canUseExplosionEnemy)
         {
-            TimerForCooldowns();
+            TimerCooldownEnemyExplosion();
         }
     }
-    private void TimerForCooldowns()
+    
+    // Part Explosion Enemy
+    private void TimerCooldownEnemyExplosion()
     {   
         if(cooldownExplodeEnemy >= 0)
         {
@@ -30,25 +39,21 @@ public class CharAblities : BaseGame
             canUseExplosionEnemy = true;
         }
     }
-    private void CheckExploteEnemy()
+    private void ExploteEnemy()
     {
-        if(pet && Input.GetKeyDown(KeyCode.F) && canUseExplosionEnemy)
+        if(pet)
         {
-            canUseExplosionEnemy = false;
-            cooldownExplodeEnemy = 20;
-
-            if(!pet.GetComponent<ExploteEnemy>())
-            {
-                explodeEnemyController = pet.AddComponent<ExploteEnemy>();
-            }
-            if(Input.GetKeyDown(explodeEnemyController.key))
-            {
-                explodeEnemyController.ExplodeEnemy();
+            if(pet.tag == GameConstants.ENEMY_TAG){
+                if(!pet.GetComponent<ExploteEnemy>())
+                {
+                    explodeEnemyController = pet.AddComponent<ExploteEnemy>();
+                }
+                if(Input.GetKeyDown(explodeEnemyController.key))
+                {
+                    explodeEnemyController.ExplodeEnemy();
+                }
             }
         }
     }
-
-
-    
 
 }

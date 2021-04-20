@@ -18,7 +18,7 @@ public class ExploteEnemy : BaseGame
     {
         if(pet)
         {
-            GameObject explosion = gameObject.GetComponent<AI_Enemy>().explosionEffect;
+            GameObject explosionPrefab = gameObject.GetComponent<AI_Enemy>().explosionEffect;
 
             // if pet es explotable (hay que añadir)
             Vector3 explosionPos = transform.position;
@@ -29,8 +29,8 @@ public class ExploteEnemy : BaseGame
             
             gameObject.GetComponent<AI_Enemy>().CreateDrop();   // lo mata
             
-            GameObject newExplosion = Instantiate(explosion, transform.position, transform.rotation); // crea el efecto de explotar
-            Destroy(newExplosion, 1.5f);
+            GameObject explosionFX = Instantiate(explosionPrefab, transform.position, transform.rotation); // crea el efecto de explotar
+            Destroy(explosionFX, 1.5f);
 
             foreach (Collider hit in colliders)
             {
@@ -67,7 +67,7 @@ public class ExploteEnemy : BaseGame
                 if(hit.gameObject.GetComponent<Boss>())
                 {
                     Boss boss = hit.gameObject.GetComponent<Boss>();
-                    boss.health -= damage;
+                    boss.health -= damage; // hay que cambiarlo para el escudo
                 }
             }
         }
