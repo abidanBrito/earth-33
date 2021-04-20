@@ -15,7 +15,7 @@ public class CharAblities : BaseGame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.F)){
-            if(sphereModes == 2 && canUseExplosionEnemy){
+            if(sphereModes == 2 && canUseExplosionEnemy && pet){
                 // Reseting cooldown
                 ExploteEnemy();
                 canUseExplosionEnemy = false;
@@ -41,17 +41,14 @@ public class CharAblities : BaseGame
     }
     private void ExploteEnemy()
     {
-        if(pet)
-        {
-            if(pet.tag == GameConstants.ENEMY_TAG){
-                if(!pet.GetComponent<ExploteEnemy>())
-                {
-                    explodeEnemyController = pet.AddComponent<ExploteEnemy>();
-                }
-                if(Input.GetKeyDown(explodeEnemyController.key))
-                {
-                    explodeEnemyController.ExplodeEnemy();
-                }
+        if(pet.tag == GameConstants.ENEMY_TAG){
+            if(!pet.GetComponent<ExploteEnemy>())
+            {
+                explodeEnemyController = pet.AddComponent<ExploteEnemy>();
+            }
+            if(Input.GetKeyDown(explodeEnemyController.key))
+            {
+                explodeEnemyController.ExplodeEnemy();
             }
         }
     }

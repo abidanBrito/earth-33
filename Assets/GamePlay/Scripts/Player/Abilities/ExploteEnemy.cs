@@ -16,59 +16,56 @@ public class ExploteEnemy : BaseGame
 
     public void ExplodeEnemy()
     {
-        if(pet)
+        GameObject explosionPrefab = gameObject.GetComponent<AI_Enemy>().explosionEffect;
+
+        // if pet es explotable (hay que añadir)
+        Vector3 explosionPos = transform.position;
+        Collider[] colliders = Physics.OverlapSphere(explosionPos, radius);
+
+        Pet petController = pet.GetComponent<Pet>();
+        petController.StopControlingEnemy(); // deja de controlar el enemigo antes de destruirlo
+        
+        gameObject.GetComponent<AI_Enemy>().CreateDrop();   // lo mata
+        
+        GameObject explosionFX = Instantiate(explosionPrefab, transform.position, transform.rotation); // crea el efecto de explotar
+        Destroy(explosionFX, 1.5f);
+
+        foreach (Collider hit in colliders)
         {
-            GameObject explosionPrefab = gameObject.GetComponent<AI_Enemy>().explosionEffect;
-
-            // if pet es explotable (hay que añadir)
-            Vector3 explosionPos = transform.position;
-            Collider[] colliders = Physics.OverlapSphere(explosionPos, radius);
-
-            Pet petController = pet.GetComponent<Pet>();
-            petController.StopControlingEnemy(); // deja de controlar el enemigo antes de destruirlo
-            
-            gameObject.GetComponent<AI_Enemy>().CreateDrop();   // lo mata
-            
-            GameObject explosionFX = Instantiate(explosionPrefab, transform.position, transform.rotation); // crea el efecto de explotar
-            Destroy(explosionFX, 1.5f);
-
-            foreach (Collider hit in colliders)
+            // para todos los enemigos afectados se crean
+            if(hit.tag == GameConstants.ENEMY_TAG)
             {
-                // para todos los enemigos afectados se crean
-                if(hit.tag == GameConstants.ENEMY_TAG)
-                {
-                    AI_Enemy enemy = hit.GetComponent<AI_Enemy>();
-                    NavMeshAgent agent = hit.GetComponent<NavMeshAgent>();
-                    
-                    enemy.health -= damage; //recibe daño de la explosion
-                    
-                    if(enemy != pet){
-                        if(!enemy.GetComponent<Rigidbody>())
+                AI_Enemy enemy = hit.GetComponent<AI_Enemy>();
+                NavMeshAgent agent = hit.GetComponent<NavMeshAgent>();
+                
+                enemy.health -= damage; //recibe daño de la explosion
+                
+                if(enemy != pet){
+                    if(!enemy.GetComponent<Rigidbody>())
+                    {
+                        //Desactiva algunos componentes para que funcione la explosion
+                        enemy.enabled = false;
+                        agent.enabled = false; 
+                        enemy.GetComponent<Pet>().enabled = false;
+                        
+                        Rigidbody rb = enemy.gameObject.AddComponent<Rigidbody>();
+
+                        if (rb != null)
                         {
-                            //Desactiva algunos componentes para que funcione la explosion
-                            enemy.enabled = false;
-                            agent.enabled = false; 
-                            enemy.GetComponent<Pet>().enabled = false;
-                            
-                            Rigidbody rb = enemy.gameObject.AddComponent<Rigidbody>();
+                            rb.AddExplosionForce(power, explosionPos, radius, 3.0F);
 
-                            if (rb != null)
-                            {
-                                rb.AddExplosionForce(power, explosionPos, radius, 3.0F);
-
-                                DetectGroundEnemy detectGroundController = enemy.gameObject.AddComponent<DetectGroundEnemy>(); // le añade un script para cuando el enemigo salga por los aires vuelva a su posicion.
-                                detectGroundController.Enemy = enemy;
-                                detectGroundController.Agent = agent;
-                            }
+                            DetectGroundEnemy detectGroundController = enemy.gameObject.AddComponent<DetectGroundEnemy>(); // le añade un script para cuando el enemigo salga por los aires vuelva a su posicion.
+                            detectGroundController.Enemy = enemy;
+                            detectGroundController.Agent = agent;
                         }
                     }
                 }
+            }
 
-                if(hit.gameObject.GetComponent<Boss>())
-                {
-                    Boss boss = hit.gameObject.GetComponent<Boss>();
-                    boss.health -= damage; // hay que cambiarlo para el escudo
-                }
+            if(hit.gameObject.GetComponent<Boss>())
+            {
+                Boss boss = hit.gameObject.GetComponent<Boss>();
+                boss.health -= damage; // hay que cambiarlo para el escudo
             }
         }
     }

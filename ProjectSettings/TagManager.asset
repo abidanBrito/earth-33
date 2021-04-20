@@ -18,6 +18,7 @@ TagManager:
   - RespawnPosition
   - RespawnTrigger
   - Crystal
+  - Healer
   layers:
   - Default
   - TransparentFX

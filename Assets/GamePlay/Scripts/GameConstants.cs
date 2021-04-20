@@ -14,4 +14,5 @@ public class GameConstants
     public const string RESPAWN_TRIGGER_TAG = "RespawnTrigger";
     public const string PROJECTILE_TAG = "Projectile";
     public const string CRYSTAL_TAG = "Crystal";
+    public const string HEALER_TAG = "Healer";
 }

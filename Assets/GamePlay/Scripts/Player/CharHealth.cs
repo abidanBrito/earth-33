@@ -3,7 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class CharHealth : BaseGame
 {
-    [SerializeField] public int health = 100;
+    [SerializeField] 
+    [Range(0, 100)]
+    public int health = 100;
     private int hitDamage;
     GameObject respawnPosition;
 

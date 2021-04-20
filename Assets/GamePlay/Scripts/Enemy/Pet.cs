@@ -31,14 +31,30 @@ public class Pet : BaseGame
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
-        agent = GetComponent<NavMeshAgent>();
         positionGuard = GameObject.Find("guardPosition").transform;
-        ballPosition =  transform.GetChild(1).transform;    // 1 = Ball Position.
-        shootPosition = transform.GetChild(2).transform;    // 2 = Shot Position.
+
+        agent = GetComponent<NavMeshAgent>();
         aiController = GetComponent<AI_Enemy>();
+
+        ballPosition =  transform.GetChild(1).transform;    // 1 = Ball Position.
+
+        if(gameObject.tag != GameConstants.HEALER_TAG)
+        {
+            shootPosition = transform.GetChild(2).transform;    // 2 = Shot Position.
+        }
     }
+     void Update()
+    {
+        if(enemyControlled){
+            KeepSpherePosition();
+            if(gameObject.tag == GameConstants.ENEMY_TAG){
+                CheckEnemiesInRange();
+            }
+        }
+    }
+
     //  Following the player as pet
-    private void FollowPlayer(){
+    public void FollowPlayer(){
         agent.SetDestination(positionGuard.position);
         transform.rotation = player.rotation;
     }
@@ -67,7 +83,10 @@ public class Pet : BaseGame
         usingBall = false;               // Poniendo el estado de usando esferas a falso para que las demas puedan ser utilizadas
         controllingEnemy = true;                       // Controlando Enemigo
         pet = gameObject;                 // La mascota es el transform
-        gameObject.layer = 11;  //   Layer: Pet         // Poniendo en layer Pet para que los enemigos puedan encontrar la mascota y atacarla
+        if(gameObject.tag == GameConstants.ENEMY_TAG)
+        {
+            gameObject.layer = 11;  //   Layer: Pet         // Poniendo en layer Pet para que los enemigos puedan encontrar la mascota y atacarla
+        }
         agent.speed = 9;                                // Agent Speed Growing
         agent.acceleration = 200;                       // Agent A: Growing
     }
@@ -79,8 +98,10 @@ public class Pet : BaseGame
                 controllingEnemy = false;                       
                 pet = null;
                 //devuelve al enemigo a su estado original
-                gameObject.layer = 10;  //   Layer: Enemy
-                gameObject.tag = GameConstants.ENEMY_TAG;
+                if(gameObject.tag == GameConstants.ENEMY_TAG)
+                {
+                    gameObject.layer = 10;  //   Layer: Enemy
+                }
                 agent.speed = 4;
                 agent.acceleration = 20;
     }
@@ -95,44 +116,43 @@ public class Pet : BaseGame
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, rangeAwayFromPlayer);
     }
-    void Update()
-    {
-        if(enemyControlled){
-            if(sphereControlling.movements != 1){
-                sphereControlling.movements = 1;
-            }
-            // Solo mueve la esfera en la misma posicion si es la que controla el enemigo
-            if(sphereControlling.movements == 1){
-                //Debug.Log("Moviendo");
-                sphereControlling.transform.position = Vector3.Lerp(sphereControlling.transform.position, ballPosition.position,10f*Time.deltaTime);
-                //sphereControlling.transform.position = ballPosition.position;
-                //sphereControlling.transform.rotation = ballPosition.transform.rotation;
-            }
-            //Si el jugador controla el enemigo se ejecutan estas lineas de codigo            
-            enemyInSightRange = Physics.CheckSphere(transform.position, sightRangeControlled, whatIsEnemy);
-            enemyInAttackRange = Physics.CheckSphere(transform.position, attackRangeControlled, whatIsEnemy);
+   
+    
 
-            enemies = Physics.OverlapSphere(transform.position, 10, whatIsEnemy);
-            foreach(Collider c in enemies){
-                if(c.tag == GameConstants.ENEMY_TAG){
-                    enemy = c.transform;
-                }
-            }
+    private void CheckEnemiesInRange(){
+        //Si el jugador controla el enemigo se ejecutan estas lineas de codigo            
+        enemyInSightRange = Physics.CheckSphere(transform.position, sightRangeControlled, whatIsEnemy);
+        enemyInAttackRange = Physics.CheckSphere(transform.position, attackRangeControlled, whatIsEnemy);
 
-            // Si esta fuera de rango del jugador le seguira
-            bool playerInRange = Physics.CheckSphere(transform.position, rangeAwayFromPlayer, whatIsPlayer);
-            if(!playerInRange)
-            {
+        enemies = Physics.OverlapSphere(transform.position, 10, whatIsEnemy);
+        foreach(Collider c in enemies){
+            if(c.tag == GameConstants.ENEMY_TAG){
+                enemy = c.transform;
+            }
+        }
+
+        // Si esta fuera de rango del jugador le seguira
+        bool playerInRange = Physics.CheckSphere(transform.position, rangeAwayFromPlayer, whatIsPlayer);
+        if(!playerInRange)
+        {
+            FollowPlayer();
+        }else
+        {
+            if(!enemyInSightRange && !enemyInAttackRange){
                 FollowPlayer();
-            }else
-            {
-                if(!enemyInSightRange && !enemyInAttackRange){
-                    FollowPlayer();
-                }
-                if(enemy){
-                    aiController.enemyFunctions(enemyInSightRange,enemyInAttackRange, enemy);
-                }
             }
+            if(enemy){
+                aiController.enemyFunctions(enemyInSightRange,enemyInAttackRange, enemy);
+            }
+        }
+    }
+    private void KeepSpherePosition(){
+        if(sphereControlling.movements != 1){
+            sphereControlling.movements = 1;
+        }
+        // Solo mueve la esfera en la misma posicion si es la que controla el enemigo
+        if(sphereControlling.movements == 1){
+            sphereControlling.transform.position = Vector3.Lerp(sphereControlling.transform.position, ballPosition.position,10f*Time.deltaTime);
         }
     }
 

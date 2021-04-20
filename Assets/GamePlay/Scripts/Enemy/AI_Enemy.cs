@@ -32,19 +32,63 @@ public class AI_Enemy : BaseGame
     private bool playerInSightRange, playerInAttackRange, petInSightRange, petInAttackRange;
 
     //  BOSS = ?
-    public bool isBossEnemy = false;
     public GameObject explosionEffect;
 
     private void Awake()
     {
         player = GameObject.Find("Neck").transform;
         agent = GetComponent<NavMeshAgent>();
-        shootPosition = transform.GetChild(2).transform;
-        ParticleSystem particleSystem = GetComponent<ParticleSystem>();
-        particleSystem.Stop();
+        
+        if(gameObject.tag != GameConstants.HEALER_TAG)
+        {
+            shootPosition = transform.GetChild(2).transform;
+        }
+    }
+    void Update()
+    {   
+        player = GameObject.Find("Neck").transform;
+        if(health <= 0) CreateDrop();  
+        //si no tiene mascota la intelgencia aritificial siempre va a pegar al jugador   
+        if(gameObject.tag == GameConstants.ENEMY_TAG)
+        {
+            CheckEnemiesNear();
+        }
     }
 
-    private void Patroling()
+    private void CheckEnemiesNear()
+    {
+        if(!pet){
+            //checks if player is in sight range and attack range
+            playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+            playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+
+            if (!playerInSightRange && !playerInAttackRange) Patroling();
+            enemyFunctions(playerInSightRange, playerInAttackRange, player);   
+
+        }else{
+            //Si tiene mascota, comprueba que si es distinta a la mascota elegida pegara al jugador y la mascota
+            if(pet != gameObject){
+                //si es enemiga le pegaran, si no le pegaran al healer
+                
+                petInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPet);
+                petInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPet);
+
+                enemyFunctions(petInSightRange, petInAttackRange, pet.transform); 
+
+                // Same Code, with diferent layers, Siempre va a pegar al jugador si esta mas cerca
+                playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+                playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+
+                if(!petInSightRange || playerInSightRange)
+                {
+                if (!playerInSightRange && !playerInAttackRange) Patroling();
+                    enemyFunctions(playerInSightRange, playerInAttackRange, player);   
+                }
+            }
+        }    
+    }
+
+    public void Patroling()
     {
         if(!walkPointSet) SearchWalkPoint();
 
@@ -105,23 +149,16 @@ public class AI_Enemy : BaseGame
 
     public void CreateDrop()
     {
-        if(!isBossEnemy)
+        for(int i = 0; i <= Random.Range(3f, 6f); i++)
+        {   
+            // Lo creo para que no coja el prefab.
+            GameObject tornilloCreado =  Instantiate(tornillo, gameObject.transform) as GameObject;
+            tornilloCreado.transform.parent = null;
+        }
+        if(pet == gameObject)
         {
-            for(int i = 0; i <= Random.Range(3f, 6f); i++)
-            {   
-                // Lo creo para que no coja el prefab.
-                GameObject tornilloCreado =  Instantiate(tornillo, gameObject.transform) as GameObject;
-                tornilloCreado.transform.parent = null;
-            }
-            if(pet == gameObject)
-            {
-                Pet petController = pet.GetComponent<Pet>();
-                petController.StopControlingEnemy();
-            }
-        }else if(isBossEnemy)
-        {
-            GameObject itemSpaceShip =  Instantiate(tornillo, gameObject.transform) as GameObject;
-            itemSpaceShip.transform.parent = null;
+            Pet petController = pet.GetComponent<Pet>();
+            petController.StopControlingEnemy();
         }
         
         agent = null;
@@ -145,39 +182,7 @@ public class AI_Enemy : BaseGame
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, walkPointRange);
     }
-    void Update()
-    {   
-        player = GameObject.Find("Neck").transform;
-        if(health <= 0) CreateDrop();  
-        //si no tiene mascota la intelgencia aritificial siempre va a pegar al jugador   
-        if(!pet){
-            //checks if player is in sight range and attack range
-            playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-            playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-
-            if (!playerInSightRange && !playerInAttackRange) Patroling();
-            enemyFunctions(playerInSightRange, playerInAttackRange, player);   
-
-        }else{
-            //Si tiene mascota, comprueba que si es distinta a la mascota elegida pegara al jugador y la mascota
-            if(pet != gameObject){
-                petInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPet);
-                petInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPet);
-
-                enemyFunctions(petInSightRange, petInAttackRange, pet.transform);   
-
-                // Same Code, with diferent layers, Siempre va a pegar al jugador si esta mas cerca
-                playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-                playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-
-                if(!petInSightRange || playerInSightRange)
-                {
-                if (!playerInSightRange && !playerInAttackRange) Patroling();
-                    enemyFunctions(playerInSightRange, playerInAttackRange, player);   
-                }
-            }
-        }    
-    }
+    
 
     public void enemyFunctions(bool inSightRange, bool inAttackRange, Transform objectTransform)
     {
