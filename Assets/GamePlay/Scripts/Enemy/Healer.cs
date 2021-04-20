@@ -7,17 +7,19 @@ public class Healer : BaseGame
     public float mobHealth = 50f;
     public float healingValue = 10;
     public float timeBetweenHeals = 2f;
-    private float auxTimeBetweenHeals;
+    private bool alreadyHealed = false;
     private Pet petController;
     private int playerHealth;
     AI_Enemy aiController;
+    ParticleSystem particlesController;
     
     void Start()
     {
         petController = GetComponent<Pet>();
         aiController = GetComponent<AI_Enemy>();
+        particlesController = GetComponent<ParticleSystem>();
+        particlesController.Pause();
         aiController.health = mobHealth;
-        auxTimeBetweenHeals = timeBetweenHeals;
     }
 
     // Update is called once per frame
@@ -33,32 +35,29 @@ public class Healer : BaseGame
                 playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
                 petController.FollowPlayer();
                 if(playerHealth < 100){
-                    // Temporizador si puede curar
-                    if(CanHeal()){
+                    if(!alreadyHealed){
+                        particlesController.Play();
                         HealPlayer();
                     }
+                }else{
+                    particlesController.Stop();
                 }
             }
         }
-
     }
-    private bool CanHeal()
-    {
-        // si el temporizador esta a 0 podra curar
-        if(auxTimeBetweenHeals >= 0){
-            auxTimeBetweenHeals = auxTimeBetweenHeals-Time.fixedDeltaTime;
-            return false;
-        }
-        auxTimeBetweenHeals = 0; // cada vez que cura se resetea el cooldown de curar
-        return true;
+    
+    private void ResetHeal(){
+        alreadyHealed = false;
     }
     private void HealPlayer()
     {
-        auxTimeBetweenHeals = timeBetweenHeals; // cada vez que cura se resetea el cooldown de curar
         aiController.health -= healingValue;
         playerHealth += (int)healingValue;
         if(playerHealth >= 100) playerHealth = 100;
         GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
         Debug.Log(aiController.health+"ia");
+        alreadyHealed = true;
+        Invoke(nameof(ResetHeal),timeBetweenHeals);
     }
+
 }

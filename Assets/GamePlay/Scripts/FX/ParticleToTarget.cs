@@ -38,7 +38,6 @@ public class ParticleToTarget : BaseGame
 				particle.position = system.transform.InverseTransformPoint(v2 - tarPosi);
 				particles[i] = particle;
 			}
-
 			system.SetParticles(particles, count);
 		}
     }
