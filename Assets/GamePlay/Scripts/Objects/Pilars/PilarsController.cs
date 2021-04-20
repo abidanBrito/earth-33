@@ -9,6 +9,5 @@ public class PilarsController : BaseGame
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(crystals.Count);
     }
 }

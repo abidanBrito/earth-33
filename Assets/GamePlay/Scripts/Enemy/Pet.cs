@@ -163,7 +163,7 @@ public class Pet : BaseGame
         if(sphere != null){
             if(agent.enabled){
                 //si la bola esta en modo controlar
-                if(sphere.modes == 2){
+                if(sphere.modes == 2 && sphere.movements != 1){
                     ControlingEnemy();
                 }
             }

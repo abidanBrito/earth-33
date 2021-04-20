@@ -12286,8 +12286,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8255337216099788113}
   m_LocalRotation: {x: -0, y: -0.694513, z: -0, w: 0.7194801}
-  m_LocalPosition: {x: 4.59, y: 1.0911765, z: 86.69}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4.59, y: 0.92, z: 86.69}
+  m_LocalScale: {x: 0.6370075, y: 0.6370075, z: 0.6370075}
   m_Children:
   - {fileID: 8255337216719763088}
   - {fileID: 147679128310131387}
@@ -12306,6 +12306,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad6d22e6b52e5894c85303e624545558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mobHealth: 75
+  healingValue: 10
+  timeBetweenHeals: 6
 --- !u!1 &8255337216719763084
 GameObject:
   m_ObjectHideFlags: 0

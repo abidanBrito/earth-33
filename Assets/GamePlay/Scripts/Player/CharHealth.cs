@@ -28,7 +28,6 @@ public class CharHealth : BaseGame
             
             // Update health level
             health -= hitDamage;
-            Debug.Log("Health level: " + health);
         }
             // Reload the scene upon death
             if (health <= 0) 

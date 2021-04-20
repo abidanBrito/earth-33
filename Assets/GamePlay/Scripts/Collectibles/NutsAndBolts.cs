@@ -43,7 +43,6 @@ public class NutsAndBolts : BaseGame
         {
             Inventory.nutsQuantity++;
             GameManager.Instance.Nuts += 1;
-            Debug.Log(Inventory.nutsQuantity);
             Destroy(gameObject);
         }
     }

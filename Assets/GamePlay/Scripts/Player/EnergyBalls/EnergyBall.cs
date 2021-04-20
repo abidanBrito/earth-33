@@ -56,7 +56,6 @@ public class EnergyBall : BaseGame
     {
         //cambia de modo
         sphereModes++;
-        Debug.Log(sphereModes);
         if(sphereModes > 2) sphereModes = 0;//vuelve al modo ataque
     }
 

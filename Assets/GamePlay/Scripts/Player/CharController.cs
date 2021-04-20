@@ -46,7 +46,6 @@ public class CharController : BaseGame
         animator = GetComponent<Animator>();
         sphereModes = 0; // se pone en modo ataque
         sphereController = GetComponentInChildren<EnergyBall>();
-        Debug.Log("Sphere mode: " + sphereModes);
         Cursor.visible = false;
     }
     

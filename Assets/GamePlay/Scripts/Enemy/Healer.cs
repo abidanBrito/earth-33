@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Healer : BaseGame
 {
+    public float mobHealth = 50f;
     public float healingValue = 10;
     public float timeBetweenHeals = 2f;
     private float auxTimeBetweenHeals;
@@ -15,14 +16,13 @@ public class Healer : BaseGame
     {
         petController = GetComponent<Pet>();
         aiController = GetComponent<AI_Enemy>();
-        aiController.health = 50f;
+        aiController.health = mobHealth;
         auxTimeBetweenHeals = timeBetweenHeals;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(auxTimeBetweenHeals);
         if(gameObject.tag == GameConstants.HEALER_TAG)
         {
             // si el enemigo es healer
@@ -55,11 +55,10 @@ public class Healer : BaseGame
     private void HealPlayer()
     {
         auxTimeBetweenHeals = timeBetweenHeals; // cada vez que cura se resetea el cooldown de curar
-        aiController.health -= 10;
-        playerHealth += 10;
+        aiController.health -= healingValue;
+        playerHealth += (int)healingValue;
         if(playerHealth >= 100) playerHealth = 100;
         GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
-        Debug.Log(playerHealth+"player");
         Debug.Log(aiController.health+"ia");
     }
 }
