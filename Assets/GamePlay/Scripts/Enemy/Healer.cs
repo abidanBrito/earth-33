@@ -32,7 +32,7 @@ public class Healer : BaseGame
             }else{
                 playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
                 petController.FollowPlayer();
-                if(playerHealth < 90){
+                if(playerHealth < 100){
                     // Temporizador si puede curar
                     if(CanHeal()){
                         HealPlayer();
@@ -57,6 +57,7 @@ public class Healer : BaseGame
         auxTimeBetweenHeals = timeBetweenHeals; // cada vez que cura se resetea el cooldown de curar
         aiController.health -= 10;
         playerHealth += 10;
+        if(playerHealth >= 100) playerHealth = 100;
         GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
         Debug.Log(playerHealth+"player");
         Debug.Log(aiController.health+"ia");
