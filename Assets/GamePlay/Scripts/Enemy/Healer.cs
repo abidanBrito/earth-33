@@ -18,7 +18,7 @@ public class Healer : BaseGame
         petController = GetComponent<Pet>();
         aiController = GetComponent<AI_Enemy>();
         particlesController = GetComponent<ParticleSystem>();
-        particlesController.Pause();
+        particlesController.Stop();
         aiController.health = mobHealth;
     }
 
@@ -31,15 +31,19 @@ public class Healer : BaseGame
             if(pet != gameObject)
             {
                 aiController.Patroling();
+                if(particlesController.isPlaying)
+                particlesController.Stop();
             }else{
                 playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
                 petController.FollowPlayer();
                 if(playerHealth < 100){
                     if(!alreadyHealed){
+                        if(!particlesController.isPlaying)
                         particlesController.Play();
                         HealPlayer();
                     }
                 }else{
+                    if(particlesController.isPlaying)
                     particlesController.Stop();
                 }
             }
@@ -55,7 +59,6 @@ public class Healer : BaseGame
         playerHealth += (int)healingValue;
         if(playerHealth >= 100) playerHealth = 100;
         GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
-        Debug.Log(aiController.health+"ia");
         alreadyHealed = true;
         Invoke(nameof(ResetHeal),timeBetweenHeals);
     }

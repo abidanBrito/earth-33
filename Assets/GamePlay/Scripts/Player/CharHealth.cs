@@ -32,7 +32,7 @@ public class CharHealth : BaseGame
             // Reload the scene upon death
             if (health <= 0) 
             { 
-                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                SceneManager.LoadScene(SceneManager.GetSceneByName("Demo").buildIndex);
                 ClearConsoleLogs();
                 Debug.Log("--- GAME OVER! ---");
                 health = 100;
