@@ -31,15 +31,15 @@ public class CharAblities : BaseGame
     {
         if(Input.GetKeyDown(KeyCode.F))
         {
-            if(!shopController.BoughtGranadeAttack)
+            if(!shopController.BoughtGranadeAttack)// HAY QUE CAMBIAR EL SHOP A ISTRUE
             {
                 CheckAbilityGranadeAttack();
             }
-            if(shopController.BoughtExplodeEnemy)
+            if(!shopController.BoughtExplodeEnemy) // HAY QUE CAMBIAR EL SHOP A ISTRUE
             {
                 CheckAbilityEnemyControl();
             }
-            if(shopController.BoughtThrowObjects)
+            if(!shopController.BoughtThrowObjects)// HAY QUE CAMBIAR EL SHOP A ISTRUE
             {
                 
             }
@@ -85,9 +85,15 @@ public class CharAblities : BaseGame
                 } else {
                     GameObject.Find("Player").GetComponent<CharHealth>().health = 100;
                 }
+                ExploteEnemy();
                 // ExploteEnemy(); // no deberia gastar la misma funcion
-                // canUseExplosionEnemy = false;
-                // auxCooldownExplodeEnemy = 20;
+                // Pet petController = pet.GetComponent<Pet>();
+                // GameObject healerPet = pet;
+                // petController.StopControlingEnemy(); // lo dejo de controlar para que vuelva la esfera
+                // Destroy(healerPet); //destruyo el pet anterior guardado, no puedo poner el pet por que no existiria despues de controlarlo
+                canUseExplosionEnemy = false;
+                cooldownExplodeEnemy = awaitTimeExplodeEnemy;
+                
             } else if(pet.gameObject.tag == GameConstants.ENEMY_TAG)
             {
                 ExploteEnemy();
@@ -98,7 +104,7 @@ public class CharAblities : BaseGame
     }
     private void ExploteEnemy()
     {
-        if(pet.tag == GameConstants.ENEMY_TAG){
+        // if(pet.tag == GameConstants.ENEMY_TAG){
             if(!pet.GetComponent<ExploteEnemy>())
             {
                 explodeEnemyController = pet.AddComponent<ExploteEnemy>();
@@ -107,7 +113,7 @@ public class CharAblities : BaseGame
             {
                 explodeEnemyController.ExplodeEnemy();
             }
-        }
+        // }
     }
     private void CheckTimersAbilities()
     {

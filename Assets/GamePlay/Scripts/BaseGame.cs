@@ -55,36 +55,21 @@ public class BaseGame : MonoBehaviour
         var method = type.GetMethod("Clear");
         method.Invoke(new object(), null);
     }
-    public void ExplosionAttack(Transform transform, float radius, float damage, float power, GameObject explosionPrefab)
+    public void ExplosionVFX(GameObject explosionPrefab)
     {
-
+        GameObject explosionFX = Instantiate(explosionPrefab, transform.position, transform.rotation); // crea el efecto de explotar
+        Destroy(explosionFX, 1.5f);
+    }
+    public void ExplosionAttack(Transform transform, float radius, float damage, float power)
+    {
         // if pet es explotable (hay que añadir)
         Vector3 explosionPos = transform.position;
         Collider[] colliders = Physics.OverlapSphere(explosionPos, radius);
-        
-        if(pet)
-        {           
-            Pet petController = pet.GetComponent<Pet>();
-            
-            if(pet.gameObject.tag == GameConstants.HEALER_TAG)
-            {
-
-            }
-            else if(pet.gameObject.tag == GameConstants.ENEMY_TAG)
-            {
-                explosionPrefab = gameObject.GetComponent<AI_Enemy>().explosionEffect;
-                GameObject explosionFX = Instantiate(explosionPrefab, transform.position, transform.rotation); // crea el efecto de explotar
-                Destroy(explosionFX, 1.5f);
-            }
-
-            petController.StopControlingEnemy(); // deja de controlar el enemigo antes de destruirlo   
-            gameObject.GetComponent<AI_Enemy>().CreateDrop();   // lo mata
-        }
-
+    
         foreach (Collider hit in colliders)
         {
             // para todos los enemigos afectados se crean
-            if(hit.tag == GameConstants.ENEMY_TAG && !hit.gameObject.GetComponent<Boss>())
+            if(hit.tag == GameConstants.ENEMY_TAG && !hit.gameObject.GetComponent<Boss>() || hit.tag == GameConstants.HEALER_TAG)
             {
                 AI_Enemy enemy = hit.GetComponent<AI_Enemy>();
                 NavMeshAgent agent = hit.GetComponent<NavMeshAgent>();

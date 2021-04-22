@@ -14,7 +14,17 @@ public class ExploteEnemy : BaseGame
   
     public void ExplodeEnemy()
     {
-        GameObject explosionPrefab = gameObject.GetComponent<AI_Enemy>().explosionEffect;
-        ExplosionAttack(transform, radius, damage, power, explosionPrefab);
+        GameObject explosionPrefab = null;
+        if(gameObject.tag == GameConstants.ENEMY_TAG){
+            explosionPrefab = gameObject.GetComponent<AI_Enemy>().explosionEffect;
+            ExplosionAttack(transform, radius, damage, power);
+        }else{
+            explosionPrefab = gameObject.GetComponent<Healer>().explosionEffect;
+        }
+        ExplosionVFX(explosionPrefab);
+
+        Pet petController = pet.GetComponent<Pet>();
+        petController.StopControlingEnemy(); // deja de controlar el enemigo antes de destruirlo   
+        gameObject.GetComponent<AI_Enemy>().CreateDrop();   // lo mata
     }
 }

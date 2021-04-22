@@ -44,8 +44,10 @@ public class GranadeAttack : BaseGame
                 nextPoint = points[count]; 
             } else 
             {
-                GameObject explosion = sphere.explosionVFX;
-                ExplosionAttack(transform, radius, damage, power, explosion);
+                GameObject explosionPrefab = sphere.explosionVFX;
+                ExplosionVFX(explosionPrefab);
+
+                ExplosionAttack(transform, radius, damage, power);
                 gameObject.transform.parent = parent;
                 sphere.movements = -1;
                 Destroy(GetComponent<GranadeAttack>());

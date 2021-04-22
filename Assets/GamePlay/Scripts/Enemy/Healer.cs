@@ -7,6 +7,7 @@ public class Healer : BaseGame
     public float mobHealth = 50f;
     public float healingValue = 10;
     public float timeBetweenHeals = 2f;
+    public GameObject explosionEffect;
     private bool alreadyHealed = false;
     private Pet petController;
     private int playerHealth;
@@ -30,7 +31,9 @@ public class Healer : BaseGame
             // si el enemigo es healer
             if(pet != gameObject)
             {
-                aiController.Patroling();
+                if(aiController.GetComponent<AI_Enemy>().enabled){
+                    aiController.Patroling();
+                }
                 if(particlesController.isPlaying)
                 particlesController.Stop();
             }else{
