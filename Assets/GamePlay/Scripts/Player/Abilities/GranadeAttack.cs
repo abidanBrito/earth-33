@@ -5,9 +5,9 @@ using UnityEngine;
 public class GranadeAttack : BaseGame
 {
     private EnergyBall sphere;
-    public float damage = 7f;
-    public float radius = 7.0F;
-    public float power = 800.0F;
+    public float damage = 3.5f;
+    public float radius = 5F;
+    public float power = 600.0F;
     private Vector3 towardTarget;
     private float speed = 4f;
     private float rotationSpeed = 10f;
@@ -20,7 +20,9 @@ public class GranadeAttack : BaseGame
 
     void Start()
     {
+        
         sphere = GetComponent<EnergyBall>();
+        sphere.movements = 3;
         startTarget = transform.position;
         points = parabolicMovement(startTarget, hitGranade);
         nextPoint = points[0];
