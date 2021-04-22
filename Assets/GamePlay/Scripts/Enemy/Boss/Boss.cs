@@ -6,8 +6,10 @@ using UnityEngine.AI;
 public class Boss : BaseGame
 {
     private BossShiled shield;
-    
-private NavMeshAgent agent;
+    public BossShiled GetShield{
+        get => shield;
+    }
+    private NavMeshAgent agent;
     private Transform player;
 
     public LayerMask whatIsGround, whatIsPlayer, whatIsPet;
@@ -57,7 +59,9 @@ private NavMeshAgent agent;
     }
 
     private void goDefaultPos(){
-        agent.SetDestination(defaultPosition);
+        if(agent){
+            agent.SetDestination(defaultPosition);
+        }
     }
     private void attack(Transform objectTransform)
     {

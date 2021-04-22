@@ -84,7 +84,7 @@ public class BaseGame : MonoBehaviour
         foreach (Collider hit in colliders)
         {
             // para todos los enemigos afectados se crean
-            if(hit.tag == GameConstants.ENEMY_TAG)
+            if(hit.tag == GameConstants.ENEMY_TAG && !hit.gameObject.GetComponent<Boss>())
             {
                 AI_Enemy enemy = hit.GetComponent<AI_Enemy>();
                 NavMeshAgent agent = hit.GetComponent<NavMeshAgent>();
@@ -116,7 +116,9 @@ public class BaseGame : MonoBehaviour
             if(hit.gameObject.GetComponent<Boss>())
             {
                 Boss boss = hit.gameObject.GetComponent<Boss>();
-                boss.health -= damage; // hay que cambiarlo para el escudo
+                if(boss.GetShield == null){
+                    boss.health -= damage; // hay que cambiarlo para el escudo
+                }
             }
         }
     }

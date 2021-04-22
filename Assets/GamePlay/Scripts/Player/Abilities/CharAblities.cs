@@ -7,24 +7,42 @@ public class CharAblities : BaseGame
 
     // Ability Exploting Pet Enemy
     private ExploteEnemy explodeEnemyController;
-    public float cooldownExplodeEnemy = 20;
+    public float awaitTimeExplodeEnemy;
+    private float cooldownExplodeEnemy = 20;
     private bool canUseExplosionEnemy = true;
 
     // Ability Granades
-    public float cooldownGranadeAttack = 10;
-    private float auxCooldownGranadeAttack;
+    public float awaitTimeGranadeAttack;
+    private float cooldownGranadeAttack = 10;
     private bool canUseGranadeAttack = true;
 
-    private void Start(){
+    // Ability Rocks
+    // Mising
+
+    // Shop Controller
+    private AbilitiesShop shopController;
+
+    private void Start()
+    {
+        shopController = GetComponent<AbilitiesShop>();
     }
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(auxCooldownGranadeAttack);
         if(Input.GetKeyDown(KeyCode.F))
         {
-            CheckAbilityGranadeAttack();
-            CheckAbilityEnemyControl();
+            if(!shopController.BoughtGranadeAttack)
+            {
+                CheckAbilityGranadeAttack();
+            }
+            if(shopController.BoughtExplodeEnemy)
+            {
+                CheckAbilityEnemyControl();
+            }
+            if(shopController.BoughtThrowObjects)
+            {
+                
+            }
         }
         // si se puede usar
         CheckTimersAbilities();
@@ -35,7 +53,7 @@ public class CharAblities : BaseGame
         if(sphereModes == 0 && canUseGranadeAttack)
         {
             canUseGranadeAttack = false;
-            cooldownGranadeAttack = 1;
+            cooldownGranadeAttack = awaitTimeGranadeAttack;
 
             List<EnergyBall> sphereHability = new List<EnergyBall>();
             
@@ -74,7 +92,7 @@ public class CharAblities : BaseGame
             {
                 ExploteEnemy();
                 canUseExplosionEnemy = false;
-                cooldownExplodeEnemy = 20;
+                cooldownExplodeEnemy = awaitTimeExplodeEnemy;
             }
         }
     }
@@ -94,21 +112,23 @@ public class CharAblities : BaseGame
     private void CheckTimersAbilities()
     {
         if(!canUseExplosionEnemy)
-            {
-                TimerCooldownEnemyExplosion();
-            }
+        {
+            TimerCooldownEnemyExplosion();
+        }
 
-            if(!canUseGranadeAttack)
-            {
-                TimerCooldownGranateAttack();
-            }
+        if(!canUseGranadeAttack)
+        {
+            TimerCooldownGranateAttack();
+        }
     }
     private void TimerCooldownGranateAttack()
     {   
        if(cooldownGranadeAttack >= 0)
         {
             cooldownGranadeAttack = cooldownGranadeAttack-Time.deltaTime*1;
-        }else{
+        }
+        else
+        {
             canUseGranadeAttack = true;
         }
     }
@@ -119,7 +139,9 @@ public class CharAblities : BaseGame
         if(cooldownExplodeEnemy >= 0)
         {
             cooldownExplodeEnemy = cooldownExplodeEnemy-Time.deltaTime*1;
-        }else{
+        }
+        else
+        {
             canUseExplosionEnemy = true;
         }
     }

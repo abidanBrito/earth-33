@@ -1429,6 +1429,8 @@ GameObject:
   - component: {fileID: 5665934440654503898}
   - component: {fileID: 5684656376229047920}
   - component: {fileID: 3917465304148818410}
+  - component: {fileID: 8781108359079443715}
+  - component: {fileID: 5857939143193542856}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1556,6 +1558,38 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1.08, z: 0}
+--- !u!114 &8781108359079443715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4782849791100635544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b700af0a93eefea45a2c9d63f5329c7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boughtExploteEnemy: 0
+  priceExploteEnemy: 20
+  boughtThrowRocks: 0
+  priceThrowRocks: 10
+  boughtGranadeAttack: 0
+  priceGranadeAttack: 5
+--- !u!114 &5857939143193542856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4782849791100635544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd8ba6b794f57974cad8ebfdab0cc05c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownExplodeEnemy: 20
+  cooldownGranadeAttack: 10
 --- !u!1 &5381743256205952200
 GameObject:
   m_ObjectHideFlags: 0
