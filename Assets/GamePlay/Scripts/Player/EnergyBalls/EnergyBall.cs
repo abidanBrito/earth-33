@@ -23,6 +23,7 @@ public class EnergyBall : BaseGame
     void Start(){
         //not doing anything
         mode = -1;
+        esferas.Add(gameObject.GetComponent<EnergyBall>());
     }
 
     void Update()

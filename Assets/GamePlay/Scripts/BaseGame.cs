@@ -23,7 +23,11 @@ public class BaseGame : MonoBehaviour
     public static GameObject pointMovableObject;
     public static EnergyBall sphereObjectControl;
     public static bool collided = false;
-
+    public void ResetEnergyBalls()
+    {
+        esferas = null;
+        esferas = new List<EnergyBall>();
+    }
     private void Update()
     {
         pointMovableObject = GameObject.Find("pointMovableObject");
