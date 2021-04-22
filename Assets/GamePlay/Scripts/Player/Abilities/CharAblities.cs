@@ -7,31 +7,35 @@ public class CharAblities : BaseGame
 
     // Ability Exploting Pet Enemy
     private ExploteEnemy explodeEnemyController;
-    public float cooldownExplodeEnemy = 0;
+    public float cooldownExplodeEnemy = 20;
     private bool canUseExplosionEnemy = true;
 
-    // Ability Exploting Pet Enemy Healer
-    public float cooldownGranadeAttack= 0;
+    // Ability Granades
+    public float cooldownGranadeAttack = 10;
+    private float auxCooldownGranadeAttack;
     private bool canUseGranadeAttack = true;
 
-
+    private void Start(){
+    }
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(auxCooldownGranadeAttack);
         if(Input.GetKeyDown(KeyCode.F))
         {
-            CheckAbilityEnemyControl();
             CheckAbilityGranadeAttack();
+            CheckAbilityEnemyControl();
         }
         // si se puede usar
         CheckTimersAbilities();
+        
     }
     private void CheckAbilityGranadeAttack()
     {
         if(sphereModes == 0 && canUseGranadeAttack)
         {
             canUseGranadeAttack = false;
-            cooldownGranadeAttack = 10;
+            cooldownGranadeAttack = 1;
 
             List<EnergyBall> sphereHability = new List<EnergyBall>();
             
@@ -65,8 +69,8 @@ public class CharAblities : BaseGame
                 }
                 // ExploteEnemy(); // no deberia gastar la misma funcion
                 // canUseExplosionEnemy = false;
-                // cooldownExplodeEnemy = 20;
-            } else
+                // auxCooldownExplodeEnemy = 20;
+            } else if(pet.gameObject.tag == GameConstants.ENEMY_TAG)
             {
                 ExploteEnemy();
                 canUseExplosionEnemy = false;
@@ -74,20 +78,34 @@ public class CharAblities : BaseGame
             }
         }
     }
+    private void ExploteEnemy()
+    {
+        if(pet.tag == GameConstants.ENEMY_TAG){
+            if(!pet.GetComponent<ExploteEnemy>())
+            {
+                explodeEnemyController = pet.AddComponent<ExploteEnemy>();
+            }
+            if(Input.GetKeyDown(explodeEnemyController.key))
+            {
+                explodeEnemyController.ExplodeEnemy();
+            }
+        }
+    }
     private void CheckTimersAbilities()
     {
         if(!canUseExplosionEnemy)
-        {
-            TimerCooldownEnemyExplosion();
-        }
-        if(!canUseGranadeAttack)
-        {
-            TimerCooldownGranateAttack();
-        }
+            {
+                TimerCooldownEnemyExplosion();
+            }
+
+            if(!canUseGranadeAttack)
+            {
+                TimerCooldownGranateAttack();
+            }
     }
     private void TimerCooldownGranateAttack()
     {   
-        if(cooldownGranadeAttack >= 0)
+       if(cooldownGranadeAttack >= 0)
         {
             cooldownGranadeAttack = cooldownGranadeAttack-Time.deltaTime*1;
         }else{
@@ -103,19 +121,6 @@ public class CharAblities : BaseGame
             cooldownExplodeEnemy = cooldownExplodeEnemy-Time.deltaTime*1;
         }else{
             canUseExplosionEnemy = true;
-        }
-    }
-    private void ExploteEnemy()
-    {
-        if(pet.tag == GameConstants.ENEMY_TAG){
-            if(!pet.GetComponent<ExploteEnemy>())
-            {
-                explodeEnemyController = pet.AddComponent<ExploteEnemy>();
-            }
-            if(Input.GetKeyDown(explodeEnemyController.key))
-            {
-                explodeEnemyController.ExplodeEnemy();
-            }
         }
     }
 
