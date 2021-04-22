@@ -73,11 +73,13 @@ public class AI_Enemy : BaseGame
                 petInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPet);
                 petInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPet);
 
-                enemyFunctions(petInSightRange, petInAttackRange, pet.transform); 
-
                 // Same Code, with diferent layers, Siempre va a pegar al jugador si esta mas cerca
                 playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
                 playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+
+                if(!playerInSightRange && !playerInAttackRange){
+                    enemyFunctions(petInSightRange, petInAttackRange, pet.transform); 
+                }
 
                 if(!petInSightRange || playerInSightRange)
                 {
