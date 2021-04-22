@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnergyBall : BaseGame
 {
+    public GameObject explosionVFX;
     private float speed = 4f;
     private float rotationSpeed = 10f;
     private Vector3 towardTarget;

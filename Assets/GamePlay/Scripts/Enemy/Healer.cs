@@ -62,5 +62,8 @@ public class Healer : BaseGame
         alreadyHealed = true;
         Invoke(nameof(ResetHeal),timeBetweenHeals);
     }
-
+    public int getMobHealerHealth()
+    {
+        return (int)mobHealth;
+    }
 }
