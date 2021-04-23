@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Shield
-  m_Shader: {fileID: -6465566751694194690, guid: 0ec9f10c866b82d49b221e246d6a3767, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 877303cb7ed66ab45bc9664057e2c546, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
