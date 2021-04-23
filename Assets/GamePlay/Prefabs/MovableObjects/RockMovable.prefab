@@ -73,8 +73,8 @@ GameObject:
   - component: {fileID: 6623873209973211811}
   - component: {fileID: 8937480180734031465}
   - component: {fileID: 2763436701869948505}
-  - component: {fileID: 7428211594006466926}
   - component: {fileID: 1109073155393301489}
+  - component: {fileID: 5255706422229384949}
   m_Layer: 0
   m_Name: RockMovable
   m_TagString: MovableObject
@@ -158,19 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81ce83697a8134640b6291305e1eb14a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &7428211594006466926
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7424380451098286012}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.1849601, y: 0.3414207, z: 1.166958}
-  m_Center: {x: 0.06921392, y: 0.19870725, z: -0.021406397}
 --- !u!208 &1109073155393301489
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -187,3 +174,17 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.069000006, y: 0.19900002, z: -0.021000002}
   m_TimeToStationary: 0.5
+--- !u!64 &5255706422229384949
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7424380451098286012}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1865934538109519968, guid: 1a43e88a38dcfdc4a8885707f82aef0b, type: 3}
