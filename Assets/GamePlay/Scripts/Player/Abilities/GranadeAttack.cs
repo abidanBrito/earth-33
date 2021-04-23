@@ -46,7 +46,6 @@ public class GranadeAttack : BaseGame
             {
                 GameObject explosionPrefab = sphere.explosionVFX;
                 ExplosionVFX(explosionPrefab);
-
                 ExplosionAttack(transform, radius, damage, power);
                 gameObject.transform.parent = parent;
                 sphere.movements = -1;

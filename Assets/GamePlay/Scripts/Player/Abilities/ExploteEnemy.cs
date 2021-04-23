@@ -17,11 +17,13 @@ public class ExploteEnemy : BaseGame
         GameObject explosionPrefab = null;
         if(gameObject.tag == GameConstants.ENEMY_TAG){
             explosionPrefab = gameObject.GetComponent<AI_Enemy>().explosionEffect;
+            ExplosionVFX(explosionPrefab);
             ExplosionAttack(transform, radius, damage, power);
         }else{
             explosionPrefab = gameObject.GetComponent<Healer>().explosionEffect;
+            ExplosionVFX(explosionPrefab);
+
         }
-        ExplosionVFX(explosionPrefab);
 
         Pet petController = pet.GetComponent<Pet>();
         petController.StopControlingEnemy(); // deja de controlar el enemigo antes de destruirlo   

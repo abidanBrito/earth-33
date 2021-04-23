@@ -12307,7 +12307,7 @@ MonoBehaviour:
   mobHealth: 50
   healingValue: 10
   timeBetweenHeals: 3
-  explosionEffect: {fileID: 4017264033081383540, guid: c597cff731175af4a99a1b169ab70519, type: 3}
+  explosionEffect: {fileID: 1774791834312446, guid: db791f5a5b572c44e872174c12c2f2ce, type: 3}
 --- !u!199 &8255337216099788119
 ParticleSystemRenderer:
   serializedVersion: 6

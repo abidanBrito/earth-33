@@ -57,7 +57,9 @@ public class BaseGame : MonoBehaviour
     }
     public void ExplosionVFX(GameObject explosionPrefab)
     {
-        GameObject explosionFX = Instantiate(explosionPrefab, transform.position, transform.rotation); // crea el efecto de explotar
+      
+        Quaternion rotation = Quaternion.Euler(transform.eulerAngles);
+        GameObject explosionFX = Instantiate(explosionPrefab, transform.position, rotation); // crea el efecto de explotar
         Destroy(explosionFX, 1.5f);
     }
     public void ExplosionAttack(Transform transform, float radius, float damage, float power)

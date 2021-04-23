@@ -1570,12 +1570,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b700af0a93eefea45a2c9d63f5329c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boughtExploteEnemy: 0
-  priceExploteEnemy: 20
-  boughtThrowRocks: 0
-  priceThrowRocks: 10
-  boughtGranadeAttack: 0
   priceGranadeAttack: 5
+  priceThrowObjects: 10
+  priceExplodeEnemy: 20
 --- !u!114 &5857939143193542856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1588,8 +1585,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd8ba6b794f57974cad8ebfdab0cc05c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownExplodeEnemy: 20
-  cooldownGranadeAttack: 10
+  awaitTimeExplodeEnemy: 0
+  awaitTimeGranadeAttack: 0
 --- !u!1 &5381743256205952200
 GameObject:
   m_ObjectHideFlags: 0
@@ -2872,6 +2869,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3801205168353482473, guid: 181113e8801830c4c82349b350d938a9, type: 3}
+      propertyPath: explosionVFX
+      value: 
+      objectReference: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 181113e8801830c4c82349b350d938a9, type: 3}
 --- !u!4 &1753178457809606225 stripped
@@ -2934,6 +2935,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3801205168353482473, guid: 181113e8801830c4c82349b350d938a9, type: 3}
+      propertyPath: explosionVFX
+      value: 
+      objectReference: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 181113e8801830c4c82349b350d938a9, type: 3}
 --- !u!4 &3796510300920741791 stripped
@@ -2996,6 +3001,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3801205168353482473, guid: 181113e8801830c4c82349b350d938a9, type: 3}
+      propertyPath: explosionVFX
+      value: 
+      objectReference: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 181113e8801830c4c82349b350d938a9, type: 3}
 --- !u!4 &4701588841072663306 stripped
