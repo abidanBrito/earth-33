@@ -20,11 +20,11 @@ public class BossShiled : BaseGame
         else if(crystals.Count == 2)
         {
             gameObject.transform.localScale = new Vector3(4f, 4f, 4f);
+
         }
         else if(crystals.Count == 1)
         {
-            gameObject.transform.localScale = new Vector3(2f, 2f, 2f);
-
+            gameObject.transform.localScale = new Vector3(3f, 3f, 3f);
         }
         else if(crystals.Count == 0)
         {

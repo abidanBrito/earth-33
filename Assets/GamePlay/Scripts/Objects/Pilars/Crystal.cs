@@ -26,7 +26,7 @@ public class Crystal : BaseGame
 
         if(active)
         {
-            transform.Rotate (0,25*Time.deltaTime,0); //rotates 50 degrees per second around z axis
+            transform.Rotate (0,50*Time.deltaTime,0); //rotates 50 degrees per second around z axis
         }
         if(collectedObject == gameObject){
             distance = Vector3.Distance(transform.position, pointMovableObject.transform.position);
@@ -50,6 +50,9 @@ public class Crystal : BaseGame
             sphere.movements = 2;                         // Poniendo la esfera en estado de control 2 (Objetos)
             sphereObjectControl = sphere;     // Poniendo la esfera en las constantes para tener en cuenta cual es la que esta siendo utilizada para controlar
             usingBall = false;               // Poniendo el estado de usando esferas a falso para que las demas puedan ser utilizadas
+            if(!rb){
+                rb = gameObject.AddComponent<Rigidbody>();
+            }
         }else{
             if(gameObject != collectedObject){
                 StopControlingObject();
@@ -63,9 +66,6 @@ public class Crystal : BaseGame
         collectedObject = null;
         sphereObjectControl.movements = -1;                         // Poniendo la esfera en estado de control 2 (Objetos)
         sphereObjectControl = null;     // Poniendo la esfera en las constantes para tener en cuenta cual es la que esta siendo utilizada para controlar
-        if(!rb){
-            rb = gameObject.AddComponent<Rigidbody>();
-        }
     }
 
     private void OnTriggerEnter(Collider other)
