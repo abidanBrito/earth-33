@@ -95,15 +95,25 @@ public class CharController : BaseGame
             }
         }
         if(collectedObject != null){
-            if(Input.GetKeyDown(KeyCode.R)){
-              if(collectedObject.tag == GameConstants.MOVABLE_OBJECTS_TAG)
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+              if (collectedObject.tag == GameConstants.MOVABLE_OBJECTS_TAG)
                 {
                     MovableObjects movableObject = collectedObject.GetComponent<MovableObjects>();
-                    movableObject.StopControlingObject();
-                }else if(collectedObject.tag == GameConstants.CRYSTAL_TAG)
+                    movableObject.stopControlingObject();
+                }
+                else if (collectedObject.tag == GameConstants.CRYSTAL_TAG)
                 {
                     Crystal crystal = collectedObject.GetComponent<Crystal>();
                     crystal.StopControlingObject();
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                if (collectedObject.tag == GameConstants.MOVABLE_OBJECTS_TAG)
+                {
+                    MovableObjects movableObject = collectedObject.GetComponent<MovableObjects>();
+                    movableObject.shootControlledObject();
                 }
             }
         }
