@@ -2872,7 +2872,7 @@ PrefabInstance:
     - target: {fileID: 3801205168353482473, guid: 181113e8801830c4c82349b350d938a9, type: 3}
       propertyPath: explosionVFX
       value: 
-      objectReference: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
+      objectReference: {fileID: 1134129239631916, guid: 7e48ba6b1b968764490bbc70b66e3fe1, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 181113e8801830c4c82349b350d938a9, type: 3}
 --- !u!4 &1753178457809606225 stripped
@@ -2938,7 +2938,7 @@ PrefabInstance:
     - target: {fileID: 3801205168353482473, guid: 181113e8801830c4c82349b350d938a9, type: 3}
       propertyPath: explosionVFX
       value: 
-      objectReference: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
+      objectReference: {fileID: 1134129239631916, guid: 7e48ba6b1b968764490bbc70b66e3fe1, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 181113e8801830c4c82349b350d938a9, type: 3}
 --- !u!4 &3796510300920741791 stripped
@@ -3004,7 +3004,7 @@ PrefabInstance:
     - target: {fileID: 3801205168353482473, guid: 181113e8801830c4c82349b350d938a9, type: 3}
       propertyPath: explosionVFX
       value: 
-      objectReference: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
+      objectReference: {fileID: 1134129239631916, guid: 7e48ba6b1b968764490bbc70b66e3fe1, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 181113e8801830c4c82349b350d938a9, type: 3}
 --- !u!4 &4701588841072663306 stripped

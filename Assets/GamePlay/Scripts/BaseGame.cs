@@ -55,12 +55,13 @@ public class BaseGame : MonoBehaviour
         var method = type.GetMethod("Clear");
         method.Invoke(new object(), null);
     }
-    public void ExplosionVFX(GameObject explosionPrefab)
-    {
-      
+    public void ExplosionVFX(GameObject explosionPrefab, float timeToDestroy = 1.5f)
+    {   GameObject explosionFX = null;
         Quaternion rotation = Quaternion.Euler(transform.eulerAngles);
-        GameObject explosionFX = Instantiate(explosionPrefab, transform.position, rotation); // crea el efecto de explotar
-        Destroy(explosionFX, 1.5f);
+       
+        explosionFX = Instantiate(explosionPrefab, transform.position, rotation); // crea el efecto de explotar
+        
+        Destroy(explosionFX, timeToDestroy);
     }
     public void ExplosionAttack(Transform transform, float radius, float damage, float power)
     {

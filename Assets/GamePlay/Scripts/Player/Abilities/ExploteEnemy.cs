@@ -21,8 +21,7 @@ public class ExploteEnemy : BaseGame
             ExplosionAttack(transform, radius, damage, power);
         }else{
             explosionPrefab = gameObject.GetComponent<Healer>().explosionEffect;
-            ExplosionVFX(explosionPrefab);
-
+            ExplosionVFX(explosionPrefab, 3f);
         }
 
         Pet petController = pet.GetComponent<Pet>();
