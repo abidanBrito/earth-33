@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class NutsAndBolts : BaseGame
 {
-    private float speed = 4f;
-    private float rotationSpeed = 10f;
+    [SerializeField] private float speed = 6f;
+    [SerializeField] private float rotationSpeed = 10f;
     private Vector3 towardsTarget;
     private Vector3 targetPosition;
     private int mode = 0;
@@ -59,6 +59,7 @@ public class NutsAndBolts : BaseGame
 
         smoothMovement(transform, towardsTarget, speed, rotationSpeed);
 
-        if(mode == 1 && towardsTarget.magnitude < 0.1f) mode = 0; gameObject.tag = GameConstants.TORNILLO_TAG;
+        if(mode == 1 && towardsTarget.magnitude < 0.1f) mode = 0; 
+        gameObject.tag = GameConstants.TORNILLO_TAG;
     }
 }
