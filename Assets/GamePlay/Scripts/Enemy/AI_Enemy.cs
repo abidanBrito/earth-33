@@ -124,7 +124,6 @@ public class AI_Enemy : BaseGame
             agent.SetDestination(objectTransform.position);
             transform.LookAt(objectTransform);
         }
-
     }
     public void attack(Transform objectTransform)
     {
@@ -154,7 +153,7 @@ public class AI_Enemy : BaseGame
         for(int i = 0; i <= Random.Range(3f, 6f); i++)
         {   
             // Lo creo para que no coja el prefab.
-            GameObject tornilloCreado =  Instantiate(tornillo, gameObject.transform) as GameObject;
+            GameObject tornilloCreado = Instantiate(tornillo, gameObject.transform) as GameObject;
             tornilloCreado.transform.parent = null;
         }
         if(pet == gameObject)
@@ -166,12 +165,16 @@ public class AI_Enemy : BaseGame
         agent = null;
         Destroy(gameObject);
     }
-    private void TakeDamage(EnergyBall esfera)
+    private void takeDamage(EnergyBall sphere)
     {
-        if(esfera.modes == 0){
-            health -= 2.5f;
-        }
-        if(health <= 0) CreateDrop();  
+        if (sphere.modes == 0) health -= 2.5f;
+        if (health <= 0) CreateDrop();  
+    }
+
+    private void takeDamage(MovableObjects rock) 
+    {
+        health -= rock.ShotDamage;
+        if (health <= 0) CreateDrop();  
     }
 
     //Gizmos
@@ -184,7 +187,6 @@ public class AI_Enemy : BaseGame
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, walkPointRange);
     }
-    
 
     public void enemyFunctions(bool inSightRange, bool inAttackRange, Transform objectTransform)
     {
@@ -201,25 +203,36 @@ public class AI_Enemy : BaseGame
     }
     public void OnTriggerEnter(Collider other) 
     {
-        if(other.gameObject.tag == GameConstants.ESFERA_TAG)
-        {
-            if(!pet)
-            {
-                TakeDamage(other.GetComponent<EnergyBall>());
-            }else if(pet != gameObject)
-            {
-                TakeDamage(other.GetComponent<EnergyBall>());
-            }
+        switch (other.gameObject.tag) {
+            case GameConstants.ESFERA_TAG:
+                if (!pet || pet != gameObject) 
+                {
+                    takeDamage(other.GetComponent<EnergyBall>());
+                }
+                break;
+
+            default:
+                break;
         }
-        
     }
     private void OnCollisionEnter(Collision other)
     {
-        Projectile projectile = other.gameObject.GetComponent<Projectile>();
-        if(projectile != null)
-        {
-            health -= 2f;
-            Destroy(projectile);
+        switch (other.gameObject.tag) {
+            case GameConstants.PROJECTILE_TAG:
+                if (other.gameObject.GetComponent<Projectile>() != null)
+                {
+                    health -= 2f;
+                    Destroy(projectile);
+                }
+                break;
+            
+            case GameConstants.MOVABLE_OBJECTS_TAG:
+                takeDamage(other.gameObject.GetComponent<MovableObjects>());
+                Debug.Log(other.gameObject);
+                break;
+
+            default:
+                break;
         }
     }
 }

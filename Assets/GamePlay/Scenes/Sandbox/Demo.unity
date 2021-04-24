@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43913564, g: 0.4874, b: 0.5676512, a: 1}
+  m_IndirectSpecularColor: {r: 0.4391363, g: 0.48740053, b: 0.5676515, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -214,6 +214,10 @@ PrefabInstance:
       propertyPath: near clip plane
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 4610169472875379576, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 4610169473480983990, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
       propertyPath: IgnoreTag
       value: Untagged
@@ -229,6 +233,10 @@ PrefabInstance:
     - target: {fileID: 4610169473480983990, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
       propertyPath: CameraCollisionFilter.m_Bits
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610169473747531664, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
       objectReference: {fileID: 0}
     - target: {fileID: 4610169473747531665, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
       propertyPath: m_Follow
@@ -5959,6 +5967,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 3.83
       objectReference: {fileID: 0}
+    - target: {fileID: 3103846743430711863, guid: 0d7198c8d1dfd684e8a05e18d3597487, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.57
+      objectReference: {fileID: 0}
     - target: {fileID: 3917465304148818410, guid: 0d7198c8d1dfd684e8a05e18d3597487, type: 3}
       propertyPath: m_Radius
       value: 0.3
@@ -6080,6 +6092,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1817577046}
     m_Modifications:
+    - target: {fileID: 2763436701869948505, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
+      propertyPath: shotDamage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7424380451098286012, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
       propertyPath: m_Name
       value: RockMovable_02
