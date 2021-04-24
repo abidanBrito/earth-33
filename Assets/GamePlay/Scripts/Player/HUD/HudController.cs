@@ -40,22 +40,31 @@ public class HudController : BaseGame
     private Text UI_Attack_Bolt_Counter;
     private Text UI_Control_Bolt_Counter;
     private Text UI_Posesion_Bolt_Counter;
-    private int nutsCounter;
+    private int boltsCounter;
 
+    // Pet Health
+    private GameObject UI_Attack_Pet_Health;
+    private GameObject UI_Control_Pet_Health;
+    private GameObject UI_Posesion_Pet_Health;
+    
+    private Text UI_Attack_Pet_Life;
+    private Text UI_Control_Pet_Life;
+    private Text UI_Posesion_Pet_Life;
 
 
     List<GameObject> sphereController = new List<GameObject>();
     void Start()
     {
-        // text = GameObject.Find("ContadorTornillos").GetComponent<Text>();
-        // playerHealth = GameObject.Find("playerHealthHUD").GetComponent<Text>();
-        // sphereMode = GameObject.Find("sphereModeHUD").GetComponent<Text>();
-        // itemSpaceship = GameObject.Find("itemSpaceshipHUD").GetComponent<Text>();
-
         //UI Modes
         UI_ModeAttack = GameObject.Find("UI_ModeAttack");
         UI_ModeControl = GameObject.Find("UI_ModeControl");
         UI_ModePosesion = GameObject.Find("UI_ModePosesion");
+
+        //UI pet Health
+        UI_Attack_Pet_Health = GameObject.Find("UI_Attack_Pet_Health");
+        UI_Control_Pet_Health = GameObject.Find("UI_Control_Pet_Health");
+        UI_Posesion_Pet_Health = GameObject.Find("UI_Posesion_Pet_Health");
+
         uI_HealthBarBoss = GameObject.Find("TopSide");
         // UI Sphere Counter
         UI_HealthBarBoss.SetActive(false);
@@ -63,40 +72,67 @@ public class HudController : BaseGame
 
     void Update()
     {
-        nutsCounter =  GameManager.Instance.Nuts;
-        // text.text = "Tornillos: " + GameManager.Instance.Nuts.ToString();
-
-        // health = GameObject.Find("Player").GetComponent<CharHealth>();
-        // playerHealth.text = "HP: "+ health.health;
-
-        
-       
-        // if(pet){
-        //   petHealth= (int) pet.GetComponent<AI_Enemy>().health;
-        // }
-
-        // if(BaseGame.sphereModes == 0){
-        //     sphereMode.text = "Modo: Ataque "+sphereController.Count;
-        // }else if(BaseGame.sphereModes == 1){
-        //     sphereMode.text = "Modo: Controlar Objetos ";
-        // }else if(BaseGame.sphereModes == 2){
-        //     sphereMode.text = "Modo: Controlar Enemigos "+petHealth;
-        // }
-
-        // itemSpaceship.text = "ItemNave: " + Inventory.quantity.ToString();
         ChangeUIModes();
         CheckingSphereQuantityUI();
         UpdatingPlayerHealth();
-
+        UpdatingBoltsCounter();
+        UpdatingPetHealth();
+    }
+    private void UpdatingPetHealth()
+    {
+        if(pet){
+            petHealth = (int) pet.GetComponent<AI_Enemy>().health;
+        }
+        if(sphereModes == 0){
+            if(pet)
+            {
+                UI_Attack_Pet_Health.SetActive(true);
+                UI_Attack_Pet_Life = GameObject.Find("UI_Attack_Pet_Life").GetComponent<Text>();
+                UI_Attack_Pet_Life.text = petHealth + "%";
+            }
+            else
+            {
+                UI_Attack_Pet_Health.SetActive(false);
+            }
+        }
+        if(sphereModes == 1)
+        {
+            if(pet)
+            {
+                UI_Control_Pet_Health.SetActive(true);
+                UI_Control_Pet_Life = GameObject.Find("UI_Control_Pet_Life").GetComponent<Text>();
+                UI_Control_Pet_Life.text = petHealth + "%";
+            }
+            else
+            {
+                UI_Control_Pet_Health.SetActive(false);
+            }
+        }
+        if(sphereModes == 2)
+        {
+            if(pet)
+            {
+                UI_Posesion_Pet_Health.SetActive(true);
+                UI_Posesion_Pet_Life = GameObject.Find("UI_Posesion_Pet_Life").GetComponent<Text>();
+                UI_Posesion_Pet_Life.text = petHealth + "%";
+            }
+            else
+            {
+                UI_Posesion_Pet_Health.SetActive(false);
+            }
+        }
+    }
+    private void UpdatingBoltsCounter()
+    {
+        boltsCounter =  GameManager.Instance.Nuts;
         if(UI_Attack_Bolt_Counter != null)
-        UI_Attack_Bolt_Counter.text = nutsCounter.ToString();
+        UI_Attack_Bolt_Counter.text = boltsCounter.ToString();
         
         if(UI_Control_Bolt_Counter != null)
-        UI_Control_Bolt_Counter.text = nutsCounter.ToString();
+        UI_Control_Bolt_Counter.text = boltsCounter.ToString();
 
         if(UI_Posesion_Bolt_Counter != null)
-        UI_Posesion_Bolt_Counter.text = nutsCounter.ToString();
-        
+        UI_Posesion_Bolt_Counter.text = boltsCounter.ToString();
     }
     private void UpdatingPlayerHealth()
     {
@@ -121,8 +157,6 @@ public class HudController : BaseGame
             UI_Attack_Ammo_Number = GameObject.Find("UI_Attack_Ammo_Number").GetComponent<Text>();
             UI_Attack_Percentage = GameObject.Find("UI_Attack_Percentage").GetComponent<Text>();
             UI_Attack_Bolt_Counter = GameObject.Find("UI_Attack_Bolt_Counter").GetComponent<Text>();
-
-
         }
         else if(sphereModes == 1)
         {
