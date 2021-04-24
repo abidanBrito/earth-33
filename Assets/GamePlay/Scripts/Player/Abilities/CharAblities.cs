@@ -7,14 +7,15 @@ public class CharAblities : BaseGame
 
     // Ability Exploting Pet Enemy
     private ExploteEnemy explodeEnemyController;
-    public float awaitTimeExplodeEnemy;
+    [SerializeField]
+    private float awaitTimeExplodeEnemy;
     private float cooldownExplodeEnemy = 20;
-    private bool canUseExplosionEnemy = true;
-
+    public bool canUseExplosionEnemy = true;
     // Ability Granades
-    public float awaitTimeGranadeAttack;
+    [SerializeField]
+    private float awaitTimeGranadeAttack;
     private float cooldownGranadeAttack = 10;
-    private bool canUseGranadeAttack = true;
+    public bool canUseGranadeAttack = true;
 
     // Ability Rocks
     // Mising
