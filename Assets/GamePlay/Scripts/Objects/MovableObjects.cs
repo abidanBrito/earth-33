@@ -49,6 +49,7 @@ public class MovableObjects : BaseGame
         {
             rb.useGravity = false;
             transform.SetParent(pointMovableObject.gameObject.transform);
+            gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, gameObject.transform.rotation.y, 0));
             collectedObject = gameObject;
             sphere.movements = 2;               // Poniendo la esfera en estado de control 2 (Objetos)
             sphereObjectControl = sphere;       // Poniendo la esfera en las constantes para tener en cuenta cual es la que esta siendo utilizada para controlar
