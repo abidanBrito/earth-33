@@ -13277,6 +13277,7 @@ GameObject:
   - component: {fileID: 809926972350454166}
   - component: {fileID: 809926972350454164}
   - component: {fileID: 809926972350454167}
+  - component: {fileID: 809926972350454162}
   m_Layer: 5
   m_Name: BossHealth
   m_TagString: Untagged
@@ -13284,6 +13285,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &809926972350454162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809926972350454161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93fe2ee594ddc16419b8a1ddc5805411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &809926972350454164
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14862,7 +14875,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 5b12a4284debd8c4e95e46c7f75ca27f, type: 2}
     - target: {fileID: 6182116480325360738, guid: 9210acfa387af7f43ba2718ce5a2af00, type: 3}
       propertyPath: health
-      value: 5
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6182116480325360738, guid: 9210acfa387af7f43ba2718ce5a2af00, type: 3}
       propertyPath: tornillo
@@ -14872,6 +14885,10 @@ PrefabInstance:
       propertyPath: projectile
       value: 
       objectReference: {fileID: 1446380098884818681, guid: 58bf3637f6e906544a32a7f2e7ac188d, type: 3}
+    - target: {fileID: 6182116480325360738, guid: 9210acfa387af7f43ba2718ce5a2af00, type: 3}
+      propertyPath: sightRange
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9143361597273569336, guid: 9210acfa387af7f43ba2718ce5a2af00, type: 3}
       propertyPath: m_Name
       value: Boss

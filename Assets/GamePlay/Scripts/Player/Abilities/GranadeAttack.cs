@@ -47,14 +47,18 @@ public class GranadeAttack : BaseGame
                 nextPoint = points[count]; 
             } else 
             {
-                GameObject explosionPrefab = sphere.explosionVFX;
-                ExplosionVFX(explosionPrefab);
-                ExplosionAttack(transform, radius, damage, power);
-                gameObject.transform.parent = parent;
-                sphere.movements = -1;
-                Destroy(GetComponent<GranadeAttack>());
+                ResetSphere();
             }
         }
+    }
+    private void ResetSphere()
+    {
+        GameObject explosionPrefab = sphere.explosionVFX;
+        ExplosionVFX(explosionPrefab);
+        ExplosionAttack(transform, radius, damage, power);
+        gameObject.transform.parent = parent;
+        sphere.movements = -1;
+        Destroy(GetComponent<GranadeAttack>());
     }
 
     public Vector3[] parabolicMovement(Vector3 startingPos, Vector3 arrivingPos)
@@ -102,6 +106,13 @@ public class GranadeAttack : BaseGame
         return frames;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == GameConstants.ENVIROMENT_TAG || other.GetComponent<BossShiled>())
+        {
+            ResetSphere();
+        }
+    }
     void OnDrawGizmos() 
     {
         Gizmos.color = Color.yellow;

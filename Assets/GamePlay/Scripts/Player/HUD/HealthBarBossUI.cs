@@ -7,6 +7,8 @@ public class HealthBarBossUI : BaseGame
     [SerializeField]
     private GameObject bossEntity;
     private float bossHealth;
+    private GameObject hudBossHealth;
+    private float maxHealth = 100f;
     
     [SerializeField]
     private PilarsController pilarsController;
@@ -14,10 +16,16 @@ public class HealthBarBossUI : BaseGame
 
     //controlador hud crystales
     private GameObject[] crystalHud = new GameObject[3];
+
+    
     private void Start()
     {
         hudController = GameObject.Find("HudController").GetComponent<HudController>();
-        bossHealth = bossEntity.GetComponent<Boss>().health;
+        hudBossHealth = GameObject.Find("BossHealth");
+    }
+    private void Update()
+    {
+        
     }
     private void CounterCrystalsHud()
     {
@@ -60,8 +68,16 @@ public class HealthBarBossUI : BaseGame
     }
     private void OnTriggerStay(Collider other)
     {
-        if(other.tag == GameConstants.PLAYER_TAG){
-            CounterCrystalsHud();
+        if(bossEntity != null)
+        {
+            if(other.tag == GameConstants.PLAYER_TAG){
+                CounterCrystalsHud();
+                bossHealth = bossEntity.GetComponent<Boss>().health;
+                hudBossHealth.transform.localScale = new Vector3(bossHealth/maxHealth,1f,1f);
+            }
+        }else
+        {
+            hudController.UI_HealthBarBoss.SetActive(false);
         }
     }
     private void OnTriggerExit(Collider other)
