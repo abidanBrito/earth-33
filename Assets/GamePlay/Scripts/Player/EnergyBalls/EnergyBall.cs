@@ -37,14 +37,6 @@ public class EnergyBall : BaseGame
                 if(movement == -1) calcularRuta(transform.parent.position);
             }
         }
-        //si la esfera en concreto no esta siendo utilizada para controlar, no hara el movimiento de volver
-        if(movement != 1 || movement != 2){
-            if(movement == 0) calcularRuta(hitPosition);
-            if(transform.parent)
-            {
-                if(movement == -1) calcularRuta(transform.parent.position);
-            }
-        }
     }
 
     public void Disparar()
