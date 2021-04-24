@@ -18,6 +18,11 @@ public class HudController : BaseGame
     private GameObject UI_ModeControl;
     private GameObject UI_ModePosesion;
 
+    private GameObject uI_HealthBarBoss;
+    public GameObject UI_HealthBarBoss{
+        get => uI_HealthBarBoss;
+    }
+
     List<GameObject> sphereController = new List<GameObject>();
     void Start()
     {
@@ -29,7 +34,8 @@ public class HudController : BaseGame
         UI_ModeAttack = GameObject.Find("UI_ModeAttack");
         UI_ModeControl = GameObject.Find("UI_ModeControl");
         UI_ModePosesion = GameObject.Find("UI_ModePosesion");
-
+        uI_HealthBarBoss = GameObject.Find("TopSide");
+        UI_HealthBarBoss.SetActive(false);
     }
 
     void Update()
@@ -88,7 +94,5 @@ public class HudController : BaseGame
             UI_ModeControl.SetActive(false);
             UI_ModePosesion.SetActive(true);
         }
-
-
     }
 }

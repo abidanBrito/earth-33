@@ -12,6 +12,10 @@ public class HealthBarBossUI : BaseGame
     private PilarsController pilarsController;
     private HudController hudController;
 
+    //controlador hud crystales
+    private GameObject[] crystalHud = new GameObject[3];
+
+
     private void Start()
     {
         hudController = GameObject.Find("HudController").GetComponent<HudController>();
@@ -21,47 +25,50 @@ public class HealthBarBossUI : BaseGame
     {
         if(pilarsController.crystals.Count == 3)
         {
-            // if(!hudController.crystal3.enabled)
-            // {
-            //     hudController.crystal3.enabled = true;
-            //     hudController.crystal2.enabled = true;
-            //     hudController.crystal1.enabled = true;
-            // }
+            crystalHud[0].SetActive(true);
+            crystalHud[1].SetActive(true);
+            crystalHud[2].SetActive(true);
         }
         else if(pilarsController.crystals.Count == 2)
         {
-            // if(hudController.crystal3.enabled)
-            // {
-            //     hudController.crystal3.enabled = false;
-            // }
+            if(crystalHud[2] != null)
+            {
+                crystalHud[2].SetActive(false);
+            }
         }
         else if(pilarsController.crystals.Count == 1)
         {
-            // if(hudController.crystal2.enabled)
-            // {
-            //     hudController.crystal2.enabled = false;
-            // }
-        }else{
-            // if(hudController.crystal1.enabled)
-            // {
-            //     hudController.crystal1.enabled = false;
-            // }
+            if(crystalHud[1] != null)
+            {
+                crystalHud[1].SetActive(false);
+            }
+        }
+        else
+        {
+            if(crystalHud[0] != null)
+            {
+                crystalHud[0].SetActive(false);
+            }
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+       if(other.tag == GameConstants.PLAYER_TAG){
+            hudController.UI_HealthBarBoss.SetActive(true);
+            crystalHud[0] = GameObject.Find("ShieldLeft");
+            crystalHud[1] = GameObject.Find("ShieldCenter");
+            crystalHud[2] = GameObject.Find("ShieldRight");
         }
     }
     private void OnTriggerStay(Collider other)
     {
-        // if(!hudController.healthBarBoss.enabled)
-        // {
-        //     hudController.healthBarBoss.enabled = true;
-        // }
-        CounterCrystalsHud();
+        if(other.tag == GameConstants.PLAYER_TAG){
+            CounterCrystalsHud();
+        }
     }
     private void OnTriggerExit(Collider other)
     {
-        // if(hudController.healthBarBoss.enabled)
-        // {
-        //     hudController.healthBarBoss.enabled = false;
-        // }
+        hudController.UI_HealthBarBoss.SetActive(false);
     }
         
 }
