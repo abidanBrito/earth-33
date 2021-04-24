@@ -13,7 +13,7 @@ public class MovableObjects : BaseGame
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        spherePosition = transform.GetChild(0).GetChild(0).transform;
+        spherePosition = transform.GetChild(0).transform;
         player = GameObject.Find("Player");
     }
     // Update is called once per frame
