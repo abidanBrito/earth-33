@@ -11758,7 +11758,7 @@ GameObject:
   - component: {fileID: 809926971245389455}
   - component: {fileID: 809926971245389454}
   m_Layer: 5
-  m_Name: UI_Attack_Pet_Health
+  m_Name: UI_Posesion_Pet_Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11834,7 +11834,7 @@ GameObject:
   - component: {fileID: 809926971295506695}
   - component: {fileID: 809926971295506694}
   m_Layer: 5
-  m_Name: UI_Attack_Health
+  m_Name: UI_Control_Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12452,7 +12452,7 @@ GameObject:
   - component: {fileID: 809926971485184258}
   - component: {fileID: 809926971485184285}
   m_Layer: 5
-  m_Name: UI_Attack_Pet_Life
+  m_Name: UI_Control_Pet_Life
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12508,7 +12508,7 @@ GameObject:
   - component: {fileID: 809926971506089793}
   - component: {fileID: 809926971506089792}
   m_Layer: 5
-  m_Name: UI_Attack_Bolt_Counter
+  m_Name: UI_Posesion_Bolt_Counter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12636,7 +12636,7 @@ GameObject:
   - component: {fileID: 809926971545847174}
   - component: {fileID: 809926971545847169}
   m_Layer: 5
-  m_Name: UI_Attack_Bolt_Counter
+  m_Name: UI_Control_Bolt_Counter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12720,7 +12720,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 254
+  m_Text: 0
 --- !u!222 &809926971587891927
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13123,7 +13123,7 @@ GameObject:
   - component: {fileID: 809926972228955867}
   - component: {fileID: 809926972228955866}
   m_Layer: 5
-  m_Name: UI_Attack_Percentage
+  m_Name: UI_Posesion_Percentage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13429,7 +13429,7 @@ GameObject:
   - component: {fileID: 809926972454324867}
   - component: {fileID: 809926972454324866}
   m_Layer: 5
-  m_Name: UI_Attack_HealthBar
+  m_Name: UI_Posesion_HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13545,7 +13545,7 @@ GameObject:
   - component: {fileID: 809926972581649335}
   - component: {fileID: 809926972581649334}
   m_Layer: 5
-  m_Name: UI_Attack_HealthBar
+  m_Name: UI_Control_HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13732,7 +13732,7 @@ GameObject:
   - component: {fileID: 809926972621260488}
   - component: {fileID: 809926972621260491}
   m_Layer: 5
-  m_Name: UI_Posesion_Ammo_Number
+  m_Name: UI_Control_Ammo_Number
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14011,7 +14011,7 @@ GameObject:
   - component: {fileID: 809926972749788070}
   - component: {fileID: 809926972749788065}
   m_Layer: 5
-  m_Name: UI_Attack_Pet_Health
+  m_Name: UI_Control_Pet_Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14079,7 +14079,7 @@ GameObject:
   - component: {fileID: 809926972813644259}
   - component: {fileID: 809926972813644258}
   m_Layer: 5
-  m_Name: UI_Attack_Bolt_Counter
+  m_Name: UI_Posesion_Bolt_Counter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14463,7 +14463,7 @@ GameObject:
   - component: {fileID: 809926973008094124}
   - component: {fileID: 809926973008094127}
   m_Layer: 5
-  m_Name: UI_Attack_Pet_Life
+  m_Name: UI_Posesion_Pet_Life
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14593,7 +14593,7 @@ GameObject:
   - component: {fileID: 809926973016729926}
   - component: {fileID: 809926973016729921}
   m_Layer: 5
-  m_Name: UI_Attack_Health
+  m_Name: UI_Posesion_Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14694,7 +14694,7 @@ GameObject:
   - component: {fileID: 809926973239249263}
   - component: {fileID: 809926973239249262}
   m_Layer: 5
-  m_Name: UI_Attack_Bolt_Counter
+  m_Name: UI_Control_Bolt_Counter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14831,7 +14831,7 @@ GameObject:
   - component: {fileID: 809926973242117634}
   - component: {fileID: 809926973242117661}
   m_Layer: 5
-  m_Name: UI_Attack_Percentage
+  m_Name: UI_Control_Percentage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -14,8 +14,6 @@ public class HealthBarBossUI : BaseGame
 
     //controlador hud crystales
     private GameObject[] crystalHud = new GameObject[3];
-
-
     private void Start()
     {
         hudController = GameObject.Find("HudController").GetComponent<HudController>();
