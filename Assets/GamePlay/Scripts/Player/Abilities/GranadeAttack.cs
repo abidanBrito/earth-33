@@ -29,10 +29,13 @@ public class GranadeAttack : BaseGame
         parent = gameObject.transform.parent; 
         gameObject.transform.parent = null;
     }
-
+    private void FixedUpdate()
+    {
+        time = time + Time.fixedDeltaTime;
+    }
     void Update()
     {   
-        time = time + Time.deltaTime;
+        
         towardTarget = nextPoint - transform.position;
         smoothMovement(transform, towardTarget, speed * time, rotationSpeed);
 

@@ -19,6 +19,7 @@ TagManager:
   - RespawnTrigger
   - Crystal
   - Healer
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - IsEnemy
   - IsPet
   - Environment
-  - 
+  - whatIsWall
   - 
   - 
   - 

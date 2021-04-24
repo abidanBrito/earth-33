@@ -32,11 +32,18 @@ public class EnergyBall : BaseGame
         //si la esfera en concreto no esta siendo utilizada para controlar, no hara el movimiento de volver
         if(movement != 1 || movement != 2){
             if(movement == 0) calcularRuta(hitPosition);
-            if(movement == -1) calcularRuta(transform.parent.position);
+            if(transform.parent)
+            {
+                if(movement == -1) calcularRuta(transform.parent.position);
+            }
         }
-        if(movements != 1 || movements != 2){
-            if(movements == 0) calcularRuta(hitPosition);
-            if(movements == -1) calcularRuta(transform.parent.position);
+        //si la esfera en concreto no esta siendo utilizada para controlar, no hara el movimiento de volver
+        if(movement != 1 || movement != 2){
+            if(movement == 0) calcularRuta(hitPosition);
+            if(transform.parent)
+            {
+                if(movement == -1) calcularRuta(transform.parent.position);
+            }
         }
     }
 

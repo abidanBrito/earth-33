@@ -38,21 +38,6 @@ public class AbilitiesShop : BaseGame
             boughtExplodeEnemy = value;
         }
     }
-
-    public bool BuyAbility(bool boughtAbility, int priceAbility)
-    {
-        if(!boughtAbility)
-        {
-            if(GameManager.Instance.Nuts >= priceAbility)
-            {
-                GameManager.Instance.Nuts -= priceAbility;
-                boughtAbility = true;
-                return true;
-            }
-        }
-        return false;
-    }
-    /*
     public bool BuyGranadeAttack()
     {
         if(!BoughtGranadeAttack)
@@ -92,5 +77,5 @@ public class AbilitiesShop : BaseGame
             }
         }
         return false;
-    }*/
+    }
 }
