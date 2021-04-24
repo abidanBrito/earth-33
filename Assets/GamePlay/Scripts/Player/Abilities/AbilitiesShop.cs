@@ -5,8 +5,9 @@ using UnityEngine;
 public class AbilitiesShop : BaseGame
 {
     // Granade Attack
+    [SerializeField]
+    private int priceGranadeAttack = 5;
     private bool boughtGranadeAttack = false;
-    public int priceGranadeAttack = 5;
     public bool BoughtGranadeAttack
     {
         get => boughtGranadeAttack;
@@ -16,8 +17,9 @@ public class AbilitiesShop : BaseGame
     }
     
     // Throw Rocks
+    [SerializeField]
+    private int priceThrowObjects = 10;
     private bool boughtThrowObjects = false;
-    public int priceThrowObjects = 10;
     public bool BoughtThrowObjects
     {
         get => boughtThrowObjects;
@@ -27,8 +29,9 @@ public class AbilitiesShop : BaseGame
     }
     
     // Explote Enemy
+    [SerializeField]
+    private int priceExplodeEnemy = 20;
     private bool boughtExplodeEnemy = false;
-    public int priceExplodeEnemy = 20;
     public bool BoughtExplodeEnemy{
         get => boughtExplodeEnemy;
         set{
@@ -36,6 +39,20 @@ public class AbilitiesShop : BaseGame
         }
     }
 
+    public bool BuyAbility(bool boughtAbility, int priceAbility)
+    {
+        if(!boughtAbility)
+        {
+            if(GameManager.Instance.Nuts >= priceAbility)
+            {
+                GameManager.Instance.Nuts -= priceAbility;
+                boughtAbility = true;
+                return true;
+            }
+        }
+        return false;
+    }
+    /*
     public bool BuyGranadeAttack()
     {
         if(!BoughtGranadeAttack)
@@ -75,5 +92,5 @@ public class AbilitiesShop : BaseGame
             }
         }
         return false;
-    }
+    }*/
 }
