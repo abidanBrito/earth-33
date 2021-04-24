@@ -227,8 +227,9 @@ public class AI_Enemy : BaseGame
                 break;
             
             case GameConstants.MOVABLE_OBJECTS_TAG:
-                takeDamage(other.gameObject.GetComponent<MovableObjects>());
-                Debug.Log(other.gameObject);
+                if (collectedObject == null) {
+                    takeDamage(other.gameObject.GetComponent<MovableObjects>());
+                }
                 break;
 
             default:
