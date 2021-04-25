@@ -52,10 +52,10 @@ public class NutsAndBolts : BaseGame
     //Si el tornillo ha llegado al punto aleatorio, se convierte al tag 'Tornillo'
     public void buscarPunto()
     {
-        playerTargetPosition.y +=1f;
+        Vector3 positionPlayerHead = GameObject.Find("Neck").transform.position;
         
         if(mode == 1) towardsTarget = targetPosition - transform.position;
-        else if(mode == 2) towardsTarget = playerTargetPosition - transform.position;
+        else if(mode == 2) towardsTarget = positionPlayerHead - transform.position;
 
         smoothMovement(transform, towardsTarget, speed, rotationSpeed);
 
