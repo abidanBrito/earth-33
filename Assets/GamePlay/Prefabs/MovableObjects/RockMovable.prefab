@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shotForce: 20
-  shotDamage: 5
+  shotDamage: 2
 --- !u!208 &1109073155393301489
 NavMeshObstacle:
   m_ObjectHideFlags: 0
