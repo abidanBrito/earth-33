@@ -18,7 +18,10 @@ public class CharAblities : BaseGame
     public bool canUseGranadeAttack = true;
 
     // Ability Rocks
-    // Mising
+    [SerializeField]
+    private float awaitTimeThrowObjects;
+    private float cooldownTrhowObjects = 10;
+    public bool canUseTrhowObjects = true;
 
     // Shop Controller
     private AbilitiesShop shopController;
@@ -36,13 +39,13 @@ public class CharAblities : BaseGame
             {
                 CheckAbilityGranadeAttack();
             }
+            if(!shopController.BoughtThrowObjects)// HAY QUE CAMBIAR EL SHOP A ISTRUE
+            {
+                CheckAbilityTrhowObjects();
+            }
             if(!shopController.BoughtExplodeEnemy) // HAY QUE CAMBIAR EL SHOP A ISTRUE
             {
                 CheckAbilityEnemyControl();
-            }
-            if(!shopController.BoughtThrowObjects)// HAY QUE CAMBIAR EL SHOP A ISTRUE
-            {
-                
             }
         }
         // si se puede usar
@@ -72,6 +75,19 @@ public class CharAblities : BaseGame
                 sphereHability[1].gameObject.AddComponent<GranadeAttack>();
             }
 
+        }
+    }
+    private void CheckAbilityTrhowObjects()
+    {
+        if(sphereModes == 1 && canUseTrhowObjects)
+        {
+            if (collectedObject.tag == GameConstants.MOVABLE_OBJECTS_TAG)
+            {
+                MovableObjects movableObject = collectedObject.GetComponent<MovableObjects>();
+                movableObject.shootControlledObject();
+                canUseTrhowObjects = false;
+                cooldownTrhowObjects = awaitTimeThrowObjects;
+            }
         }
     }
     private void CheckAbilityEnemyControl()
@@ -118,14 +134,28 @@ public class CharAblities : BaseGame
     }
     private void CheckTimersAbilities()
     {
+        if(!canUseGranadeAttack)
+        {
+            TimerCooldownGranateAttack();
+        }
+        if(!canUseTrhowObjects)
+        {
+            TimerCooldownTrhowObjects();
+        }
         if(!canUseExplosionEnemy)
         {
             TimerCooldownEnemyExplosion();
         }
-
-        if(!canUseGranadeAttack)
+    }
+    private void TimerCooldownTrhowObjects()
+    {   
+       if(cooldownTrhowObjects >= 0)
         {
-            TimerCooldownGranateAttack();
+            cooldownTrhowObjects = cooldownTrhowObjects-Time.deltaTime*1;
+        }
+        else
+        {
+            canUseTrhowObjects = true;
         }
     }
     private void TimerCooldownGranateAttack()

@@ -38,7 +38,7 @@ public class AbilitiesShop : BaseGame
             boughtExplodeEnemy = value;
         }
     }
-    public bool BuyGranadeAttack()
+    public void BuyGranadeAttack()
     {
         if(!BoughtGranadeAttack)
         {
@@ -46,12 +46,10 @@ public class AbilitiesShop : BaseGame
             {
                 GameManager.Instance.Nuts -= priceGranadeAttack;
                 BoughtGranadeAttack = true;
-                return true;
             }
         }
-        return false;
     }
-    public bool BuyExplodeEnemy()
+    public void BuyExplodeEnemy()
     {
         if(!BoughtExplodeEnemy)
         {
@@ -59,13 +57,11 @@ public class AbilitiesShop : BaseGame
             {
                 GameManager.Instance.Nuts -= priceExplodeEnemy;
                 BoughtExplodeEnemy = true;
-                return true;
             }
         }
-        return false;
     }
 
-    public bool BuyThrowObjects()
+    public void BuyThrowObjects()
     {
         if(!boughtThrowObjects)
         {
@@ -73,9 +69,7 @@ public class AbilitiesShop : BaseGame
             {
                 GameManager.Instance.Nuts -= priceThrowObjects;
                 boughtThrowObjects = true;
-                return true;
             }
         }
-        return false;
     }
 }

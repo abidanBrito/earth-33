@@ -235,7 +235,10 @@ public class AI_Enemy : BaseGame
             case GameConstants.MOVABLE_OBJECTS_TAG:
                 if (collectedObject == null) {
                     MovableObjects rock = other.gameObject.GetComponent<MovableObjects>();
-                    takeDamage(rock);
+                    if(!rock.AlreadyHitted){
+                        takeDamage(rock);
+                        rock.AlreadyHitted = true;
+                    }
                     launchEnemy(power, radius, height, rock);
                 }
                 break;

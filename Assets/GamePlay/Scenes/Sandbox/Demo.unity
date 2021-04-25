@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4391363, g: 0.48740053, b: 0.5676515, a: 1}
+  m_IndirectSpecularColor: {r: 0.43913564, g: 0.4874, b: 0.5676512, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -336,7 +336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4610169473747531679, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
       propertyPath: m_TransparentLayers.m_Bits
-      value: 8256
+      value: 4096
       objectReference: {fileID: 0}
     - target: {fileID: 4610169473747531679, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
       propertyPath: m_MinimumDistanceFromTarget
@@ -994,7 +994,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e1aa6cf25c7af5e4295c64e7a548ad08, type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e1aa6cf25c7af5e4295c64e7a548ad08, type: 3}
       propertyPath: m_TagString
@@ -3451,6 +3451,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pilar (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1825255300335530594, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1825255300335530594, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: m_TagString
+      value: Enviroment
+      objectReference: {fileID: 0}
+    - target: {fileID: 5386265148512755571, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: m_TagString
+      value: Enviroment
+      objectReference: {fileID: 0}
     - target: {fileID: 6039491929843986950, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -4740,6 +4752,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1817577046}
     m_Modifications:
+    - target: {fileID: 2763436701869948505, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
+      propertyPath: shotDamage
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7424380451098286012, guid: 2b8b8e3eb8a3650428faff0839036058, type: 3}
       propertyPath: m_Name
       value: RockMovable_02 (3)
@@ -6109,6 +6125,10 @@ PrefabInstance:
       objectReference: {fileID: 1446380098884818681, guid: 58bf3637f6e906544a32a7f2e7ac188d, type: 3}
     - target: {fileID: 5857939143193542856, guid: 0d7198c8d1dfd684e8a05e18d3597487, type: 3}
       propertyPath: awaitTimeExplodeEnemy
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5857939143193542856, guid: 0d7198c8d1dfd684e8a05e18d3597487, type: 3}
+      propertyPath: awaitTimeThrowObjects
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5857939143193542856, guid: 0d7198c8d1dfd684e8a05e18d3597487, type: 3}
@@ -10242,6 +10262,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pilar (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1825255300335530594, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1825255300335530594, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: m_TagString
+      value: Enviroment
+      objectReference: {fileID: 0}
+    - target: {fileID: 5386265148512755571, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: m_TagString
+      value: Enviroment
+      objectReference: {fileID: 0}
     - target: {fileID: 6039491929843986950, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -11679,6 +11711,18 @@ PrefabInstance:
     - target: {fileID: 1825255300335530594, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_Name
       value: Pilar
+      objectReference: {fileID: 0}
+    - target: {fileID: 1825255300335530594, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1825255300335530594, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: m_TagString
+      value: Enviroment
+      objectReference: {fileID: 0}
+    - target: {fileID: 5386265148512755571, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: m_TagString
+      value: Enviroment
       objectReference: {fileID: 0}
     - target: {fileID: 6039491929843986950, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_RootOrder
@@ -13345,7 +13389,6 @@ GameObject:
   - component: {fileID: 809926972350454166}
   - component: {fileID: 809926972350454164}
   - component: {fileID: 809926972350454167}
-  - component: {fileID: 809926972350454162}
   m_Layer: 5
   m_Name: BossHealth
   m_TagString: Untagged
@@ -13353,18 +13396,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &809926972350454162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 809926972350454161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93fe2ee594ddc16419b8a1ddc5805411, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &809926972350454164
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15032,6 +15063,7 @@ MonoBehaviour:
   power: 500
   radius: 5
   height: 1.5
+  enemyStuntTime: 2
   tornillo: {fileID: 6323151807724312418, guid: 5b265ac997bef37449204f7d64ba124f, type: 3}
   walkPointRange: 5
   timeBetweenAttacks: 2

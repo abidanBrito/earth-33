@@ -23,6 +23,12 @@ public class MovableObjects : BaseGame
     {
         get => shotDirection;
     }
+    private bool alreadyHitted;
+
+    public bool AlreadyHitted{
+        get => alreadyHitted;
+        set => alreadyHitted = value;
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -84,6 +90,7 @@ public class MovableObjects : BaseGame
     public void shootControlledObject()
     { 
         shotDirection = GameObject.FindWithTag(GameConstants.PLAYER_NECK_TAG).transform.forward;
+        alreadyHitted = false;
         rb.AddForce(shotDirection * shotForce, ForceMode.Impulse);
         stopControlingObject();
     }

@@ -108,14 +108,6 @@ public class CharController : BaseGame
                     crystal.StopControlingObject();
                 }
             }
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                if (collectedObject.tag == GameConstants.MOVABLE_OBJECTS_TAG)
-                {
-                    MovableObjects movableObject = collectedObject.GetComponent<MovableObjects>();
-                    movableObject.shootControlledObject();
-                }
-            }
         }
 
         if (groundedPlayer && playerVelocity.y < 0)
@@ -176,8 +168,8 @@ public class CharController : BaseGame
             speed =  runSpeed;
             
         }else{
-            controller.Move(move * Time.deltaTime * playerSpeed);
-            speed = playerSpeed;
+            controller.Move(move * Time.deltaTime * runSpeed);
+            speed = runSpeed;
         }
         if (move != Vector3.zero)
         {
