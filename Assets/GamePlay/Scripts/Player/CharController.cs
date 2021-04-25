@@ -71,6 +71,13 @@ public class CharController : BaseGame
         groundedPlayer = controller.isGrounded;
         _collidersDetected = Physics.OverlapSphere(transform.position, 3f);
 
+        
+        if (groundedPlayer && playerVelocity.y < 0)
+        {
+            animator.SetBool("jumping", false);
+            playerVelocity.y = -1f;                        
+        }
+        
         if(_collidersDetected.Length > 0)
         {
             Recolection();
@@ -81,16 +88,18 @@ public class CharController : BaseGame
             animator.SetBool("jumping", true);
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
+        // Si la tienda no esta en pantalla puede ejecutar los siguientes movimientos
+        if(!GameObject.Find("UI_Shop")){
 
-        if(Input.GetKeyDown(KeyCode.Mouse0)){
+            if(Input.GetKeyDown(KeyCode.Mouse0)){
             sphereController.Disparar();
-        }
-        if(Input.GetKeyDown(KeyCode.Tab)){
-            sphereController.CambiarModo();
-        }
-        
+            }
 
-        if(collectedObject != null){
+            if(Input.GetKeyDown(KeyCode.Tab)){
+                sphereController.CambiarModo();
+            }
+
+            if(collectedObject != null){
             if (Input.GetKeyDown(KeyCode.E))
             {
               if (collectedObject.tag == GameConstants.MOVABLE_OBJECTS_TAG)
@@ -104,25 +113,26 @@ public class CharController : BaseGame
                     crystal.StopControlingObject();
                 }
             }
-        }else{
-            if(pet != null){
-                if(Input.GetKeyDown(KeyCode.E)){
-                    Pet petControl = pet.GetComponent<Pet>();
-                    petControl.StopControlingEnemy();
+            }else{
+                if(pet != null){
+                    if(Input.GetKeyDown(KeyCode.E)){
+                        Pet petControl = pet.GetComponent<Pet>();
+                        petControl.StopControlingEnemy();
+                    }
                 }
             }
-        }
-
-        if (groundedPlayer && playerVelocity.y < 0)
-        {
-            animator.SetBool("jumping", false);
-            playerVelocity.y = -1f;                        
-        }
-        // camara 
+            // camara 
         followGameObject.transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationPowerCam, Vector3.up);
 
         #region Vertical Rotation
         followGameObject.transform.rotation *= Quaternion.AngleAxis(-Input.GetAxis("Mouse Y") * rotationPowerCam, Vector3.right);
+        }
+        
+        
+        
+        
+
+        
 
         var angles = followGameObject.transform.localEulerAngles;
         angles.z = 0;
