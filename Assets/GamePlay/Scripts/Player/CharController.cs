@@ -88,14 +88,10 @@ public class CharController : BaseGame
         if(Input.GetKeyDown(KeyCode.Tab)){
             sphereController.CambiarModo();
         }
-        if(pet != null){
-            if(Input.GetKeyDown(KeyCode.Mouse1)){
-               Pet petControl = pet.GetComponent<Pet>();
-               petControl.StopControlingEnemy();
-            }
-        }
+        
+
         if(collectedObject != null){
-            if (Input.GetKeyDown(KeyCode.Mouse1))
+            if (Input.GetKeyDown(KeyCode.E))
             {
               if (collectedObject.tag == GameConstants.MOVABLE_OBJECTS_TAG)
                 {
@@ -106,6 +102,13 @@ public class CharController : BaseGame
                 {
                     Crystal crystal = collectedObject.GetComponent<Crystal>();
                     crystal.StopControlingObject();
+                }
+            }
+        }else{
+            if(pet != null){
+                if(Input.GetKeyDown(KeyCode.E)){
+                    Pet petControl = pet.GetComponent<Pet>();
+                    petControl.StopControlingEnemy();
                 }
             }
         }

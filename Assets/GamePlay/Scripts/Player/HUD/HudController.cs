@@ -111,12 +111,13 @@ public class HudController : BaseGame
         UpdatingPlayerHealth();
         UpdatingBoltsCounter();
         UpdatingPetHealth();
-
-        if(Input.GetKeyDown(KeyCode.N))
-        {
-            OpenSkillShop();
-        }
-
+        ShopControllerInformationShown();
+        
+    }
+    private void ShopControllerInformationShown()
+    {
+        
+        KeysShop(KeyCode.B, KeyCode.Escape);
         if(UI_Shop.activeSelf){
             if(abilitiesShopController.BoughtGranadeAttack) if(GameObject.Find("Shop_Attack_Buy_Button") != null) GameObject.Find("Shop_Attack_Buy_Button").SetActive(false);
             if(abilitiesShopController.BoughtThrowObjects) if(GameObject.Find("Shop_Control_Buy_Button") != null) GameObject.Find("Shop_Control_Buy_Button").SetActive(false);
@@ -124,6 +125,20 @@ public class HudController : BaseGame
             
         }
     }
+    private void KeysShop(KeyCode open, KeyCode close)
+    {
+        if(Input.GetKeyDown(open))
+        {
+            OpenSkillShop();
+        }
+        if(UI_Shop.activeSelf){
+            if(Input.GetKeyDown(close))
+            {
+                OpenSkillShop();
+            }
+        }
+    }
+
    private void OpenSkillShop()
     {
         if(!UI_Shop.activeSelf)
