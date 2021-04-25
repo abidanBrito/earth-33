@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class HudController : BaseGame
 {
-
-
-    
     Text text;
 
     int playerHealth;
@@ -232,10 +229,18 @@ public class HudController : BaseGame
             UI_Attack_Percentage = GameObject.Find("UI_Attack_Percentage").GetComponent<Text>();
             UI_Attack_Bolt_Counter = GameObject.Find("UI_Attack_Bolt_Counter").GetComponent<Text>();
             
-            
-            if(charAblitiesController.canUseGranadeAttack){
-                UI_Attack_Ability.SetActive(true);
+            if(abilitiesShopController.BoughtGranadeAttack)
+            {
+                if(charAblitiesController.canUseGranadeAttack)
+                {
+                    UI_Attack_Ability.SetActive(true);
+                }
+                else
+                {
+                    UI_Attack_Ability.SetActive(false);
+                }
             }else{
+                if(UI_Attack_Ability != null)
                 UI_Attack_Ability.SetActive(false);
             }
             
@@ -249,9 +254,16 @@ public class HudController : BaseGame
             UI_Control_Percentage = GameObject.Find("UI_Control_Percentage").GetComponent<Text>();
             UI_Control_Bolt_Counter = GameObject.Find("UI_Control_Bolt_Counter").GetComponent<Text>();
 
-            if(charAblitiesController.canUseTrhowObjects){
-                UI_Control_Ability.SetActive(true);
+            if(abilitiesShopController.BoughtThrowObjects)
+            {
+                if(charAblitiesController.canUseTrhowObjects)
+                {
+                    UI_Control_Ability.SetActive(true);
+                }else{
+                    UI_Control_Ability.SetActive(false);
+                }
             }else{
+                if(UI_Control_Ability != null)
                 UI_Control_Ability.SetActive(false);
             }
 
@@ -264,10 +276,16 @@ public class HudController : BaseGame
             UI_Posesion_Ammo_Number =  GameObject.Find("UI_Posesion_Ammo_Number").GetComponent<Text>();
             UI_Posesion_Percentage = GameObject.Find("UI_Posesion_Percentage").GetComponent<Text>();
             UI_Posesion_Bolt_Counter = GameObject.Find("UI_Posesion_Bolt_Counter").GetComponent<Text>();
-
-            if(charAblitiesController.canUseExplosionEnemy){
-                UI_Posesion_Ability.SetActive(true);
+        
+            if(abilitiesShopController.BoughtExplodeEnemy)
+            {
+                if(charAblitiesController.canUseExplosionEnemy){
+                    UI_Posesion_Ability.SetActive(true);
+                }else{
+                    UI_Posesion_Ability.SetActive(false);
+                }
             }else{
+                if(UI_Posesion_Ability != null)
                 UI_Posesion_Ability.SetActive(false);
             }
         }
