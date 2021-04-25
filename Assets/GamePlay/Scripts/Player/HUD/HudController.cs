@@ -63,6 +63,12 @@ public class HudController : BaseGame
     private GameObject UI_Posesion_Ability;
     private CharAblities charAblitiesController;
 
+    // Skills Shop
+    private GameObject UI_Shop;
+    private Text shop_Attack_Button_Price;
+    private Text shop_Control_Button_Price;
+    private Text shop_Posesion_Button_Price;
+    private AbilitiesShop abilitiesShopController;
 
     List<GameObject> sphereController = new List<GameObject>();
     void Start()
@@ -86,8 +92,19 @@ public class HudController : BaseGame
         UI_Posesion_Ability = GameObject.Find("UI_Posesion_Ability");
 
         uI_HealthBarBoss = GameObject.Find("TopSide");
-        // UI Sphere Counter
         UI_HealthBarBoss.SetActive(false);
+
+        //Shop Texts
+        UI_Shop = GameObject.Find("UI_Shop");
+        abilitiesShopController = GameObject.Find("Player").GetComponent<AbilitiesShop>();
+        shop_Attack_Button_Price = GameObject.Find("Shop_Attack_Button_Price").GetComponent<Text>();
+        shop_Control_Button_Price = GameObject.Find("Shop_Control_Button_Price").GetComponent<Text>();
+        shop_Posesion_Button_Price = GameObject.Find("Shop_Posesion_Button_Price").GetComponent<Text>();
+
+        shop_Attack_Button_Price.text = abilitiesShopController.PriceGranadeAttack.ToString() + "   ";
+        shop_Control_Button_Price.text = abilitiesShopController.PriceThrowObjects.ToString() + "   ";
+        shop_Posesion_Button_Price.text = abilitiesShopController.PriceExplodeEnemy.ToString() + "   ";
+        UI_Shop.SetActive(false);
     }
 
     void Update()
@@ -97,6 +114,29 @@ public class HudController : BaseGame
         UpdatingPlayerHealth();
         UpdatingBoltsCounter();
         UpdatingPetHealth();
+
+        if(Input.GetKeyDown(KeyCode.N))
+        {
+            OpenSkillShop();
+        }
+
+        if(UI_Shop.activeSelf){
+            if(abilitiesShopController.BoughtGranadeAttack) if(GameObject.Find("Shop_Attack_Buy_Button") != null) GameObject.Find("Shop_Attack_Buy_Button").SetActive(false);
+            if(abilitiesShopController.BoughtThrowObjects) if(GameObject.Find("Shop_Control_Buy_Button") != null) GameObject.Find("Shop_Control_Buy_Button").SetActive(false);
+            if(abilitiesShopController.BoughtExplodeEnemy) if(GameObject.Find("Shop_Posesion_Buy_Button") != null) GameObject.Find("Shop_Posesion_Buy_Button").SetActive(false);
+            
+        }
+    }
+   private void OpenSkillShop()
+    {
+        if(!UI_Shop.activeSelf)
+        {
+            UI_Shop.SetActive(true);
+            Cursor.visible = true;
+        }else{
+            UI_Shop.SetActive(false);
+            Cursor.visible = false;
+        }
     }
     private void UpdatingPetHealth()
     {

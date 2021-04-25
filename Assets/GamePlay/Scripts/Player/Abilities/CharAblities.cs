@@ -35,15 +35,15 @@ public class CharAblities : BaseGame
     {
         if(Input.GetKeyDown(KeyCode.F))
         {
-            if(!shopController.BoughtGranadeAttack)// HAY QUE CAMBIAR EL SHOP A ISTRUE
+            if(shopController.BoughtGranadeAttack)
             {
                 CheckAbilityGranadeAttack();
             }
-            if(!shopController.BoughtThrowObjects)// HAY QUE CAMBIAR EL SHOP A ISTRUE
+            if(shopController.BoughtThrowObjects)
             {
                 CheckAbilityTrhowObjects();
             }
-            if(!shopController.BoughtExplodeEnemy) // HAY QUE CAMBIAR EL SHOP A ISTRUE
+            if(shopController.BoughtExplodeEnemy) 
             {
                 CheckAbilityEnemyControl();
             }
@@ -98,7 +98,8 @@ public class CharAblities : BaseGame
             {
                 if((GameObject.Find("Player").GetComponent<CharHealth>().health += pet.GetComponent<Healer>().getMobHealerHealth()) <= 100 )
                 {
-                    GameObject.Find("Player").GetComponent<CharHealth>().health += pet.GetComponent<Healer>().getMobHealerHealth();  
+                    GameObject.Find("Player").GetComponent<CharHealth>().health += pet.GetComponent<Healer>().getMobHealerHealth(); 
+                    if( GameObject.Find("Player").GetComponent<CharHealth>().health >= 100)  GameObject.Find("Player").GetComponent<CharHealth>().health = 100;
                 } else {
                     GameObject.Find("Player").GetComponent<CharHealth>().health = 100;
                 }

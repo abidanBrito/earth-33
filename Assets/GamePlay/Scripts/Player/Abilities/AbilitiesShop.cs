@@ -7,7 +7,10 @@ public class AbilitiesShop : BaseGame
     // Granade Attack
     [SerializeField]
     private int priceGranadeAttack = 5;
-    private bool boughtGranadeAttack = false;
+    public int PriceGranadeAttack{
+        get => priceGranadeAttack;
+    }
+    private static bool boughtGranadeAttack = false;
     public bool BoughtGranadeAttack
     {
         get => boughtGranadeAttack;
@@ -19,7 +22,10 @@ public class AbilitiesShop : BaseGame
     // Throw Rocks
     [SerializeField]
     private int priceThrowObjects = 10;
-    private bool boughtThrowObjects = false;
+    public int PriceThrowObjects{
+        get => priceThrowObjects;
+    }
+    private static bool boughtThrowObjects = false;
     public bool BoughtThrowObjects
     {
         get => boughtThrowObjects;
@@ -31,7 +37,10 @@ public class AbilitiesShop : BaseGame
     // Explote Enemy
     [SerializeField]
     private int priceExplodeEnemy = 20;
-    private bool boughtExplodeEnemy = false;
+    public int PriceExplodeEnemy{
+        get => priceExplodeEnemy;
+    }
+    private static bool boughtExplodeEnemy = false;
     public bool BoughtExplodeEnemy{
         get => boughtExplodeEnemy;
         set{
