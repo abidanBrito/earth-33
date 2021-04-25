@@ -16,10 +16,11 @@ public class Boss : BaseGame
 
     // Enemy 
     [SerializeField]
-    public float health = 20f;
+    public float health = 100f;
     private Transform shootPosition;
 
-    public GameObject tornillo;
+    public GameObject shipPart;
+    public GameObject bolts;
     
     //  Patroling
     private Vector3 walkPoint;
@@ -82,6 +83,19 @@ public class Boss : BaseGame
                     Invoke(nameof(ResetAttack), timeBetweenAttacks);
                 }
             }    
+        }else 
+        {
+            agent.SetDestination(transform.position);
+            transform.LookAt(objectTransform);
+            
+            if(!alreadyAttacked)
+            {
+                int playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
+                playerHealth -= 10;
+                GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
+                alreadyAttacked = true;
+                Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            }
         }
         
     }
@@ -93,8 +107,16 @@ public class Boss : BaseGame
     public void CreateDrop()
     {
         
-        GameObject itemSpaceShip =  Instantiate(tornillo, gameObject.transform) as GameObject;
+        GameObject itemSpaceShip =  Instantiate(shipPart, gameObject.transform) as GameObject;
         itemSpaceShip.transform.parent = null;
+
+        for(int i = 0; i <= Random.Range(40f, 50f); i++)
+        {   
+            // Lo creo para que no coja el prefab.
+            GameObject tornilloCreado = Instantiate(bolts, gameObject.transform) as GameObject;
+            tornilloCreado.transform.localScale = new Vector3(0.1f,0.1f,0.1f);
+            tornilloCreado.transform.parent = null;
+        }
 
         agent = null;
         Destroy(gameObject);
@@ -120,38 +142,16 @@ public class Boss : BaseGame
     void Update()
     {   
         if(!shield){
-            attackRange = 2;
+            attackRange = 4f;
         }
         player = GameObject.Find("Neck").transform;
         if(health <= 0) CreateDrop();  
-        //si no tiene mascota la intelgencia aritificial siempre va a pegar al jugador   
-        if(!pet){
-            //checks if player is in sight range and attack range
-            playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-            playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        
+        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-            if(!playerInSightRange && !playerInAttackRange) goDefaultPos();
-            enemyFunctions(playerInSightRange, playerInAttackRange, player);   
-
-        }else{
-            //Si tiene mascota, comprueba que si es distinta a la mascota elegida pegara al jugador y la mascota
-            if(pet != gameObject){
-                petInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPet);
-                petInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPet);
-
-                enemyFunctions(petInSightRange, petInAttackRange, pet.transform);   
-
-                // Same Code, with diferent layers, Siempre va a pegar al jugador si esta mas cerca
-                playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-                playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-
-                if(!petInSightRange || playerInSightRange)
-                {
-                    if(!playerInSightRange && !playerInAttackRange) goDefaultPos();
-                    enemyFunctions(playerInSightRange, playerInAttackRange, player);   
-                }
-            }
-        }    
+        if(!playerInSightRange && !playerInAttackRange) goDefaultPos();
+        enemyFunctions(playerInSightRange, playerInAttackRange, player);   
     }
 
     public void enemyFunctions(bool inSightRange, bool inAttackRange, Transform objectTransform)

@@ -13,7 +13,17 @@ public class CharHealth : BaseGame
     {
         respawnPosition = GameObject.FindGameObjectWithTag(GameConstants.RESPAWN_POSITION_TAG);
     }
-    
+    private void Update()
+    {
+        if (health <= 0) 
+        { 
+            ResetEnergyBalls();
+            SceneManager.LoadScene(SceneManager.GetSceneByName("Demo").buildIndex);
+            ClearConsoleLogs();
+            Debug.Log("--- GAME OVER! ---");
+            Debug.Log("--- NEW GAME! ---");
+        }
+    }
     void OnCollisionEnter(Collision collision)
     {
         Collider other = collision.collider;
@@ -25,19 +35,9 @@ public class CharHealth : BaseGame
             
             // Get projectile hit damage on first collision
             hitDamage = (int) other.gameObject.GetComponent<Projectile>().HitDamage;
-            
             // Update health level
             health -= hitDamage;
         }
-            // Reload the scene upon death
-            if (health <= 0) 
-            { 
-                ResetEnergyBalls();
-                SceneManager.LoadScene(SceneManager.GetSceneByName("Demo").buildIndex);
-                ClearConsoleLogs();
-                Debug.Log("--- GAME OVER! ---");
-                Debug.Log("--- NEW GAME! ---");
-            }
         }
     }
 }
