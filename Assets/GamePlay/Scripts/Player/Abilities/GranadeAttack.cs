@@ -16,7 +16,7 @@ public class GranadeAttack : BaseGame
     private Vector3 nextPoint;
     private Vector3 startTarget;
     private Transform parent;
-    private float time = 1.5f;
+    private float time = 0.5f;
 
     void Start()
     {
@@ -29,17 +29,12 @@ public class GranadeAttack : BaseGame
         parent = gameObject.transform.parent; 
         gameObject.transform.parent = null;
     }
-    private void FixedUpdate()
-    {
-        time = time + Time.fixedDeltaTime;
-    }
-    void Update()
-    {   
-        
+    void FixedUpdate()
+    {   time = time + Time.fixedDeltaTime;
         towardTarget = nextPoint - transform.position;
-        smoothMovement(transform, towardTarget, speed * time, rotationSpeed);
+        smoothMovement(transform, towardTarget, speed * time * time * time * time, rotationSpeed);
 
-        if(towardTarget.magnitude < 0.1f)
+        if(towardTarget.magnitude < 0.5f)
         {
             if(count < 3)
             {
