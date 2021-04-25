@@ -6129,7 +6129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5857939143193542856, guid: 0d7198c8d1dfd684e8a05e18d3597487, type: 3}
       propertyPath: awaitTimeThrowObjects
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5857939143193542856, guid: 0d7198c8d1dfd684e8a05e18d3597487, type: 3}
       propertyPath: awaitTimeGranadeAttack

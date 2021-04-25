@@ -209,11 +209,12 @@ public class HudController : BaseGame
             UI_Control_Percentage = GameObject.Find("UI_Control_Percentage").GetComponent<Text>();
             UI_Control_Bolt_Counter = GameObject.Find("UI_Control_Bolt_Counter").GetComponent<Text>();
 
-            // if(charAblitiesController.canUseGranadeAttack){
-            //     UI_Attack_Ability.SetActive(true);
-            // }else{
-            //     UI_Attack_Ability.SetActive(false);
-            // }
+            if(charAblitiesController.canUseTrhowObjects){
+                UI_Control_Ability.SetActive(true);
+            }else{
+                UI_Control_Ability.SetActive(false);
+            }
+
         }
         else if(sphereModes == 2)
         {
