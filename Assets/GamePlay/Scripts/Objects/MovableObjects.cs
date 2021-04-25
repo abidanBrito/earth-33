@@ -16,6 +16,13 @@ public class MovableObjects : BaseGame
     {
         get => shotDamage;
     }
+
+    private Vector3 shotDirection;
+
+    public Vector3 ShotDirection
+    {
+        get => shotDirection;
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -76,8 +83,8 @@ public class MovableObjects : BaseGame
 
     public void shootControlledObject()
     { 
-        GameObject shotDirection = GameObject.FindWithTag(GameConstants.PLAYER_NECK_TAG);
-        rb.AddForce(shotDirection.transform.forward * shotForce, ForceMode.Impulse);
+        shotDirection = GameObject.FindWithTag(GameConstants.PLAYER_NECK_TAG).transform.forward;
+        rb.AddForce(shotDirection * shotForce, ForceMode.Impulse);
         stopControlingObject();
     }
 

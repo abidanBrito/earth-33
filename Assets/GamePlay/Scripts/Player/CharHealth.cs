@@ -36,8 +36,6 @@ public class CharHealth : BaseGame
                 SceneManager.LoadScene(SceneManager.GetSceneByName("Demo").buildIndex);
                 ClearConsoleLogs();
                 Debug.Log("--- GAME OVER! ---");
-                //health = 100;
-                //this.transform.position = respawnPosition.transform.position;
                 Debug.Log("--- NEW GAME! ---");
             }
         }

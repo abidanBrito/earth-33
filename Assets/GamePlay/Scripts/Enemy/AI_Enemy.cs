@@ -15,6 +15,12 @@ public class AI_Enemy : BaseGame
     public float health = 10f;
     private Transform shootPosition;
 
+    // Rock hit push
+    [SerializeField] private float power = 500f;
+    [SerializeField] private float radius = 5f;
+    [SerializeField] private float height = 1.5f;
+    [SerializeField] private float enemyStuntTime = 2f;
+
     public GameObject tornillo;
     
     //  Patroling
@@ -222,13 +228,15 @@ public class AI_Enemy : BaseGame
                 if (other.gameObject.GetComponent<Projectile>() != null)
                 {
                     health -= 2f;
-                    Destroy(projectile);
+                    Destroy(other.gameObject.GetComponent<Projectile>());
                 }
                 break;
             
             case GameConstants.MOVABLE_OBJECTS_TAG:
                 if (collectedObject == null) {
-                    takeDamage(other.gameObject.GetComponent<MovableObjects>());
+                    MovableObjects rock = other.gameObject.GetComponent<MovableObjects>();
+                    takeDamage(rock);
+                    launchEnemy(power, radius, height, rock);
                 }
                 break;
 
@@ -236,4 +244,35 @@ public class AI_Enemy : BaseGame
                 break;
         }
     }
+
+    private void launchEnemy(float power, float radius, float height, MovableObjects rock)
+    {
+        if (!gameObject.GetComponent<Rigidbody>())
+        {
+            // Disable certain enemy components
+            gameObject.GetComponent<AI_Enemy>().enabled = false;
+            gameObject.GetComponent<NavMeshAgent>().enabled = false; 
+            gameObject.GetComponent<Pet>().enabled = false;
+            
+            // Add rigidbody for collisions
+            Rigidbody rb = gameObject.AddComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.AddForce(20f * rock.ShotDirection, ForceMode.Impulse);
+                StartCoroutine(delay2Seconds(rb));
+            }
+        }
+    }
+
+    IEnumerator delay2Seconds(Rigidbody rb)
+    {
+        yield return new WaitForSecondsRealtime(enemyStuntTime);
+        Destroy(rb);
+
+        // Reset enemy components
+        gameObject.GetComponent<AI_Enemy>().enabled = true;
+        gameObject.GetComponent<NavMeshAgent>().enabled = true; 
+        gameObject.GetComponent<Pet>().enabled = true;
+    }
 }
+

@@ -144,7 +144,7 @@ public class HudController : BaseGame
     }
     private void UpdatingBoltsCounter()
     {
-        boltsCounter =  GameManager.Instance.Nuts;
+        boltsCounter = GameManager.Instance.Nuts;
         if(UI_Attack_Bolt_Counter != null)
         UI_Attack_Bolt_Counter.text = boltsCounter.ToString();
         

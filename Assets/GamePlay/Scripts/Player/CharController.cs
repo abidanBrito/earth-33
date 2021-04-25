@@ -108,7 +108,7 @@ public class CharController : BaseGame
                     crystal.StopControlingObject();
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 if (collectedObject.tag == GameConstants.MOVABLE_OBJECTS_TAG)
                 {
