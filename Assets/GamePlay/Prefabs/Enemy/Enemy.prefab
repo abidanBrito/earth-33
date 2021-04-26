@@ -262,12 +262,16 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   health: 10
+  power: 500
+  radius: 5
+  height: 1.5
+  enemyStuntTime: 2
   tornillo: {fileID: 6323151807724312418, guid: 5b265ac997bef37449204f7d64ba124f, type: 3}
   walkPointRange: 2
   timeBetweenAttacks: 2
   projectile: {fileID: 1446380098884818681, guid: 58bf3637f6e906544a32a7f2e7ac188d, type: 3}
-  sightRange: 10
-  attackRange: 5
+  sightRange: 12
+  attackRange: 7
   explosionEffect: {fileID: 4017264033081383540, guid: c597cff731175af4a99a1b169ab70519, type: 3}
 --- !u!1 &3385821517320979902
 GameObject:
