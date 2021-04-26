@@ -101,6 +101,17 @@ public class BaseGame : MonoBehaviour
                 }
             }
 
+            if(hit.tag == GameConstants.MOVABLE_OBJECTS_TAG)
+            {
+                MovableObjects movableObject = hit.GetComponent<MovableObjects>();
+                Rigidbody rb =  movableObject.GetComponent<Rigidbody>();
+                power = 200f;
+                if(rb)
+                {
+                    rb.AddExplosionForce(power, explosionPos, radius, 3.0F);
+                }
+            }
+
             if(hit.gameObject.GetComponent<Boss>())
             {
                 Boss boss = hit.gameObject.GetComponent<Boss>();
