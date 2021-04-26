@@ -99,7 +99,7 @@ public class EnergyBall : BaseGame
 
         smoothMovement(transform, towardTarget, speed, rotationSpeed);
 
-        if(towardTarget.magnitude < 0.1f)
+        if(towardTarget.magnitude < 0.3f)
         {
             if (movement == 0)
             {
