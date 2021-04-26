@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class EnergyBall : BaseGame
 {
+    [SerializeField] private float speed = 4f;
     public GameObject explosionVFX;
-    private float speed = 4f;
+    [SerializeField] private Material modeAttack;
+    [SerializeField] private Material modeControl;
+    [SerializeField] private Material modePosesion;
     private float rotationSpeed = 10f;
     private Vector3 towardTarget;
     private int movement = -2;
@@ -20,6 +23,7 @@ public class EnergyBall : BaseGame
         get => mode;
         set => mode = value;
     }
+    
 
     void Start(){
         //not doing anything
@@ -44,6 +48,27 @@ public class EnergyBall : BaseGame
             {
                 if(movement == -1) calcularRuta(transform.parent.position);
             }
+        }
+        SphereColorModes();
+    }
+    private void SphereColorModes()
+    {
+
+        if(sphereModes == 0)
+        {
+            if(gameObject.GetComponent<Renderer>().material != modeAttack)
+            gameObject.GetComponent<Renderer>().material = modeAttack;
+        }
+        if(sphereModes == 1)
+        {
+            if(gameObject.GetComponent<Renderer>().material != modeControl)
+            gameObject.GetComponent<Renderer>().material = modeControl;
+        }
+        if(sphereModes == 2)
+        {
+            if(gameObject.GetComponent<Renderer>().material != modePosesion)
+            gameObject.GetComponent<Renderer>().material = modePosesion;
+            
         }
     }
 
