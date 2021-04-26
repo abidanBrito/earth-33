@@ -24,7 +24,6 @@ public class EnergyBall : BaseGame
         set => mode = value;
     }
     
-
     void Start(){
         //not doing anything
         mode = -1;
@@ -35,20 +34,13 @@ public class EnergyBall : BaseGame
     {
         //si la esfera en concreto no esta siendo utilizada para controlar, no hara el movimiento de volver
         if(movement != 1 || movement != 2){
-            if(movement == 0) calcularRuta(hitPosition);
+            if(movement == 0) calcularRuta(hitPosition); speed = 3f;
             if(transform.parent)
             {
-                if(movement == -1) calcularRuta(transform.parent.position);
+                if(movement == -1) calcularRuta(transform.parent.position); speed = 5f;
             }
         }
-        //si la esfera en concreto no esta siendo utilizada para controlar, no hara el movimiento de volver
-        if(movement != 1 || movement != 2){
-            if(movement == 0) calcularRuta(hitPosition);
-            if(transform.parent)
-            {
-                if(movement == -1) calcularRuta(transform.parent.position);
-            }
-        }
+      
         SphereColorModes();
     }
     private void SphereColorModes()
@@ -96,7 +88,7 @@ public class EnergyBall : BaseGame
     public void calcularRuta(Vector3 p)
     {
         towardTarget = p - transform.position;
-
+        
         smoothMovement(transform, towardTarget, speed, rotationSpeed);
 
         if(towardTarget.magnitude < 0.3f)
@@ -112,6 +104,8 @@ public class EnergyBall : BaseGame
                 mode = -1;           
             } 
         } 
+
+
     }
 
     private void OnTriggerEnter(Collider other)
