@@ -193,5 +193,11 @@ public class Boss : BaseGame
                 Destroy(projectile);
             }
         }
+
+        MovableObjects movableObject = other.gameObject.GetComponent<MovableObjects>();
+        if(movableObject != null)
+        {
+            health -= movableObject.ShotDamage+10;
+        }
     }
 }

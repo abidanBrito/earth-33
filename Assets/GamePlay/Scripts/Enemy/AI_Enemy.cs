@@ -16,11 +16,7 @@ public class AI_Enemy : BaseGame
     private Transform shootPosition;
 
     // Rock hit push
-    [SerializeField] private float power = 500f;
-    [SerializeField] private float radius = 5f;
-    [SerializeField] private float height = 1.5f;
     [SerializeField] private float enemyStuntTime = 2f;
-
     public GameObject tornillo;
     
     //  Patroling
@@ -239,7 +235,7 @@ public class AI_Enemy : BaseGame
                         takeDamage(rock);
                         rock.AlreadyHitted = true;
                     }
-                    launchEnemy(power, radius, height, rock);
+                    launchEnemy(rock);
                 }
                 break;
 
@@ -248,7 +244,7 @@ public class AI_Enemy : BaseGame
         }
     }
 
-    private void launchEnemy(float power, float radius, float height, MovableObjects rock)
+    private void launchEnemy(MovableObjects rock)
     {
         if (!gameObject.GetComponent<Rigidbody>())
         {

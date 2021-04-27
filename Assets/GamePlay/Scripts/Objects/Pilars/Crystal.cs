@@ -26,7 +26,7 @@ public class Crystal : BaseGame
 
         if(active)
         {
-            transform.Rotate (0,50*Time.deltaTime,0); //rotates 50 degrees per second around z axis
+            transform.Rotate (0,0,50*Time.deltaTime); //rotates 50 degrees per second around z axis
         }
         if(collectedObject == gameObject){
             distance = Vector3.Distance(transform.position, pointMovableObject.transform.position);
