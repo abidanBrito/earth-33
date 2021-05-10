@@ -71,6 +71,10 @@ public class HealthBarBossUI : BaseGame
         if(bossEntity != null)
         {
             if(other.tag == GameConstants.PLAYER_TAG){
+                hudController.UI_HealthBarBoss.SetActive(true);
+                crystalHud[0] = GameObject.Find("ShieldLeft");
+                crystalHud[1] = GameObject.Find("ShieldCenter");
+                crystalHud[2] = GameObject.Find("ShieldRight");
                 CounterCrystalsHud();
                 bossHealth = bossEntity.GetComponent<Boss>().health;
                 hudBossHealth.transform.localScale = new Vector3(bossHealth/maxHealth,1f,1f);
