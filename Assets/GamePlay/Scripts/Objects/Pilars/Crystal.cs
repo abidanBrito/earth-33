@@ -10,7 +10,7 @@ public class Crystal : BaseGame
     private Rigidbody rb;
     private PilarsController pilarsController;
     private bool active = true;
-    private BoxCollider cd;
+    private MeshCollider cd;
     
 
     void Start()
@@ -18,8 +18,7 @@ public class Crystal : BaseGame
         spherePosition = transform.GetChild(0).transform;
         pilarsController = transform.parent.parent.GetComponent<PilarsController>(); //obtiene el pilar padre y luego el controlador de pilares
         pilarsController.crystals.Add(gameObject);
-        cd = GetComponent<BoxCollider>();
-        cd.size = new Vector3(2f, 2f, 2f);
+        cd = GetComponent<MeshCollider>();
     }
     void Update()
     {
@@ -74,7 +73,6 @@ public class Crystal : BaseGame
         if(sphere != null){
             //si la bola esta en modo controlar
             if(sphere.modes == 1 && sphere.movements != -1 && sphere.movements != -2 && sphere.movements != 2 && sphere.movements != 1){
-                cd.size = new Vector3(1f, 1f, 1f);
                 for(int i = 0; i<pilarsController.crystals.Count;i++)
                 {
                     if(pilarsController.crystals[i].Equals(gameObject)){
