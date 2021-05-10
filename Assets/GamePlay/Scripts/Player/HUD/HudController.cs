@@ -7,7 +7,7 @@ public class HudController : BaseGame
 {
     Text text;
 
-    int playerHealth;
+    float playerHealth;
     Text sphereMode;
     Text itemSpaceship;
     int petHealth;
@@ -66,6 +66,7 @@ public class HudController : BaseGame
     private Text shop_Control_Button_Price;
     private Text shop_Posesion_Button_Price;
     private AbilitiesShop abilitiesShopController;
+    private GameObject pointOfView;
 
     List<GameObject> sphereController = new List<GameObject>();
     void Start()
@@ -102,6 +103,8 @@ public class HudController : BaseGame
         shop_Control_Button_Price.text = abilitiesShopController.PriceThrowObjects.ToString() + "   ";
         shop_Posesion_Button_Price.text = abilitiesShopController.PriceExplodeEnemy.ToString() + "   ";
         UI_Shop.SetActive(false);
+
+        pointOfView = GameObject.Find("PointOfView");
     }
 
     void Update()
@@ -144,9 +147,11 @@ public class HudController : BaseGame
         if(!UI_Shop.activeSelf)
         {
             UI_Shop.SetActive(true);
+            pointOfView.SetActive(false);
             Cursor.visible = true;
         }else{
             UI_Shop.SetActive(false);
+            pointOfView.SetActive(true);
             Cursor.visible = false;
         }
     }
@@ -211,13 +216,13 @@ public class HudController : BaseGame
         playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
         if(UI_Attack_Percentage != null)
         {
-            UI_Attack_Percentage.text = playerHealth.ToString() + "%";
+            UI_Attack_Percentage.text = Mathf.Round(playerHealth).ToString()+ "%";
             UI_Attack_HealthBar.transform.localScale = new Vector3((float)playerHealth/(float)maxHealthPlayer,1f,1f);
         }
         
         if(UI_Control_Percentage != null)
         {
-            UI_Control_Percentage.text = playerHealth.ToString() + "%";
+            UI_Control_Percentage.text = Mathf.Round(playerHealth).ToString() + "%";
 
             UI_Control_HealthBar.transform.localScale = new Vector3((float)playerHealth/(float)maxHealthPlayer,1f,1f);
 
@@ -225,7 +230,7 @@ public class HudController : BaseGame
 
         if(UI_Posesion_Percentage != null)
         {
-            UI_Posesion_Percentage.text = playerHealth.ToString() + "%";
+            UI_Posesion_Percentage.text = Mathf.Round(playerHealth).ToString() + "%";
             UI_Posesion_HealthBar.transform.localScale = new Vector3((float)playerHealth/(float)maxHealthPlayer,1f,1f);
         }
     }
@@ -258,7 +263,6 @@ public class HudController : BaseGame
                 if(UI_Attack_Ability != null)
                 UI_Attack_Ability.SetActive(false);
             }
-            
         }
         else if(sphereModes == 1)
         {

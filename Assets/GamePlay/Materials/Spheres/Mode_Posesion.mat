@@ -8,14 +8,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Mode_Posesion
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 26c90ed59008cb547906dc48ade72760, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -77,6 +76,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_ef508d6ea41e4845b4b3c5bce2947f8c: 3.33
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -106,6 +106,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_541e078147a64375bf6b87039dfcb605: {r: 1.5216606, g: 125.53699, b: 145.31857, a: 1}
     - _BaseColor: {r: 0.07450981, g: 0.9294118, b: 0.9843138, a: 1}
     - _Color: {r: 0.53022456, g: 0.10252755, b: 0.754717, a: 1}
     - _EmissionColor: {r: 0.0006035022, g: 0.06517824, b: 0.07423077, a: 1}

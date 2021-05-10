@@ -10,7 +10,7 @@ public class Healer : BaseGame
     public GameObject explosionEffect;
     private bool alreadyHealed = false;
     private Pet petController;
-    private int playerHealth;
+    private float playerHealth;
     AI_Enemy aiController;
     ParticleSystem particlesController;
     

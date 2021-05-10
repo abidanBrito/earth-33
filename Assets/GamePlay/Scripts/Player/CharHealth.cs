@@ -5,9 +5,11 @@ public class CharHealth : BaseGame
 {
     [SerializeField] 
     [Range(0, 100)]
-    public int health = 100;
+    public float health =  100f;
     private int hitDamage;
     GameObject respawnPosition;
+
+    private bool inmortal = false;
 
     void Awake()
     {
@@ -23,11 +25,17 @@ public class CharHealth : BaseGame
             Debug.Log("--- GAME OVER! ---");
             Debug.Log("--- NEW GAME! ---");
         }
+
+        if(Input.GetKeyDown(KeyCode.Y))
+        {
+            if(inmortal == false) inmortal = true;
+            else inmortal = false;
+        }
     }
     void OnCollisionEnter(Collision collision)
     {
         Collider other = collision.collider;
-        if (other.CompareTag(GameConstants.PROJECTILE_TAG)) 
+        if (inmortal ==false && other.CompareTag(GameConstants.PROJECTILE_TAG)) 
         {
             Projectile projectileController = other.gameObject.GetComponent<Projectile>();
             if(projectileController.firstCollision){
@@ -39,5 +47,6 @@ public class CharHealth : BaseGame
             health -= hitDamage;
         }
         }
+        // EN la clase LASER SCRIPT TAMBIEN QUITA VIDA POR RAYCAST
     }
 }

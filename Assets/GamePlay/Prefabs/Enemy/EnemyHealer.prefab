@@ -164,7 +164,6 @@ Transform:
   m_Children:
   - {fileID: 4348018313479370417}
   - {fileID: 5533573231930911386}
-  - {fileID: 5676676190886209361}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -87.977, z: 0}
@@ -296,9 +295,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   health: 10
-  power: 500
-  radius: 5
-  height: 1.5
   enemyStuntTime: 2
   tornillo: {fileID: 6323151807724312418, guid: 5b265ac997bef37449204f7d64ba124f, type: 3}
   walkPointRange: 5
@@ -5049,33 +5045,3 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!1 &5676676190886209358
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5676676190886209361}
-  m_Layer: 0
-  m_Name: BallPosition (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5676676190886209361
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5676676190886209358}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.017, y: 1.48, z: 0.01}
-  m_LocalScale: {x: 1.4800782, y: 1.4800782, z: 1.4800782}
-  m_Children: []
-  m_Father: {fileID: 4348018314065257844}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

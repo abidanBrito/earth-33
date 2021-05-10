@@ -30,6 +30,7 @@ public class Boss : BaseGame
     //  Attacking
     public float timeBetweenAttacks = 2;
     bool alreadyAttacked;
+    private bool abilityUsed;
     public GameObject projectile;
 
     //  States
@@ -38,15 +39,19 @@ public class Boss : BaseGame
     private Vector3 defaultPosition;
 
     //  BOSS = ?
+    private Transform BossHead;
+    private LaserControls laserControls;
 
     void Start()
     {
         shield = GetComponentInChildren<BossShiled>();
+        laserControls = GetComponent<LaserControls>();
         defaultPosition = transform.position;
     }
     private void Awake()
     {
         player = GameObject.Find("Neck").transform;
+        BossHead = player = GameObject.Find("Cabeza_Hueso").transform;
         agent = GetComponent<NavMeshAgent>();
         shootPosition = transform.GetChild(2).transform;
     }
@@ -56,6 +61,7 @@ public class Boss : BaseGame
         if(agent){
             agent.SetDestination(objectTransform.position);
             transform.LookAt(objectTransform);
+            BossHead.LookAt(objectTransform);
         }
     }
 
@@ -72,32 +78,53 @@ public class Boss : BaseGame
                 agent.SetDestination(transform.position);
             
                 transform.LookAt(objectTransform);
-                if(!alreadyAttacked)
-                {
-                    //Attack Code
-                    Rigidbody rb = Instantiate(projectile, shootPosition.position ,Quaternion.identity).GetComponent<Rigidbody>();
+                BossHead.LookAt(objectTransform);
 
-                    rb.AddForce(transform.forward *32f, ForceMode.Impulse);
+                if(!laserControls.getActiveLaser){
+                    if(!alreadyAttacked)
+                    {
+                        //Attack Code
+                        Rigidbody rb = Instantiate(projectile, shootPosition.position ,Quaternion.identity).GetComponent<Rigidbody>();
 
-                    alreadyAttacked = true;
-                    Invoke(nameof(ResetAttack), timeBetweenAttacks);
+                        rb.AddForce(transform.forward *32f, ForceMode.Impulse);
+
+                        alreadyAttacked = true;
+                        Invoke(nameof(ResetAttack), timeBetweenAttacks);
+                    }
                 }
             }    
         }else 
         {
-            agent.SetDestination(transform.position);
-            transform.LookAt(objectTransform);
-            
-            if(!alreadyAttacked)
-            {
-                int playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
-                playerHealth -= 10;
-                GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
-                alreadyAttacked = true;
-                Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            if(!laserControls.getActiveLaser){
+
+                agent.SetDestination(transform.position);
+                transform.LookAt(objectTransform);
+                BossHead.LookAt(objectTransform);
+                if(!alreadyAttacked)
+                {
+                    float playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
+
+                    if(!abilityUsed)
+                    {
+                        playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
+                        playerHealth -= 10;
+                        GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
+                        abilityUsed = true;
+                        Invoke(nameof(ResetAbility), 10);
+                    }
+                    playerHealth -= 10;
+                    GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
+                    alreadyAttacked = true;
+                    Invoke(nameof(ResetAttack), timeBetweenAttacks);
+                }
             }
         }
-        
+    }
+
+    private void ResetAbility()
+    {
+        abilityUsed = false;
+
     }
     
     private void ResetAttack(){
@@ -152,6 +179,7 @@ public class Boss : BaseGame
 
         if(!playerInSightRange && !playerInAttackRange) goDefaultPos();
         enemyFunctions(playerInSightRange, playerInAttackRange, player);   
+        
     }
 
     public void enemyFunctions(bool inSightRange, bool inAttackRange, Transform objectTransform)
