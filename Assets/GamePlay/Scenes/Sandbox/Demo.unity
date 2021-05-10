@@ -268,6 +268,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2770038527296755148, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
+      propertyPath: m_RenderShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2770038527296755148, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
+      propertyPath: m_RendererIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2770038527296755148, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2770038527296755148, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
+      propertyPath: m_VolumeLayerMask.m_Bits
+      value: 129
+      objectReference: {fileID: 0}
     - target: {fileID: 4610169472875379460, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.74485
@@ -298,7 +314,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4610169472875379463, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
       propertyPath: m_Depth
-      value: 1
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 4610169472875379463, guid: 1dd2518decf60f742950055cb346c7bf, type: 3}
       propertyPath: field of view
@@ -6648,10 +6664,58 @@ Transform:
   m_Children:
   - {fileID: 1994971470}
   - {fileID: 1268360960}
-  - {fileID: 1105381436}
   - {fileID: 7529206101656386981}
+  - {fileID: 1105381436}
   m_Father: {fileID: 0}
   m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &535360040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 535360042}
+  - component: {fileID: 535360041}
+  m_Layer: 0
+  m_Name: GlobalVolume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &535360041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535360040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: ad8898d144010bb4db00ca4bcfa2d2cb, type: 2}
+--- !u!4 &535360042
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535360040}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 16.47229, y: -46.031147, z: -177.3185}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &536306446
 PrefabInstance:
@@ -7684,6 +7748,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1994971470}
     m_Modifications:
+    - target: {fileID: 1388540613755809338, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d981d8dddd22fb49a3dc9c8407a44d2, type: 2}
     - target: {fileID: 1825255300335530594, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_Name
       value: Pilar (1)
@@ -15175,11 +15243,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4134560948888286, guid: c2d2de21ca36b7e448164f8a5352d46d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0000006331711
+      value: -0.0000000061347305
       objectReference: {fileID: 0}
     - target: {fileID: 4360298034275332, guid: c2d2de21ca36b7e448164f8a5352d46d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0000027610677
+      value: -0.000000026751708
       objectReference: {fileID: 0}
     - target: {fileID: 4418317025096834, guid: c2d2de21ca36b7e448164f8a5352d46d, type: 3}
       propertyPath: m_RootOrder
@@ -15239,7 +15307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4542396351321504, guid: c2d2de21ca36b7e448164f8a5352d46d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.00000054116936
+      value: -0.0000000052433355
       objectReference: {fileID: 0}
     - target: {fileID: 114525950110314134, guid: c2d2de21ca36b7e448164f8a5352d46d, type: 3}
       propertyPath: endPoint
@@ -24029,6 +24097,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1994971470}
     m_Modifications:
+    - target: {fileID: 1388540613755809338, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d981d8dddd22fb49a3dc9c8407a44d2, type: 2}
     - target: {fileID: 1825255300335530594, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_Name
       value: Pilar
@@ -24040,6 +24112,10 @@ PrefabInstance:
     - target: {fileID: 1825255300335530594, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_TagString
       value: Enviroment
+      objectReference: {fileID: 0}
+    - target: {fileID: 3784310145465977963, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5386265148512755571, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_TagString
@@ -29054,6 +29130,10 @@ PrefabInstance:
       propertyPath: bolts
       value: 
       objectReference: {fileID: 571849854}
+    - target: {fileID: 8161947894281496592, guid: 9210acfa387af7f43ba2718ce5a2af00, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8547160251068997511, guid: 9210acfa387af7f43ba2718ce5a2af00, type: 3}
       propertyPath: pilarsController
       value: 
