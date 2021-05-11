@@ -5173,6 +5173,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealerFinal
       objectReference: {fileID: 0}
+    - target: {fileID: 8098881982912481332, guid: e59916f39a5610640af0abcea7a46cac, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e40e70c372f19ce479bc0347a70b0d10, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e59916f39a5610640af0abcea7a46cac, type: 3}
 --- !u!4 &3593889259723166800 stripped
