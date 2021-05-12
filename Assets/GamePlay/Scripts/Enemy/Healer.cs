@@ -59,7 +59,7 @@ public class Healer : BaseGame
     private void HealPlayer()
     {
         aiController.health -= healingValue;
-        playerHealth += (int)healingValue;
+        playerHealth += healingValue;
         if(playerHealth >= 100) playerHealth = 100;
         GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
         alreadyHealed = true;

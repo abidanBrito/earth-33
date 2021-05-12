@@ -43,7 +43,7 @@ public class CharController : BaseGame
     private void Start()
     {
         controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         sphereModes = 0; // se pone en modo ataque
         sphereController = GetComponentInChildren<EnergyBall>();
         Cursor.visible = false;

@@ -54,20 +54,20 @@ public class CharAblities : BaseGame
     }
     private void CheckAbilityGranadeAttack()
     {
-        List<EnergyBall> sphereHability = new List<EnergyBall>();
-
-        foreach(EnergyBall sphere in esferas)
-        {
-            if(sphere.movements == -2)
-            {
-                if(sphereHability.Count < 2) sphereHability.Add(sphere);
-            }
-        }
-
-        if(sphereModes == 0 && canUseGranadeAttack && sphereHability.Count == 2)
+        if(sphereModes == 0 && canUseGranadeAttack)
         {
             canUseGranadeAttack = false;
             cooldownGranadeAttack = awaitTimeGranadeAttack;
+
+            List<EnergyBall> sphereHability = new List<EnergyBall>();
+            
+            foreach(EnergyBall sphere in esferas)
+            {
+                if(sphere.movements == -2)
+                {
+                    if(sphereHability.Count < 2) sphereHability.Add(sphere);
+                }
+            }
 
             if(sphereHability.Count == 2)
             {

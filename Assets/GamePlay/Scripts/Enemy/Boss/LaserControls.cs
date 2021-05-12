@@ -43,7 +43,7 @@ public class LaserControls : MonoBehaviour {
 			if (Physics.Raycast (rayMouse.origin, rayMouse.direction, out hit, 60)) {
                     if(shooting){
                         if(hit.collider.tag == GameConstants.PLAYER_TAG){
-                            playerTarget.GetComponent<CharHealth>().health-= 0.2f;
+                            playerTarget.GetComponent<CharHealth>().health-= 0.5f;
                         }
                     }
             }

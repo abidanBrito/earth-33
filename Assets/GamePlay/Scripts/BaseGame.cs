@@ -29,7 +29,6 @@ public class BaseGame : MonoBehaviour
     {
         esferas = null;
         esferas = new List<EnergyBall>();
-        
     }
     private void Update()
     {
