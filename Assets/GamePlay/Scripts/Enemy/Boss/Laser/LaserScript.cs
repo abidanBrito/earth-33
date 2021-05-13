@@ -17,7 +17,6 @@ public class LaserScript : MonoBehaviour {
 	public GameObject trailVFX; //the particle system that leaves a trail
 	public float trailInterval; //interval between each trail - 0 means continuous trail
 	public bool trail;
-	private Camera cam;
 	private Ray rayMouse;
 	private List<ParticleSystem> psChilds = new List<ParticleSystem>();
 	private List<ParticleSystem> psEndVFX = new List<ParticleSystem>();
@@ -63,9 +62,7 @@ public class LaserScript : MonoBehaviour {
 			psTrailVFX = trailVFX.GetComponent<ParticleSystem> ();
 		}
 
-		//if the end point is a camera the get componenet
-		if(endPoint != null)
-			cam = endPoint.GetComponent<Camera> ();
+		
 	}
 
 	//use this function to shoot a laser that isn't in FPS or TPS.
@@ -130,11 +127,7 @@ public class LaserScript : MonoBehaviour {
 		else
 			Debug.Log ("There is no fire point in the inspector.");
 
-		if (cam != null) {
-			// RaycastHit hit;
-			var mousePos = cam.transform.forward;
-			rayMouse = cam.ScreenPointToRay (mousePos);
-
+		if (direction != null) {
 			 if (Physics.Raycast (firePoint.transform.position, direction, out hit, maximumLenght)) {
 				if (hit.collider) {
 					for (int i = 0; i < lineRenderers.Count; i++)
