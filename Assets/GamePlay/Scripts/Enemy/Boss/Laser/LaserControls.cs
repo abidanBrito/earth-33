@@ -21,7 +21,10 @@ public class LaserControls : MonoBehaviour {
     public Camera cam;
     private Ray rayMouse;
     public Transform playerTarget;
-
+    
+    private Transform Direction;
+    private GameObject firePoint;
+    private Transform Player;
     private int counterActivationLaser = 0;
     void Start()
     {
@@ -30,50 +33,64 @@ public class LaserControls : MonoBehaviour {
 		activeLaser.SetActive (true);
 		laserScript = activeLaser.GetComponent<LaserScript> ();
         counterActivationLaser = crystals.Count-1;
+        Direction = laserScript.Direction;
+        firePoint = laserScript.firePoint;
+        Player = laserScript.Player;
     }
 
 	void Update () {
-
         
-        if (cam != null) {
-			RaycastHit hit;
-			var mousePos = cam.transform.forward;
-			rayMouse = cam.ScreenPointToRay (mousePos);
-
-			if (Physics.Raycast (rayMouse.origin, rayMouse.direction, out hit, 60)) {
-                    if(shooting){
-                        if(hit.collider.tag == GameConstants.PLAYER_TAG){
-                            playerTarget.GetComponent<CharHealth>().health-= 0.5f;
-                        }
-                    }
-            }
-        }
+        RayCastControl();
         
         if(crystals.Count == 2)
         {
-            if(crystals.Count == counterActivationLaser){
-                ActivateLaser();
-            }else{
-                laserScript.UpdateLaser();
-            }
+           ControlingCrystals(2);
         }
         else if(crystals.Count == 1)
         {
-            if(crystals.Count == counterActivationLaser){
-                ActivateLaser();
-            }else{
-                laserScript.UpdateLaser();
-            }
+            ControlingCrystals(1);
         }
         else if(crystals.Count == 0)
         {
-            if(crystals.Count == counterActivationLaser){
-                ActivateLaser();
-            }else{
-                laserScript.UpdateLaser();
-            }
+            ControlingCrystals(0);
         }
 	}
+    private void RayCastControl()
+    {
+        RaycastHit hit;
+		Vector3 fromPosition = firePoint.transform.position;
+		Direction.transform.position = Player.transform.position;
+		Vector3 toPosition = Direction.transform.position;
+		Vector3 direction = toPosition - fromPosition;
+
+		if(Physics.Raycast(firePoint.transform.position,direction,out hit))
+		{
+			toPosition = hit.point;
+		}
+		direction = toPosition - fromPosition;
+
+        if (cam != null) {
+			var mousePos = cam.transform.forward;
+			rayMouse = cam.ScreenPointToRay (mousePos);
+
+			if (Physics.Raycast (firePoint.transform.position, direction, out hit, 60)) {
+                if(shooting){
+                    if(hit.collider.tag == GameConstants.PLAYER_TAG){
+                        playerTarget.GetComponent<CharHealth>().health-= 0.5f;
+                    }
+                }
+            }
+        }
+    }
+
+    private void ControlingCrystals(int crystalsCounter)
+    {
+        if(crystalsCounter == counterActivationLaser){
+            ActivateLaser();
+        }else{
+            laserScript.UpdateLaser();
+        }
+    }
     public void ActivateLaser()
     {
         if(!activatedLaser){

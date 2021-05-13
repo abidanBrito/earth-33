@@ -17,7 +17,6 @@ public class LaserScript : MonoBehaviour {
 	public GameObject trailVFX; //the particle system that leaves a trail
 	public float trailInterval; //interval between each trail - 0 means continuous trail
 	public bool trail;
-	public Transform PlayerTarget;
 	private Camera cam;
 	private Ray rayMouse;
 	private List<ParticleSystem> psChilds = new List<ParticleSystem>();
@@ -32,7 +31,8 @@ public class LaserScript : MonoBehaviour {
 	private WaitForSeconds growWait = new WaitForSeconds (0.025f);
 	private WaitForSeconds updateWait = new WaitForSeconds (0.01f);
 	private ParticleSystem.EmitParams emitParams = new ParticleSystem.EmitParams ();
-	public LaserControls laserControls;
+	public Transform Direction;
+	public Transform Player;
 
 	void Start () {
 		//add width of the lasers to a list and sets the width to 0
@@ -107,6 +107,20 @@ public class LaserScript : MonoBehaviour {
 
 	//after 'EnableLaser', 'UpdateLaser' is used to keep the position, normals and trail updated, according to an input or to a gameobject position.
 	public void UpdateLaser () {
+
+		RaycastHit hit;
+		Vector3 fromPosition = firePoint.transform.position;
+		Direction.transform.position = Player.transform.position;
+		Vector3 toPosition = Direction.transform.position;
+		Vector3 direction = toPosition - fromPosition;
+
+
+		if(Physics.Raycast(firePoint.transform.position,direction,out hit))
+		{
+			toPosition = hit.point;
+		}
+		direction = toPosition - fromPosition;
+
 		if (firePoint != null) {
 			for (int i = 0; i < lineRenderers.Count; i++)
 				lineRenderers [i].SetPosition (0, firePoint.transform.position);
@@ -117,11 +131,11 @@ public class LaserScript : MonoBehaviour {
 			Debug.Log ("There is no fire point in the inspector.");
 
 		if (cam != null) {
-			RaycastHit hit;
+			// RaycastHit hit;
 			var mousePos = cam.transform.forward;
 			rayMouse = cam.ScreenPointToRay (mousePos);
 
-			 if (Physics.Raycast (rayMouse.origin, rayMouse.direction, out hit, maximumLenght)) {
+			 if (Physics.Raycast (firePoint.transform.position, direction, out hit, maximumLenght)) {
 				if (hit.collider) {
 					for (int i = 0; i < lineRenderers.Count; i++)
 						lineRenderers [i].SetPosition (1, hit.point);
