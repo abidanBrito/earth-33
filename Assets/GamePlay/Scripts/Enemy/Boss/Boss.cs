@@ -26,7 +26,6 @@ public class Boss : BaseGame
     private Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange = 0;
-
     //  Attacking
     public float timeBetweenAttacks = 2;
     bool alreadyAttacked;
@@ -34,19 +33,21 @@ public class Boss : BaseGame
     public GameObject projectile;
 
     //  States
-    public float sightRange = 10, attackRange = 5;
+    public float sightRange = 10, attackRange = 5, attackRangeMelee =5;
     private bool playerInSightRange, playerInAttackRange, petInSightRange, petInAttackRange;
     private Vector3 defaultPosition;
 
     //  BOSS = ?
     private Transform BossHead;
     private LaserControls laserControls;
+    private Animator bossAnimator;
 
     void Start()
     {
         shield = GetComponentInChildren<BossShiled>();
         laserControls = GetComponent<LaserControls>();
         defaultPosition = transform.position;
+        bossAnimator = GetComponentInChildren<Animator>();
     }
     private void Awake()
     {
@@ -76,7 +77,6 @@ public class Boss : BaseGame
         if(shield){
             if(agent){
                 agent.SetDestination(transform.position);
-            
                 transform.LookAt(objectTransform);
                 BossHead.LookAt(objectTransform);
 
@@ -89,7 +89,10 @@ public class Boss : BaseGame
                         rb.AddForce(transform.forward *32f, ForceMode.Impulse);
 
                         alreadyAttacked = true;
+                        bossAnimator.SetBool("AttackDistance", true);
                         Invoke(nameof(ResetAttack), timeBetweenAttacks);
+                    }else{
+                        bossAnimator.SetBool("AttackDistance", false);
                     }
                 }
             }    
@@ -103,6 +106,7 @@ public class Boss : BaseGame
                 if(!alreadyAttacked)
                 {
                     float playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
+                    bossAnimator.SetBool("AttackMelee", true);
 
                     if(!abilityUsed)
                     {
@@ -110,12 +114,18 @@ public class Boss : BaseGame
                         playerHealth -= 10;
                         GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
                         abilityUsed = true;
+                        bossAnimator.SetBool("AbilityAttack", true);
                         Invoke(nameof(ResetAbility), 10);
+                    }else{
+                        bossAnimator.SetBool("AbilityAttack", false);
+                        playerHealth -= 10;
+                        GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
+                        alreadyAttacked = true;
+                        Invoke(nameof(ResetAttack), timeBetweenAttacks);
                     }
-                    playerHealth -= 10;
-                    GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
-                    alreadyAttacked = true;
-                    Invoke(nameof(ResetAttack), timeBetweenAttacks);
+                    
+                }else{
+                    bossAnimator.SetBool("AttackMelee", false);
                 }
             }
         }
@@ -124,7 +134,6 @@ public class Boss : BaseGame
     private void ResetAbility()
     {
         abilityUsed = false;
-
     }
     
     private void ResetAttack(){
@@ -144,9 +153,9 @@ public class Boss : BaseGame
             tornilloCreado.transform.localScale = new Vector3(0.1f,0.1f,0.1f);
             tornilloCreado.transform.parent = null;
         }
-
+        bossAnimator.SetFloat("Boss_HP", -1);
         agent = null;
-        Destroy(gameObject);
+        Destroy(gameObject,15f);
     }
     private void TakeDamage(EnergyBall esfera)
     {
@@ -169,16 +178,18 @@ public class Boss : BaseGame
     void Update()
     {   
         if(!shield){
-            attackRange = 4f;
+            attackRange = attackRangeMelee;
         }
         player = GameObject.Find("Neck").transform;
         if(health <= 0) CreateDrop();  
         
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-
+        
         if(!playerInSightRange && !playerInAttackRange) goDefaultPos();
         enemyFunctions(playerInSightRange, playerInAttackRange, player);   
+
+       
         
     }
 
@@ -187,7 +198,10 @@ public class Boss : BaseGame
         if (inSightRange && !inAttackRange)
         {
             chase(objectTransform);
-        } 
+            bossAnimator.SetBool("Walking", true);
+        }else{
+            bossAnimator.SetBool("Walking", false);
+        }
         if (inSightRange && inAttackRange)
         {
             

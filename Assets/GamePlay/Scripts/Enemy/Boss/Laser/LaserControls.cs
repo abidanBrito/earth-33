@@ -26,6 +26,8 @@ public class LaserControls : MonoBehaviour {
     private GameObject firePoint;
     private Transform Player;
     private int counterActivationLaser = 0;
+    private Animator bossAnimator;
+
     void Start()
     {
         crystals = pilarsController.GetComponent<PilarsController>().crystals;
@@ -36,6 +38,7 @@ public class LaserControls : MonoBehaviour {
         Direction = laserScript.Direction;
         firePoint = laserScript.firePoint;
         Player = laserScript.Player;
+        bossAnimator = GetComponentInChildren<Animator>();
     }
 
 	void Update () {
@@ -86,7 +89,8 @@ public class LaserControls : MonoBehaviour {
     private void ControlingCrystals(int crystalsCounter)
     {
         if(crystalsCounter == counterActivationLaser){
-            ActivateLaser();
+            bossAnimator.SetBool("LaserAttack", true);
+            Invoke(nameof(ActivateLaser), 1.5f);
         }else{
             laserScript.UpdateLaser();
         }
@@ -107,6 +111,7 @@ public class LaserControls : MonoBehaviour {
         shooting = false;
         activatedLaser = false;
         laserScript.DisableLaserCaller(laserScript.disableDelay);
+        bossAnimator.SetBool("LaserAttack", false);
     }
 	
 }
