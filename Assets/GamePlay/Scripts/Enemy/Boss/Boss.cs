@@ -33,7 +33,7 @@ public class Boss : BaseGame
     public GameObject projectile;
 
     //  States
-    public float sightRange = 10, attackRange = 5, attackRangeMelee =5;
+    public float sightRange = 10, attackRange = 5, attackRangeMelee =3;
     private bool playerInSightRange, playerInAttackRange, petInSightRange, petInAttackRange;
     private Vector3 defaultPosition;
 
@@ -60,9 +60,11 @@ public class Boss : BaseGame
     private void chase(Transform objectTransform)
     {
         if(agent){
-            agent.SetDestination(objectTransform.position);
             transform.LookAt(objectTransform);
             BossHead.LookAt(objectTransform);
+            if(!laserControls.getActiveLaser){
+                agent.SetDestination(objectTransform.position);
+            }
         }
     }
 
@@ -76,11 +78,11 @@ public class Boss : BaseGame
 
         if(shield){
             if(agent){
-                agent.SetDestination(transform.position);
                 transform.LookAt(objectTransform);
                 BossHead.LookAt(objectTransform);
-
                 if(!laserControls.getActiveLaser){
+                    agent.SetDestination(transform.position);
+
                     if(!alreadyAttacked)
                     {
                         //Attack Code
@@ -98,34 +100,33 @@ public class Boss : BaseGame
             }    
         }else 
         {
+            transform.LookAt(objectTransform);
+            BossHead.LookAt(objectTransform);
             if(!laserControls.getActiveLaser){
-
                 agent.SetDestination(transform.position);
-                transform.LookAt(objectTransform);
-                BossHead.LookAt(objectTransform);
-                if(!alreadyAttacked)
-                {
-                    float playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
-                    bossAnimator.SetBool("AttackMelee", true);
+                float playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
 
-                    if(!abilityUsed)
+                if(!abilityUsed)
+                {
+                    playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
+                    playerHealth -= 10;
+                    GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
+                    abilityUsed = true;
+                    bossAnimator.SetBool("AbilityAttack", true);
+                    Invoke(nameof(ResetAbility), 10);
+                }else{
+                    bossAnimator.SetBool("AbilityAttack", false);
+                    if(!alreadyAttacked)
                     {
-                        playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
-                        playerHealth -= 10;
-                        GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
-                        abilityUsed = true;
-                        bossAnimator.SetBool("AbilityAttack", true);
-                        Invoke(nameof(ResetAbility), 10);
-                    }else{
-                        bossAnimator.SetBool("AbilityAttack", false);
+                        bossAnimator.SetBool("AttackMelee", true);
                         playerHealth -= 10;
                         GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
                         alreadyAttacked = true;
                         Invoke(nameof(ResetAttack), timeBetweenAttacks);
+                        
+                    }else{
+                        bossAnimator.SetBool("AttackMelee", false);
                     }
-                    
-                }else{
-                    bossAnimator.SetBool("AttackMelee", false);
                 }
             }
         }
@@ -188,9 +189,6 @@ public class Boss : BaseGame
         
         if(!playerInSightRange && !playerInAttackRange) goDefaultPos();
         enemyFunctions(playerInSightRange, playerInAttackRange, player);   
-
-       
-        
     }
 
     public void enemyFunctions(bool inSightRange, bool inAttackRange, Transform objectTransform)
@@ -198,13 +196,9 @@ public class Boss : BaseGame
         if (inSightRange && !inAttackRange)
         {
             chase(objectTransform);
-            bossAnimator.SetBool("Walking", true);
-        }else{
-            bossAnimator.SetBool("Walking", false);
         }
         if (inSightRange && inAttackRange)
         {
-            
             attack(objectTransform);
         }    
     }

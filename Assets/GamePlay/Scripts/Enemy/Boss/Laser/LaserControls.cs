@@ -18,13 +18,11 @@ public class LaserControls : MonoBehaviour {
         get => activatedLaser;
     }
     private bool shooting = false;
-    public Camera cam;
-    private Ray rayMouse;
     public Transform playerTarget;
     
     private Transform Direction;
     private GameObject firePoint;
-    private Transform Player;
+    public Transform Player;
     private int counterActivationLaser = 0;
     private Animator bossAnimator;
 
@@ -37,7 +35,6 @@ public class LaserControls : MonoBehaviour {
         counterActivationLaser = crystals.Count-1;
         Direction = laserScript.Direction;
         firePoint = laserScript.firePoint;
-        Player = laserScript.Player;
         bossAnimator = GetComponentInChildren<Animator>();
     }
 
@@ -72,15 +69,10 @@ public class LaserControls : MonoBehaviour {
 		}
 		direction = toPosition - fromPosition;
 
-        if (cam != null) {
-			var mousePos = cam.transform.forward;
-			rayMouse = cam.ScreenPointToRay (mousePos);
-
-			if (Physics.Raycast (firePoint.transform.position, direction, out hit, 60)) {
-                if(shooting){
-                    if(hit.collider.tag == GameConstants.PLAYER_TAG){
-                        playerTarget.GetComponent<CharHealth>().health-= 0.5f;
-                    }
+        if (Physics.Raycast (firePoint.transform.position, direction, out hit, 60)) {
+            if(shooting){
+                if(hit.collider.tag == GameConstants.PLAYER_TAG){
+                    playerTarget.GetComponent<CharHealth>().health-= 0.5f;
                 }
             }
         }

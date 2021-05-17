@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6696575, g: 0.68153864, b: 0.88678235, a: 1}
+  m_IndirectSpecularColor: {r: 0.6696575, g: 0.6815387, b: 0.88678235, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3275,15 +3275,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6039491929843986950, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.200005
+      value: 17.1
       objectReference: {fileID: 0}
     - target: {fileID: 6039491929843986950, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.13
+      value: -5.8
       objectReference: {fileID: 0}
     - target: {fileID: 6039491929843986950, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -75.32
+      value: 10.8
       objectReference: {fileID: 0}
     - target: {fileID: 6039491929843986950, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6404,11 +6404,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4134560948888286, guid: c2d2de21ca36b7e448164f8a5352d46d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.286e-42
+      value: -1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 4360298034275332, guid: c2d2de21ca36b7e448164f8a5352d46d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.3049e-41
+      value: -1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 4418317025096834, guid: c2d2de21ca36b7e448164f8a5352d46d, type: 3}
       propertyPath: m_RootOrder
@@ -6468,7 +6468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4542396351321504, guid: c2d2de21ca36b7e448164f8a5352d46d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.516e-42
+      value: -1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 114525950110314134, guid: c2d2de21ca36b7e448164f8a5352d46d, type: 3}
       propertyPath: Player
@@ -9336,15 +9336,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6039491929843986950, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 42.53
+      value: 14.3
       objectReference: {fileID: 0}
     - target: {fileID: 6039491929843986950, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.27
+      value: -9.2
       objectReference: {fileID: 0}
     - target: {fileID: 6039491929843986950, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.0999756
+      value: 14.3
       objectReference: {fileID: 0}
     - target: {fileID: 6039491929843986950, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10713,15 +10713,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6039491929843986950, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -87.31173
+      value: 10.8
       objectReference: {fileID: 0}
     - target: {fileID: 6039491929843986950, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.6471138
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 6039491929843986950, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 23.400024
+      value: 7.9
       objectReference: {fileID: 0}
     - target: {fileID: 6039491929843986950, guid: bc613afb588d4f54a8a415cddf942585, type: 3}
       propertyPath: m_LocalRotation.w
@@ -44403,7 +44403,7 @@ MonoBehaviour:
   projectile: {fileID: 1446380098884818681, guid: 58bf3637f6e906544a32a7f2e7ac188d, type: 3}
   sightRange: 74.2
   attackRange: 41.4
-  attackRangeMelee: 9
+  attackRangeMelee: 6
 --- !u!1 &4953951229275458716
 GameObject:
   m_ObjectHideFlags: 0
@@ -49341,8 +49341,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Laser: {fileID: 1654219176}
   pilarsController: {fileID: 1994971470}
-  cam: {fileID: 0}
   playerTarget: {fileID: 1911453423}
+  Player: {fileID: 550073182}
 --- !u!195 &7529206101656386980
 NavMeshAgent:
   m_ObjectHideFlags: 0
