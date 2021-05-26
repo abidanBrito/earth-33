@@ -22,7 +22,7 @@ public class NutsAndBolts : BaseGame
             var rg = gameObject.AddComponent<Rigidbody>();
             rg.useGravity = false;
             targetPosition = transform.position + Random.insideUnitSphere * 2f;
-            targetPosition.y = 1;
+            transform.position= new Vector3(targetPosition.x,  GameObject.Find("Neck").gameObject.transform.position.y,targetPosition.z);
             mode = 1;
         }
     }

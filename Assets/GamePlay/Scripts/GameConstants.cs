@@ -15,4 +15,6 @@ public class GameConstants
     public const string PROJECTILE_TAG = "Projectile";
     public const string CRYSTAL_TAG = "Crystal";
     public const string HEALER_TAG = "Healer";
+    public const string ARCHER_TAG = "Archer";
+    public const string PLAYER_SPHERE= "Esfera";
 }

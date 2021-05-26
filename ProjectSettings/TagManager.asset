@@ -20,6 +20,7 @@ TagManager:
   - Crystal
   - Healer
   - FxTemporaire
+  - Archer
   layers:
   - Default
   - TransparentFX

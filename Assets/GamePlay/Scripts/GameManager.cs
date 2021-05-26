@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     //recoger tornillos, guardar partidas pasar de nivel, etc.
     private int nuts = 0;
     public int Nuts { get => nuts; set => nuts = value; }
+    private int crystals = 0;
+    public int Crystals { get => crystals; set => crystals = value; }
     
     static GameManager instance;
     

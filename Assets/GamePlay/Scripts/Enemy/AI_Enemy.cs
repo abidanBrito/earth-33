@@ -27,6 +27,7 @@ public class AI_Enemy : BaseGame
     //  Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
+    [SerializeField] private bool isArcher = false;
     public GameObject projectile;
 
     //  States
@@ -36,151 +37,243 @@ public class AI_Enemy : BaseGame
     //  BOSS = ?
     public GameObject explosionEffect;
 
-    private void Awake()
+    private Animator animatorController;
+    private bool isDead = false;
+
+    private void Awake() // Comprobado
     {
+        //Guarda la posicion del juegador y el NavMesh
         player = GameObject.Find("Neck").transform;
         agent = GetComponent<NavMeshAgent>();
         
+        //Comprueba que no es ubn Healer
         if(gameObject.tag != GameConstants.HEALER_TAG)
         {
             shootPosition = transform.GetChild(2).transform;
         }
+
+        animatorController = GetComponentInChildren<Animator>();
     }
-    void Update()
+
+    void Update() //Comprobado
     {   
-        player = GameObject.Find("Neck").transform;
-        if(health <= 0) CreateDrop();  
-        //si no tiene mascota la intelgencia aritificial siempre va a pegar al jugador   
-        if(gameObject.tag == GameConstants.ENEMY_TAG)
-        {
-            CheckEnemiesNear();
+        //Comprueva la posicion del jugador
+        // player = GameObject.Find("Neck").transform;
+
+        //Comprueba si esta muerto. Si lo esta llama a la funcion de dropeo
+        if(!isDead){
+            if(health <= 0) CreateDrop();  
+
+            //Si no tiene mascota la intelgencia aritificial siempre va a pegar al jugador   
+            if(gameObject.tag == GameConstants.ENEMY_TAG)
+            {
+                CheckEnemiesNear();
+            }
         }
     }
 
-    private void CheckEnemiesNear()
+    private void CheckEnemiesNear() //Comprobado
     {
-        if(!pet){
-            //checks if player is in sight range and attack range
+        if(!pet) // Comprovado
+        {
+            //Detecta si el jugador esta dentro del rango de visión y de ataque
             playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
             playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
+            //Si el jugador no se encuentra en ningun rango, sigue patrullando
             if (!playerInSightRange && !playerInAttackRange) Patroling();
             enemyFunctions(playerInSightRange, playerInAttackRange, player);   
-
-        }else{
-            //Si tiene mascota, comprueba que si es distinta a la mascota elegida pegara al jugador y la mascota
-            if(pet != gameObject){
-                //si es enemiga le pegaran, si no le pegaran al healer
-                
+        }
+        else
+        {
+            //Si es la mascota...
+            if(pet != gameObject)
+            {
+                //Detecta si la mascota esta dentro del rango de visión y de ataque    
                 petInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPet);
                 petInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPet);
 
-                // Same Code, with diferent layers, Siempre va a pegar al jugador si esta mas cerca
+                //Detecta si el jugador esta dentro del rango de visión y de ataque
                 playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
                 playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-                if(!playerInSightRange && !playerInAttackRange){
+                //Si no encuentra al jugador...
+                if(!playerInSightRange && !playerInAttackRange)
+                {
                     enemyFunctions(petInSightRange, petInAttackRange, pet.transform); 
                 }
 
+                //Si no detecta a la mascota pero el jugador esta a rango, ira directamente a por el
                 if(!petInSightRange || playerInSightRange)
                 {
-                if (!playerInSightRange && !playerInAttackRange) Patroling();
+                    //Si no detecta al jugador, continua patrullando
+                    if (!playerInSightRange && !playerInAttackRange) Patroling();
+
                     enemyFunctions(playerInSightRange, playerInAttackRange, player);   
                 }
             }
         }    
     }
 
-    public void Patroling()
+    public void Patroling() //Comprobado
     {
+        //Si aun no tiene un punto de ruta, la busca
         if(!walkPointSet) SearchWalkPoint();
 
-        if(walkPointSet){
-            if(agent){
-                agent.SetDestination(walkPoint);
-            }
+        //Si lo tiene...
+        if(walkPointSet)
+        {
+            //Utiliza el NavMesh y marca el punto como destino
+            if(agent) agent.SetDestination(walkPoint); 
         }
 
+        //Distancia entre el Enemy y el punto de ruta
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
-        if(distanceToWalkPoint.magnitude <= 0f)
-            walkPointSet = false;
+        //Si ya ha llegado al punto de ruta resetea el punto
+        if(distanceToWalkPoint.magnitude <= 0f) walkPointSet = false;
     }
 
-    private void SearchWalkPoint()
+    public void enemyFunctions(bool inSightRange, bool inAttackRange, Transform objectTransform) //Comprobado
     {
+        //Si detecta el objetivo pero no esta en el rango de ataque va hacia el objetivo
+        if (inSightRange && !inAttackRange)
+        {
+            chase(objectTransform);
+        } 
+        //Si lo detecta y esta a rango lo ataca
+        else if (inSightRange && inAttackRange)
+        {
+            attack(objectTransform);
+        }    
+    }
+
+    public void chase(Transform objectTransform) //Comprobado
+    {
+        //Convierte al punto de destino en el punto donde esta el objeto detectado
+        if(agent)
+        {
+            agent.SetDestination(objectTransform.position);
+            transform.LookAt(objectTransform);
+        }
+    }
+
+    private void SearchWalkPoint() //comprobado
+    {
+        //Busca un punto aleatorio dentro del rango de ruta
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
     
-        if(Physics.Raycast(walkPoint,-transform.up, 2f, whatIsGround)){
+        //Avisa de que ya hay establecido un nuevo punto de ruta
+        if(Physics.Raycast(walkPoint,-transform.up, 2f, whatIsGround))
+        {
             walkPointSet = true;
         }
     }
 
-    public void chase(Transform objectTransform)
+    public void attack(Transform objectTransform) //Comprobado
     {
-        if(agent){
-            agent.SetDestination(objectTransform.position);
-            transform.LookAt(objectTransform);
-        }
-    }
-    public void attack(Transform objectTransform)
-    {
-        if(agent){
+        if(agent)
+        {
             agent.SetDestination(transform.position);
-        
             transform.LookAt(objectTransform);
+
+            //Si ya puede atacar...
             if(!alreadyAttacked)
             {
-                //Attack Code
-                Rigidbody rb = Instantiate(projectile, shootPosition.position ,Quaternion.identity).GetComponent<Rigidbody>();
+                if(!isArcher)
+                {
+                    animatorController.SetBool("ATTACKING", true);
+                    //Le quita salud al jugador
+                    GameObject.Find(GameConstants.PLAYER_TAG).GetComponent<CharHealth>().health -= 10f;
 
-                rb.AddForce(transform.forward *32f, ForceMode.Impulse);
+                    //Señala que acaba de atacar
+                    alreadyAttacked = true;
 
-                alreadyAttacked = true;
-                Invoke(nameof(ResetAttack), timeBetweenAttacks);
+                    //Al cabo de un tiempo resetea el ataque
+                    Invoke(nameof(ResetAttack), timeBetweenAttacks);
+                } 
+                else
+                {
+                    shootPosition.LookAt(player);
+                    //Instancia un proyectil y le aplica una fuerza con direccion al objetivo
+                    GameObject rb = Instantiate(projectile, shootPosition.position ,shootPosition.rotation);
+                    //Señala que acaba de atacar
+                    alreadyAttacked = true;
+
+                    //Al cabo de un tiempo resetea el ataque
+                    Invoke(nameof(ResetAttack), timeBetweenAttacks);
+                }
+                
+            }else{
+                if(!isArcher){
+                    animatorController.SetBool("ATTACKING", false);
+                }
             }
         }
     }
-    
-    private void ResetAttack(){
+
+    private void ResetAttack() //Comprobado
+    {
+        //Resetea el ataque
         alreadyAttacked = false;
     }
 
-    public void CreateDrop()
+    public void CreateDrop()//Comprobado
     {
-        for(int i = 0; i <= Random.Range(3f, 6f); i++)
-        {   
-            // Lo creo para que no coja el prefab.
-            GameObject tornilloCreado = Instantiate(tornillo, gameObject.transform) as GameObject;
-            tornilloCreado.transform.parent = null;
-        }
-        if(pet == gameObject)
-        {
-            Pet petController = pet.GetComponent<Pet>();
-            petController.StopControlingEnemy();
+        if(!isDead){
+            isDead = true;
+            animatorController.SetBool("DEAD", true);
+            //Creamos un numero aleatorio de tornillos como dropeo
+            for(int i = 0; i <= Random.Range(3f, 6f); i++)
+            {   
+                //Instancia un tornillo
+                GameObject tornilloCreado = Instantiate(tornillo, gameObject.transform) as GameObject;
+
+                //Le quita el parent
+                tornilloCreado.transform.parent = null;
+            }
+
+            //Si es una mascota, le quita el control al jugador
+            if(pet == gameObject)
+            {
+                Pet petController = pet.GetComponent<Pet>();
+                petController.StopControlingEnemy();
+            }
+            
+            //Elimina el NavMesh y destruye el objeto
+            agent = null;
+            Destroy(gameObject, 5f);
         }
         
-        agent = null;
-        Destroy(gameObject);
     }
-    private void takeDamage(EnergyBall sphere)
+
+    private void takeDamage(EnergyBall sphere) //Comprobado
     {
-        if (sphere.modes == 0) health -= 2.5f;
+        //Si las esfera que le impacta está en modo de ataque
+        //le quita salud al Enemy
+        if (sphere.modes == 0)
+        {
+            health -= 2.5f;
+
+            //Crea el drope (Tornillos) si la salud es 0
+            if (health <= 0) CreateDrop(); 
+        } 
+    }
+
+    private void takeDamage(MovableObjects rock)  //Comprobado
+    {
+        //El Enemy pierde salud equivalente al daño de la roca 
+        //que le han lanzado
+        health -= rock.ShotDamage; 
+
+        //Crea el drop (Tornillos) si la salud es 0
         if (health <= 0) CreateDrop();  
     }
 
-    private void takeDamage(MovableObjects rock) 
-    {
-        health -= rock.ShotDamage;
-        if (health <= 0) CreateDrop();  
-    }
-
-    //Gizmos
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected() //Comprobado
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
@@ -190,61 +283,67 @@ public class AI_Enemy : BaseGame
         Gizmos.DrawWireSphere(transform.position, walkPointRange);
     }
 
-    public void enemyFunctions(bool inSightRange, bool inAttackRange, Transform objectTransform)
+    public void OnTriggerEnter(Collider other) //Comprobado
     {
-        if (inSightRange && !inAttackRange)
+        switch (other.gameObject.tag) 
         {
-            // ChasePlayer();
-            chase(objectTransform);
-        } 
-        if (inSightRange && inAttackRange)
-        {
-            // AttackPlayer();
-            attack(objectTransform);
-        }    
-    }
-    public void OnTriggerEnter(Collider other) 
-    {
-        switch (other.gameObject.tag) {
+            //Si el trigger detectada es una esfera...
             case GameConstants.ESFERA_TAG:
+
+                //Si no es una mascota o el no es la mascota...
                 if (!pet || pet != gameObject) 
                 {
+                    //Sufre daño
                     takeDamage(other.GetComponent<EnergyBall>());
                 }
+
                 break;
 
-            default:
-                break;
+            default: break;
         }
     }
-    private void OnCollisionEnter(Collision other)
+
+    private void OnCollisionEnter(Collision other) //Comprobado
     {
-        switch (other.gameObject.tag) {
+        //Si se detecta una colision...
+        switch (other.gameObject.tag) 
+        {
+            //Si la colision es un proyectil de un Enemy...
             case GameConstants.PROJECTILE_TAG:
+
                 if (other.gameObject.GetComponent<Projectile>() != null)
                 {
+                    //Le quita vida y se destruye
                     health -= 2f;
                     Destroy(other.gameObject.GetComponent<Projectile>());
                 }
+
                 break;
             
+            //Si la colision es un objeto movible por el jugador
             case GameConstants.MOVABLE_OBJECTS_TAG:
-                if (collectedObject == null) {
+
+                if (collectedObject == null) 
+                {
                     MovableObjects rock = other.gameObject.GetComponent<MovableObjects>();
-                    if(!rock.AlreadyHitted){
+
+                    //Si no ha sido golpeado con ella le hace daño
+                    if(!rock.AlreadyHitted)
+                    {
                         takeDamage(rock);
                         rock.AlreadyHitted = true;
                     }
+
                     launchEnemy(rock);
                 }
+
                 break;
 
-            default:
-                break;
+            default: break;
         }
     }
 
-    private void launchEnemy(MovableObjects rock)
+    private void launchEnemy(MovableObjects rock) //Comprobado
     {
         if (!gameObject.GetComponent<Rigidbody>())
         {
@@ -263,7 +362,7 @@ public class AI_Enemy : BaseGame
         }
     }
 
-    IEnumerator delay2Seconds(Rigidbody rb)
+    IEnumerator delay2Seconds(Rigidbody rb) //Comprobado
     {
         yield return new WaitForSecondsRealtime(enemyStuntTime);
         Destroy(rb);
