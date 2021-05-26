@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileMoveScript : MonoBehaviour {
-
+	public float damage;
+	public bool impacted = false;
 	public float speed;
 	[Tooltip("From 0% to 100%")]
 	public float accuracy;
@@ -17,6 +18,7 @@ public class ProjectileMoveScript : MonoBehaviour {
 	private float speedRandomness;
 	private Vector3 offset;
 	private bool collided;
+
 
 	void Start () {	
 
@@ -97,6 +99,7 @@ public class ProjectileMoveScript : MonoBehaviour {
 				} else
 					Destroy (hitVFX, ps.main.duration);
 			}
+
 
 			StartCoroutine (DestroyParticle (0f));
 		}

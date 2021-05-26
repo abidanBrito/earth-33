@@ -85,10 +85,9 @@ public class Boss : BaseGame
 
                     if(!alreadyAttacked)
                     {
+                        shootPosition.LookAt(player);
                         //Attack Code
-                        Rigidbody rb = Instantiate(projectile, shootPosition.position ,Quaternion.identity).GetComponent<Rigidbody>();
-
-                        rb.AddForce(transform.forward *32f, ForceMode.Impulse);
+                        GameObject gObj = Instantiate(projectile, shootPosition.position ,shootPosition.rotation);
 
                         alreadyAttacked = true;
                         bossAnimator.SetBool("AttackDistance", true);

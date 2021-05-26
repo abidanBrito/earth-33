@@ -32,12 +32,19 @@ public class CharHealth : BaseGame
             Projectile projectileController = other.gameObject.GetComponent<Projectile>();
             if(projectileController.firstCollision){
                 projectileController.firstCollision = false;
-            
-            // Get projectile hit damage on first collision
-            hitDamage = (int) other.gameObject.GetComponent<Projectile>().HitDamage;
-            // Update health level
-            health -= hitDamage;
+                
+                // Get projectile hit damage on first collision
+                hitDamage = (int) other.gameObject.GetComponent<Projectile>().HitDamage;
+                // Update health level
+                health -= hitDamage;
+            }
         }
+        if(other.gameObject.tag == "Bullet"){
+            ProjectileMoveScript projectile = other.gameObject.GetComponent<ProjectileMoveScript>();
+            if(!projectile.impacted){
+                health -= projectile.damage;
+                projectile.impacted = true; //cuando impacta se pone a true para evitar daño duplicado
+            }
         }
     }
 }
