@@ -11,6 +11,7 @@ public class Crystal : BaseGame
     private PilarsController pilarsController;
     private bool active = true;
     private MeshCollider cd;
+    private BoxCollider boxCollider;
     
 
     void Start()
@@ -19,6 +20,8 @@ public class Crystal : BaseGame
         pilarsController = transform.parent.parent.GetComponent<PilarsController>(); //obtiene el pilar padre y luego el controlador de pilares
         pilarsController.crystals.Add(gameObject);
         cd = GetComponent<MeshCollider>();
+        boxCollider = GetComponent<BoxCollider>();
+        
     }
     void Update()
     {
@@ -51,6 +54,9 @@ public class Crystal : BaseGame
             usingBall = false;               // Poniendo el estado de usando esferas a falso para que las demas puedan ser utilizadas
             if(!rb){
                 rb = gameObject.AddComponent<Rigidbody>();
+            }
+            if(boxCollider != null){
+                Destroy(boxCollider);
             }
         }else{
             if(gameObject != collectedObject){
