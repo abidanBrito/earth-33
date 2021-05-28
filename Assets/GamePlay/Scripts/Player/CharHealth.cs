@@ -39,11 +39,21 @@ public class CharHealth : BaseGame
                 health -= hitDamage;
             }
         }
-        if(other.gameObject.tag == "Bullet"){
+        if(other.gameObject.tag == GameConstants.BULLET){
             ProjectileMoveScript projectile = other.gameObject.GetComponent<ProjectileMoveScript>();
             if(!projectile.impacted){
                 health -= projectile.damage;
                 projectile.impacted = true; //cuando impacta se pone a true para evitar daño duplicado
+            }
+        }
+
+    }
+    private void OnTriggerEnter(Collider other) {
+        if(other.gameObject.tag == GameConstants.MELEE_WEAPON){
+            WeaponMelee weapon = other.gameObject.GetComponent<WeaponMelee>();
+            if(!weapon.impacted){
+                health -= weapon.damage;
+                weapon.impacted = true; //cuando impacta se pone a true para evitar daño duplicado
             }
         }
     }

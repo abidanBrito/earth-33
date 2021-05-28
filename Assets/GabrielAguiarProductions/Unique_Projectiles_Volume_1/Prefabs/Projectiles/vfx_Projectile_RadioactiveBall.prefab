@@ -14572,7 +14572,7 @@ GameObject:
   - component: {fileID: 54151073696178080}
   m_Layer: 0
   m_Name: vfx_Projectile_RadioactiveBall
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14607,6 +14607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+  impacted: 0
   speed: 25
   accuracy: 95
   fireRate: 2

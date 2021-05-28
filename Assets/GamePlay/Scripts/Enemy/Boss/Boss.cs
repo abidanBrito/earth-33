@@ -31,6 +31,8 @@ public class Boss : BaseGame
     bool alreadyAttacked;
     private bool abilityUsed;
     public GameObject projectile;
+    public WeaponMelee weaponHability;
+    public WeaponMelee weaponBasic;
 
     //  States
     public float sightRange = 10, attackRange = 5, attackRangeMelee =3;
@@ -103,24 +105,19 @@ public class Boss : BaseGame
             BossHead.LookAt(objectTransform);
             if(!laserControls.getActiveLaser){
                 agent.SetDestination(transform.position);
-                float playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
-
                 if(!abilityUsed)
                 {
-                    playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
-                    playerHealth -= 10;
-                    GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
                     abilityUsed = true;
                     bossAnimator.SetBool("AbilityAttack", true);
+                    weaponHability.impacted = false;
                     Invoke(nameof(ResetAbility), 10);
                 }else{
                     bossAnimator.SetBool("AbilityAttack", false);
                     if(!alreadyAttacked)
                     {
                         bossAnimator.SetBool("AttackMelee", true);
-                        playerHealth -= 10;
-                        GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
                         alreadyAttacked = true;
+                        weaponBasic.impacted = false;
                         Invoke(nameof(ResetAttack), timeBetweenAttacks);
                         
                     }else{

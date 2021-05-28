@@ -142,7 +142,11 @@ public class Pet : BaseGame
                 FollowPlayer();
             }
             if(enemy){
-                aiController.enemyFunctions(enemyInSightRange,enemyInAttackRange, enemy);
+                if(enemy.GetComponent<AI_Enemy>()){
+                    aiController.enemyFunctions(enemyInSightRange,enemyInAttackRange, enemy);
+                }else{
+                    FollowPlayer();
+                }
             }
         }
     }
@@ -168,6 +172,7 @@ public class Pet : BaseGame
                 }
             }
         }
+            
     }
 
    

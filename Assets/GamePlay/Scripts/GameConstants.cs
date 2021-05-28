@@ -17,4 +17,6 @@ public class GameConstants
     public const string HEALER_TAG = "Healer";
     public const string ARCHER_TAG = "Archer";
     public const string PLAYER_SPHERE= "Esfera";
+    public const string MELEE_WEAPON= "MeleeWeapon";
+    public const string BULLET = "Bullet";
 }

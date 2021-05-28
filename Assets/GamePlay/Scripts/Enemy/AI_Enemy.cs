@@ -39,6 +39,7 @@ public class AI_Enemy : BaseGame
 
     private Animator animatorController;
     private bool isDead = false;
+    private WeaponMelee meleeWeapon;
 
     private void Awake() // Comprobado
     {
@@ -53,6 +54,7 @@ public class AI_Enemy : BaseGame
         }
 
         animatorController = GetComponentInChildren<Animator>();
+        meleeWeapon = GetComponentInChildren<WeaponMelee>();
     }
 
     void Update() //Comprobado
@@ -186,18 +188,19 @@ public class AI_Enemy : BaseGame
                 if(!isArcher)
                 {
                     animatorController.SetBool("ATTACKING", true);
-                    //Le quita salud al jugador
-                    GameObject.Find(GameConstants.PLAYER_TAG).GetComponent<CharHealth>().health -= 10f;
-
-                    //Señala que acaba de atacar
+                    AI_Enemy enemyToAttack = objectTransform.GetComponent<AI_Enemy>();
+                    if(enemyToAttack != null && enemyToAttack != gameObject){
+                        enemyToAttack.health -=2f;
+                    }
+                    // Señala que acaba de atacar
+                    meleeWeapon.impacted = false;
                     alreadyAttacked = true;
-
                     //Al cabo de un tiempo resetea el ataque
                     Invoke(nameof(ResetAttack), timeBetweenAttacks);
                 } 
                 else
                 {
-                    shootPosition.LookAt(player);
+                    shootPosition.LookAt(objectTransform);
                     //Instancia un proyectil y le aplica una fuerza con direccion al objetivo
                     GameObject rb = Instantiate(projectile, shootPosition.position ,shootPosition.rotation);
                     //Señala que acaba de atacar
@@ -245,6 +248,8 @@ public class AI_Enemy : BaseGame
             
             //Elimina el NavMesh y destruye el objeto
             agent = null;
+            Destroy(GetComponent<Pet>());
+            Destroy(GetComponent<AI_Enemy>());
             Destroy(gameObject, 5f);
         }
         
@@ -261,6 +266,13 @@ public class AI_Enemy : BaseGame
             //Crea el drope (Tornillos) si la salud es 0
             if (health <= 0) CreateDrop(); 
         } 
+    }
+    private void takeDamage(float damage) //Comprobado
+    {
+        health -= damage;
+
+        //Crea el drope (Tornillos) si la salud es 0
+        if (health <= 0) CreateDrop(); 
     }
 
     private void takeDamage(MovableObjects rock)  //Comprobado
@@ -283,7 +295,7 @@ public class AI_Enemy : BaseGame
         Gizmos.DrawWireSphere(transform.position, walkPointRange);
     }
 
-    public void OnTriggerEnter(Collider other) //Comprobado
+    private void OnTriggerEnter(Collider other) //Comprobado
     {
         switch (other.gameObject.tag) 
         {
@@ -302,7 +314,7 @@ public class AI_Enemy : BaseGame
             default: break;
         }
     }
-
+    
     private void OnCollisionEnter(Collision other) //Comprobado
     {
         //Si se detecta una colision...
@@ -339,6 +351,22 @@ public class AI_Enemy : BaseGame
 
                 break;
 
+            case GameConstants.BULLET:
+                ProjectileMoveScript projectile = other.gameObject.GetComponent<ProjectileMoveScript>();
+                if(!projectile.impacted){
+                    health -= 2f;
+                    projectile.impacted = true; //cuando impacta se pone a true para evitar daño duplicado
+                }
+
+                break;
+                
+            case GameConstants.MELEE_WEAPON:
+                WeaponMelee weapon =  other.gameObject.GetComponent<WeaponMelee>();
+                    if(!weapon.impacted){
+                        health -= 2f;
+                        weapon.impacted = true; //cuando impacta se pone a true para evitar daño duplicado
+                    }
+                break;
             default: break;
         }
     }

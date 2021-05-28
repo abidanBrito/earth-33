@@ -31,11 +31,13 @@ public class Healer : BaseGame
             // si el enemigo es healer
             if(pet != gameObject)
             {
-                if(aiController.GetComponent<AI_Enemy>().enabled){
-                    aiController.Patroling();
+                if(aiController != null){
+                    if(aiController.GetComponent<AI_Enemy>().enabled){
+                        aiController.Patroling();
+                    }
+                    if(particlesController.isPlaying)
+                        particlesController.Stop();
                 }
-                if(particlesController.isPlaying)
-                particlesController.Stop();
             }else{
                 playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
                 petController.FollowPlayer();

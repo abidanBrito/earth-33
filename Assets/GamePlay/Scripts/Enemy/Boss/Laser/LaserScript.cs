@@ -99,7 +99,7 @@ public class LaserScript : MonoBehaviour {
 		isStarting = true;
 		isOver = false;
 		GrowLaserCaller ();
-		//RotateToMouse (psVFX, endVFX.transform.position);
+		RotateToMouse (psVFX, endVFX.transform.position);
 	}
 
 	//after 'EnableLaser', 'UpdateLaser' is used to keep the position, normals and trail updated, according to an input or to a gameobject position.

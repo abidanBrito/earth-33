@@ -21,6 +21,8 @@ TagManager:
   - Healer
   - FxTemporaire
   - Archer
+  - Bullet
+  - MeleeWeapon
   layers:
   - Default
   - TransparentFX
