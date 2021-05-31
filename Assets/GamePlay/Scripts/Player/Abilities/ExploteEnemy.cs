@@ -27,5 +27,6 @@ public class ExploteEnemy : BaseGame
         Pet petController = pet.GetComponent<Pet>();
         petController.StopControlingEnemy(); // deja de controlar el enemigo antes de destruirlo   
         gameObject.GetComponent<AI_Enemy>().CreateDrop();   // lo mata
+        Destroy(gameObject);
     }
 }

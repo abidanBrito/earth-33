@@ -29,8 +29,8 @@ public class DetectGroundEnemy : BaseGame
     }
     private void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.layer == 6){
-            // si el transform choca con la capa SUELO despues de recibir la explosion de la habilidad
+        if(other.gameObject.layer == 6 || other.gameObject.layer == 12  || other.gameObject.layer == 0){
+            // si el transform choca con la capa SUELO, DEFAULT, O ENVIROMENT despues de recibir la explosion de la habilidad
             if(!agent.enabled){
                 CheckIfGrounded();
             }
@@ -49,6 +49,7 @@ public class DetectGroundEnemy : BaseGame
             if(enemy.health <= 0)
             {
                 enemy.CreateDrop();  
+                Destroy(enemy);
             }
             StartCoroutine(Timer(2));
         }
@@ -56,12 +57,14 @@ public class DetectGroundEnemy : BaseGame
 
     IEnumerator Timer(int seconds){
         yield return new WaitForSeconds(seconds);
-        agent.enabled = true;
-        enemy.enabled = true;
-        gameObject.GetComponent<Pet>().enabled = true;
-        Destroy(gameObject.GetComponent<Rigidbody>());
-        if(detectGround){
-            Destroy(detectGround);
+        if(enemy){
+            agent.enabled = true;
+            enemy.enabled = true;
+            gameObject.GetComponent<Pet>().enabled = true;
+            Destroy(gameObject.GetComponent<Rigidbody>());
+            if(detectGround){
+                Destroy(detectGround);
+            }
         }
     }
 }
