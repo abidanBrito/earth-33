@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sightRangeControlled: 12
-  attackRangeControlled: 5
+  attackRangeControlled: 10.6
   rangeAwayFromPlayer: 15
   whatIsEnemy:
     serializedVersion: 2
