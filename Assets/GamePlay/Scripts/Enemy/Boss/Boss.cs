@@ -104,26 +104,29 @@ public class Boss : BaseGame
             transform.LookAt(objectTransform);
             BossHead.LookAt(objectTransform);
             if(!laserControls.getActiveLaser){
-                agent.SetDestination(transform.position);
-                if(!abilityUsed)
-                {
-                    abilityUsed = true;
-                    bossAnimator.SetBool("AbilityAttack", true);
-                    weaponHability.impacted = false;
-                    Invoke(nameof(ResetAbility), 10);
-                }else{
-                    bossAnimator.SetBool("AbilityAttack", false);
-                    if(!alreadyAttacked)
+                if(agent){
+                    agent.SetDestination(transform.position);
+                    if(!abilityUsed)
                     {
-                        bossAnimator.SetBool("AttackMelee", true);
-                        alreadyAttacked = true;
-                        weaponBasic.impacted = false;
-                        Invoke(nameof(ResetAttack), timeBetweenAttacks);
-                        
+                        abilityUsed = true;
+                        bossAnimator.SetBool("AbilityAttack", true);
+                        weaponHability.impacted = false;
+                        Invoke(nameof(ResetAbility), 10);
                     }else{
-                        bossAnimator.SetBool("AttackMelee", false);
+                        bossAnimator.SetBool("AbilityAttack", false);
+                        if(!alreadyAttacked)
+                        {
+                            bossAnimator.SetBool("AttackMelee", true);
+                            alreadyAttacked = true;
+                            weaponBasic.impacted = false;
+                            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+                            
+                        }else{
+                            bossAnimator.SetBool("AttackMelee", false);
+                        }
                     }
                 }
+                
             }
         }
     }
@@ -143,21 +146,26 @@ public class Boss : BaseGame
         GameObject itemSpaceShip =  Instantiate(shipPart, gameObject.transform) as GameObject;
         itemSpaceShip.transform.parent = null;
 
-        for(int i = 0; i <= Random.Range(40f, 50f); i++)
-        {   
-            // Lo creo para que no coja el prefab.
-            GameObject tornilloCreado = Instantiate(bolts, gameObject.transform) as GameObject;
-            tornilloCreado.transform.localScale = new Vector3(0.1f,0.1f,0.1f);
-            tornilloCreado.transform.parent = null;
-        }
+        // for(int i = 0; i <= Random.Range(20f, 30f); i++)
+        // {   
+        //     // Lo creo para que no coja el prefab.
+        //     GameObject tornilloCreado = Instantiate(bolts, gameObject.transform) as GameObject;
+        //     tornilloCreado.transform.position = new Vector3(tornilloCreado.transform.position.x, player.transform.position.y, tornilloCreado.transform.position.z);
+        //     tornilloCreado.transform.localScale = new Vector3(0.1f,0.1f,0.1f);
+        //     tornilloCreado.transform.parent = null;
+        // }
+        Vector3 deadPosition = new Vector3(transform.position.x, transform.position.y-1.5f, transform.position.z);
+        transform.position = deadPosition;
         bossAnimator.SetFloat("Boss_HP", -1);
-        agent = null;
+        Destroy(agent);
+        Destroy(GetComponent<Boss>());
         Destroy(gameObject,15f);
+        Destroy(GetComponent<Collider>());
     }
     private void TakeDamage(EnergyBall esfera)
     {
         if(esfera.modes == 0){
-            health -= 2.5f;
+            health -= 30f;
         }
         if(health <= 0) CreateDrop();  
     }

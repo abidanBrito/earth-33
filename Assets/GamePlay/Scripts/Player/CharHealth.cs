@@ -23,6 +23,13 @@ public class CharHealth : BaseGame
             Debug.Log("--- GAME OVER! ---");
             Debug.Log("--- NEW GAME! ---");
         }
+
+
+
+        // FOR DEMO CHANGE
+        if(Input.GetKeyDown(KeyCode.Y)){
+            health = 100;
+        }
     }
     void OnCollisionEnter(Collision collision)
     {

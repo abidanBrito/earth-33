@@ -76,7 +76,11 @@ public class HealthBarBossUI : BaseGame
                 crystalHud[1] = GameObject.Find("ShieldCenter");
                 crystalHud[2] = GameObject.Find("ShieldRight");
                 CounterCrystalsHud();
-                bossHealth = bossEntity.GetComponent<Boss>().health;
+                if(bossEntity.GetComponent<Boss>()){
+                    bossHealth = bossEntity.GetComponent<Boss>().health;
+                }else{
+                    bossHealth = 0f;
+                }
                 hudBossHealth.transform.localScale = new Vector3(bossHealth/maxHealth,1f,1f);
             }
         }else
