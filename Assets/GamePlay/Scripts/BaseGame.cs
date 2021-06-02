@@ -50,10 +50,10 @@ public class BaseGame : MonoBehaviour
 
     public void ClearConsoleLogs()
     {
-        var assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
-        var type = assembly.GetType("UnityEditor.LogEntries");
-        var method = type.GetMethod("Clear");
-        method.Invoke(new object(), null);
+        // var assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
+        // var type = assembly.GetType("UnityEditor.LogEntries");
+        // var method = type.GetMethod("Clear");
+        // method.Invoke(new object(), null);
     }
     public void ExplosionVFX(GameObject explosionPrefab, float timeToDestroy = 1.5f)
     {   GameObject explosionFX = null;
