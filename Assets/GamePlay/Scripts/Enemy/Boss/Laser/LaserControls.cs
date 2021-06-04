@@ -5,13 +5,13 @@ using UnityEngine;
 public class LaserControls : MonoBehaviour {
 
     
-    [SerializeField] private GameObject Laser;
+    public GameObject Laser;
 	private GameObject activeLaser;
 	private LaserScript laserScript;
 
     // Control From Pilars
     
-    [SerializeField] private Transform pilarsController;
+    public PilarsController pilarsController;
     private List<GameObject> crystals = new List<GameObject>();
     private bool activatedLaser = false;
     public bool getActiveLaser{
@@ -26,9 +26,10 @@ public class LaserControls : MonoBehaviour {
     private int counterActivationLaser = 0;
     private Animator bossAnimator;
 
+    
     void Start()
     {
-        crystals = pilarsController.GetComponent<PilarsController>().crystals;
+        crystals = pilarsController.crystals;
         activeLaser = Laser;
 		activeLaser.SetActive (true);
 		laserScript = activeLaser.GetComponent<LaserScript> ();
@@ -38,7 +39,7 @@ public class LaserControls : MonoBehaviour {
         bossAnimator = GetComponentInChildren<Animator>();
     }
 
-	void Update () {
+	private void Update () {
         
         RayCastControl();
         

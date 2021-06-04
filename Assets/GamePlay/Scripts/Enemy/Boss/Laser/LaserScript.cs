@@ -21,7 +21,6 @@ public class LaserScript : MonoBehaviour {
 	private List<ParticleSystem> psChilds = new List<ParticleSystem>();
 	private List<ParticleSystem> psEndVFX = new List<ParticleSystem>();
 	private List<float> lrWidth = new List<float> ();
-	private Vector3 mouseCurrentPosition;
 	private ParticleSystemController psCtrl;
 	private ParticleSystem psTrailVFX;
 	private bool emittingTrail;

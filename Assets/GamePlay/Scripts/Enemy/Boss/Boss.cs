@@ -44,20 +44,21 @@ public class Boss : BaseGame
     private LaserControls laserControls;
     private Animator bossAnimator;
 
-    void Start()
-    {
-        shield = GetComponentInChildren<BossShiled>();
-        laserControls = GetComponent<LaserControls>();
-        defaultPosition = transform.position;
-        bossAnimator = GetComponentInChildren<Animator>();
-    }
     private void Awake()
     {
         player = GameObject.Find("Neck").transform;
         BossHead = player = GameObject.Find("Cabeza_Hueso").transform;
         agent = GetComponent<NavMeshAgent>();
         shootPosition = transform.GetChild(2).transform;
+        laserControls = GetComponent<LaserControls>();
+        shield = GetComponentInChildren<BossShiled>();
+        bossAnimator = GetComponentInChildren<Animator>();
     }
+    void Start()
+    {
+        defaultPosition = transform.position;
+    }
+    
 
     private void chase(Transform objectTransform)
     {
@@ -146,14 +147,6 @@ public class Boss : BaseGame
         GameObject itemSpaceShip =  Instantiate(shipPart, gameObject.transform) as GameObject;
         itemSpaceShip.transform.parent = null;
 
-        // for(int i = 0; i <= Random.Range(20f, 30f); i++)
-        // {   
-        //     // Lo creo para que no coja el prefab.
-        //     GameObject tornilloCreado = Instantiate(bolts, gameObject.transform) as GameObject;
-        //     tornilloCreado.transform.position = new Vector3(tornilloCreado.transform.position.x, player.transform.position.y, tornilloCreado.transform.position.z);
-        //     tornilloCreado.transform.localScale = new Vector3(0.1f,0.1f,0.1f);
-        //     tornilloCreado.transform.parent = null;
-        // }
         Vector3 deadPosition = new Vector3(transform.position.x, transform.position.y-1.5f, transform.position.z);
         transform.position = deadPosition;
         bossAnimator.SetFloat("Boss_HP", -1);
@@ -192,7 +185,7 @@ public class Boss : BaseGame
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
         
         if(!playerInSightRange && !playerInAttackRange) goDefaultPos();
-        enemyFunctions(playerInSightRange, playerInAttackRange, player);   
+        enemyFunctions(playerInSightRange, playerInAttackRange, player);
     }
 
     public void enemyFunctions(bool inSightRange, bool inAttackRange, Transform objectTransform)

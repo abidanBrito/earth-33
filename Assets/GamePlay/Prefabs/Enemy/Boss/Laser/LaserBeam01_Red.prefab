@@ -29546,8 +29546,8 @@ MonoBehaviour:
   - {fileID: 120692585343785826}
   - {fileID: 120308475573134560}
   firePoint: {fileID: 1546034810777776}
-  endPoint: {fileID: 0}
-  maximumLenght: 60
+  endPoint: {fileID: 4782849791100635544, guid: 0d7198c8d1dfd684e8a05e18d3597487, type: 3}
+  maximumLenght: 80
   growWidth: 3
   growSpeed: 0.2
   shrinkSpeed: 0.4
@@ -29557,6 +29557,8 @@ MonoBehaviour:
   trailVFX: {fileID: 0}
   trailInterval: 0
   trail: 1
+  Direction: {fileID: 0}
+  Player: {fileID: 0}
 --- !u!114 &114632292215826582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29564,7 +29566,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546034810777776}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9e272d634f40434b85fbf756732714d, type: 3}
   m_Name: 
@@ -29581,7 +29583,6 @@ MonoBehaviour:
   - {fileID: 1136234559087314}
   - {fileID: 1784222310151920}
   - {fileID: 1793567446917118}
-  - {fileID: 0}
   - {fileID: 1574636106800882}
   - {fileID: 1262765586331522}
   - {fileID: 1086928295200600}
