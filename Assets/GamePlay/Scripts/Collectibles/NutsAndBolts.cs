@@ -6,6 +6,7 @@ public class NutsAndBolts : BaseGame
 {
     [SerializeField] private float speed = 6f;
     [SerializeField] private float rotationSpeed = 10f;
+    private Vector3 targetPlayer;
     private Vector3 towardsTarget;
     private Vector3 targetPosition;
     private int mode = 0;
@@ -33,6 +34,7 @@ public class NutsAndBolts : BaseGame
         {
             buscarPunto();
         }
+        
     }
 
     //Si se detecta un collider, se comprueba el tag; si es tipo 'Player',
@@ -41,9 +43,7 @@ public class NutsAndBolts : BaseGame
     {
         if(other.gameObject.tag == GameConstants.PLAYER_TAG)
         {
-            Inventory.nutsQuantity++;
-            GameManager.Instance.Nuts += 1;
-            Destroy(gameObject);
+            mode = 2;
         }
     }
 
@@ -54,10 +54,22 @@ public class NutsAndBolts : BaseGame
     {
         Vector3 positionPlayerHead = GameObject.Find("Neck").transform.position;
         
-        if(mode == 1) towardsTarget = targetPosition - transform.position;
-        else if(mode == 2) towardsTarget = positionPlayerHead - transform.position;
+        if(mode == 1){
+             towardsTarget = targetPosition - transform.position;
+            smoothMovement(transform, towardsTarget, speed, rotationSpeed);
 
-        smoothMovement(transform, towardsTarget, speed, rotationSpeed);
+        }
+        else if(mode == 2){
+            targetPlayer = positionPlayerHead - transform.position;
+            smoothMovement(transform, targetPlayer, speed, rotationSpeed);
+
+            if(targetPlayer.magnitude < 0.5f){
+                Inventory.nutsQuantity++;
+                GameManager.Instance.Nuts += 1;
+                Destroy(gameObject);
+            }
+        } 
+
 
         if(mode == 1 && towardsTarget.magnitude < 0.1f) mode = 0; 
         gameObject.tag = GameConstants.TORNILLO_TAG;

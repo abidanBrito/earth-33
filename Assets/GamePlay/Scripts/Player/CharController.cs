@@ -20,8 +20,6 @@ public class CharController : BaseGame
     // Spheres
     EnergyBall sphereController;
 
-    private Collider[] _collidersDetected;
-
     //new movement with Camera
     Vector3 move;
     private Vector3 nextPosition;
@@ -49,19 +47,6 @@ public class CharController : BaseGame
         Cursor.visible = false;
     }
     
-    //Comprueba todos los Colliders dentro de _detecteds[]; si el tag es de 'Tornillo'
-    //Mueve el objeto hacia el 'Player' y muestra un mensaje por consola 
-    public void Recolection()
-    {
-        // Recoleting Tornillos to the player position
-        foreach(Collider c in _collidersDetected)
-        {
-            if(c.gameObject.tag == GameConstants.TORNILLO_TAG) c.gameObject.GetComponent<NutsAndBolts>().Mode = 2;
-        }
-    }
-
-    
-    
     void Update()
     {
         rotatorEngine = GameObject.Find("Rotator").transform;
@@ -69,8 +54,6 @@ public class CharController : BaseGame
 
         
         groundedPlayer = controller.isGrounded;
-        _collidersDetected = Physics.OverlapSphere(transform.position, 3f);
-
         
         if (groundedPlayer && playerVelocity.y < 0)
         {
@@ -78,10 +61,7 @@ public class CharController : BaseGame
             playerVelocity.y = -1f;                        
         }
         
-        if(_collidersDetected.Length > 0)
-        {
-            Recolection();
-        } 
+        
 
         if (Input.GetButtonDown("Jump") && groundedPlayer)
         {
