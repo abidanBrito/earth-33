@@ -13,9 +13,7 @@ public class Crystal : BaseGame
     private MeshCollider cd;
     private BoxCollider boxCollider;
     
-
-    void Start()
-    {
+    private void Awake() {
         spherePosition = transform.GetChild(0).transform;
         pilarsController = transform.parent.parent.GetComponent<PilarsController>(); //obtiene el pilar padre y luego el controlador de pilares
         pilarsController.crystals.Add(gameObject);
