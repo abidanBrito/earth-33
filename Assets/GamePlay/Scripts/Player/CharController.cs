@@ -107,12 +107,6 @@ public class CharController : BaseGame
         #region Vertical Rotation
         followGameObject.transform.rotation *= Quaternion.AngleAxis(-Input.GetAxis("Mouse Y") * rotationPowerCam, Vector3.right);
         }
-        
-        
-        
-        
-
-        
 
         var angles = followGameObject.transform.localEulerAngles;
         angles.z = 0;
@@ -135,6 +129,8 @@ public class CharController : BaseGame
         //gets controller direction.
         // Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         move = (transform.forward * Input.GetAxis("Vertical")) + (transform.right * Input.GetAxis("Horizontal"));
+        animator.SetFloat("HORIZONTAL",Input.GetAxis("Horizontal"));
+        animator.SetFloat("VERTICAL",Input.GetAxis("Vertical"));
         nextRotation = Quaternion.Lerp(followGameObject.transform.rotation, nextRotation, Time.deltaTime * rotationLerpCam); //guarda la posicion de giro
 
         if (move.x == 0 && move.z == 0) 
@@ -147,7 +143,6 @@ public class CharController : BaseGame
 
         Vector3 position = (transform.forward * move.x * 5f) + (transform.right * move.z * 5f);
         nextPosition = transform.position + position;  
-
         transform.rotation = Quaternion.Euler(0, followGameObject.transform.rotation.eulerAngles.y, 0);
         //reset the y rotation of the look transform
         followGameObject.transform.localEulerAngles = new Vector3(angles.x, 0, 0);

@@ -8,28 +8,38 @@ public class CharHealth : BaseGame
     public float health = 100;
     private int hitDamage;
     GameObject respawnPosition;
+    private Animator playerAnimator;
+
+    //reseting scene
+    private bool resetingScene = false;
+    private CharController  characterController;
 
     void Awake()
     {
         respawnPosition = GameObject.FindGameObjectWithTag(GameConstants.RESPAWN_POSITION_TAG);
+        playerAnimator = GetComponent<Animator>();
+        characterController = GetComponent<CharController>();
     }
     private void Update()
     {
         if (health <= 0) 
         { 
-            ResetEnergyBalls();
-            SceneManager.LoadScene(SceneManager.GetSceneByName("Demo").buildIndex);
-            ClearConsoleLogs();
-            Debug.Log("--- GAME OVER! ---");
-            Debug.Log("--- NEW GAME! ---");
+            playerAnimator.SetBool("DEAD", true);
+            if(!resetingScene)
+                Invoke("ResetScene", 3f);//this will happen after 2 seconds
+                resetingScene = true;
+                characterController.enabled = false;
         }
-
-
-
         // FOR DEMO CHANGE
         if(Input.GetKeyDown(KeyCode.Y)){
             health = 100;
         }
+    }
+    private void ResetScene(){
+            ResetEnergyBalls();
+            SceneManager.LoadScene(SceneManager.GetSceneByName("Demo").buildIndex);
+            Debug.Log("--- GAME OVER! ---");
+            Debug.Log("--- NEW GAME! ---");
     }
     void OnCollisionEnter(Collision collision)
     {
