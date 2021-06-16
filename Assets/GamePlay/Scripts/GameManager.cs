@@ -13,11 +13,15 @@ public class GameManager : MonoBehaviour
     public int Crystals { get => crystals; set => crystals = value; }
 
     // For AutoSave
+    private DataSaveLoad saveLoad;
+    private InventoryStatus inventoryStatus;
     private DateTime start;
     private DateTime end;
-    private int minutesToStartSaved = 2;
+    private int minutesToStartSaved = 5;
     private int minutes;
-    public  bool savedLocked = false;
+    public bool savedLocked = false;
+    //
+    private const string KEYNAME_NUTS_AND_BOLTS = "inventory_status";
 
     public static GameManager Instance { get => instance; set => instance = value; }
 
@@ -34,28 +38,43 @@ public class GameManager : MonoBehaviour
         }
 
         // For AutoSave
-        start = System.DateTime.Now;
+        inventoryStatus = new InventoryStatus();
+        saveLoad = new DataSaveLoad();
+        start = DateTime.Now;
     }
 
     private void Update()
     {
-        // For AutoSave
-        end = DateTime.Now;
-        minutes = end.Minute - start.Minute;
+        if (ItsTimeToSave())
+        {
+            SaveNutsAndBoltsStatus();
+        }
     }
 
     // For AutoSave
     public bool ItsTimeToSave()
     {
+        end = DateTime.Now;
+        minutes = end.Minute - start.Minute;
         if (!savedLocked && (minutes >= minutesToStartSaved))
         {
+            Debug.Log("Tiempo de guardar");
             Debug.Log("Pasados " + minutes + " minutos");
-            start = System.DateTime.Now;
+            Debug.Log("Desde " + start.Hour + ":" + start.Minute + " Hasta " + end.Hour + ":" + end.Minute);
+            start = DateTime.Now;
 
             return true;
         }
 
         return false;
+    }
+
+    // For Save NutsAndBoltsStatus
+    public void SaveNutsAndBoltsStatus()
+    {
+        inventoryStatus.nutsQuantity = Inventory.nutsQuantity;
+        saveLoad.Save(KEYNAME_NUTS_AND_BOLTS, inventoryStatus);
+        Debug.Log(KEYNAME_NUTS_AND_BOLTS + " guardado");
     }
 
 }
