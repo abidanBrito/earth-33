@@ -207,9 +207,38 @@ public class Boss : BaseGame
             {
                 if(!pet)
                 {
+                    EnergyBall energyBall = other.GetComponent<EnergyBall>();
+
+                    if(energyBall.modes == 0){
+                        GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactAttack, energyBall.transform.position, transform.rotation);
+                        Destroy(vfx, 2f);
+                    }
+                    if(energyBall.modes == 1){
+                        GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactControl, energyBall.transform.position, transform.rotation);
+                        Destroy(vfx, 2f);
+                    }
+                    if(energyBall.modes == 2){
+                        GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactPosession, energyBall.transform.position, transform.rotation);
+                        Destroy(vfx, 2f);
+                    }
+
                     TakeDamage(other.GetComponent<EnergyBall>());
                 }else if(pet != gameObject)
                 {
+                    EnergyBall energyBall = other.GetComponent<EnergyBall>();
+
+                    if(energyBall.modes == 0){
+                        GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactAttack, energyBall.transform.position, transform.rotation);
+                        Destroy(vfx, 2f);
+                    }
+                    if(energyBall.modes == 1){
+                        GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactControl, energyBall.transform.position, transform.rotation);
+                        Destroy(vfx, 2f);
+                    }
+                    if(energyBall.modes == 2){
+                        GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactPosession, energyBall.transform.position, transform.rotation);
+                        Destroy(vfx, 2f);
+                    }
                     TakeDamage(other.GetComponent<EnergyBall>());
                 }
             }

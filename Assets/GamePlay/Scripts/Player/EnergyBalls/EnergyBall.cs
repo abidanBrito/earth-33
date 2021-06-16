@@ -23,6 +23,11 @@ public class EnergyBall : BaseGame
         get => mode;
         set => mode = value;
     }
+
+    public GameObject vfxImpactAttack;
+    public GameObject vfxImpactControl;
+    public GameObject vfxImpactPosession;
+
     
     void Start(){
         //not doing anything
@@ -118,12 +123,25 @@ public class EnergyBall : BaseGame
                 {
                     if(movements != -2)
                     {
+                        if(modes == 0){
+                            GameObject vfx = GameObject.Instantiate(vfxImpactAttack, transform.position, transform.rotation);
+                            Destroy(vfx, 2f);
+                        }
+                        if(modes == 1){
+                            GameObject vfx = GameObject.Instantiate(vfxImpactControl, transform.position, transform.rotation);
+                            Destroy(vfx, 2f);
+                        }
+                        if(modes == 2){
+                            GameObject vfx = GameObject.Instantiate(vfxImpactPosession, transform.position, transform.rotation);
+                            Destroy(vfx, 2f);
+                        }
                         movements  = -1;
                         usingBall = false;   // mientras vuelve puede usar otras esferas
                     }
                 }
             }
         }
+        
 
         if(other.gameObject.tag == GameConstants.MOVABLE_OBJECTS_TAG)
         {

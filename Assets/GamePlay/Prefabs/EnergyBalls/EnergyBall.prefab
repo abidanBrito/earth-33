@@ -114,6 +114,9 @@ MonoBehaviour:
   modeAttack: {fileID: 2100000, guid: 6dbd93c5d384efa459bd965bfc9a7362, type: 2}
   modeControl: {fileID: 2100000, guid: 2a519376b0c56624ea84c7ddf04fdd05, type: 2}
   modePosesion: {fileID: 2100000, guid: b0cee2277725d1c4fb40ebffd06f514f, type: 2}
+  vfxImpactAttack: {fileID: 6172289009249086088, guid: 7a086ceb1a5f730419f5975af1b5c139, type: 3}
+  vfxImpactControl: {fileID: 9076073157977294933, guid: 844290d1de6f3054f852a10b4c0157e9, type: 3}
+  vfxImpactPosession: {fileID: 2907205381303617623, guid: 8a11d5a8d1da39d4b993f15b5d613d88, type: 3}
 --- !u!54 &5843024865556316704
 Rigidbody:
   m_ObjectHideFlags: 0

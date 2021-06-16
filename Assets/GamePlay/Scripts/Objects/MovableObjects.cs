@@ -100,10 +100,25 @@ public class MovableObjects : BaseGame
         sphere = other.gameObject.GetComponent<EnergyBall>();
         if (sphere != null) 
         {
+            EnergyBall energyBall = other.GetComponent<EnergyBall>();
+
+            if(energyBall.modes == 0){
+                GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactAttack, energyBall.transform.position, transform.rotation);
+                Destroy(vfx, 2f);
+            }
+            if(energyBall.modes == 1){
+                GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactControl, energyBall.transform.position, transform.rotation);
+                Destroy(vfx, 2f);
+            }
+            if(energyBall.modes == 2){
+                GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactPosession, energyBall.transform.position, transform.rotation);
+                Destroy(vfx, 2f);
+            }
             //si la bola esta en modo controlar
             if (sphere.modes == 1 && sphere.movements != -1 && sphere.movements != -2 
             && sphere.movements != 2 && sphere.movements != 1)
             {
+                
                 ControlObject();
             }
         }

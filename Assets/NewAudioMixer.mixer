@@ -199,6 +199,8 @@ AudioMixerController:
   m_ExposedParameters:
   - guid: 03daaa98b4b6d42ea9d4e31e5e217d8e
     name: ReducirVolume
+  - guid: 605b7a0a6195daf4c8ec8e9b48406a51
+    name: Lowpass
   m_AudioMixerGroupViews:
   - guids:
     - 33d72a01b0fe5ac4e87c2f1882f4c2c8

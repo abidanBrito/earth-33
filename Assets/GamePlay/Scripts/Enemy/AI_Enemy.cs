@@ -305,6 +305,23 @@ public class AI_Enemy : BaseGame
                 //Si no es una mascota o el no es la mascota...
                 if (!pet || pet != gameObject) 
                 {
+
+                    EnergyBall energyBall = other.GetComponent<EnergyBall>();
+
+                    if(energyBall.modes == 0){
+                        GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactAttack, energyBall.transform.position, transform.rotation);
+                        Destroy(vfx, 2f);
+                    }
+                    if(energyBall.modes == 1){
+                        GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactControl, energyBall.transform.position, transform.rotation);
+                        Destroy(vfx, 2f);
+                    }
+                    if(energyBall.modes == 2){
+                        GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactPosession, energyBall.transform.position, transform.rotation);
+                        Destroy(vfx, 2f);
+                    }
+
+
                     //Sufre daño
                     takeDamage(other.GetComponent<EnergyBall>());
                 }
