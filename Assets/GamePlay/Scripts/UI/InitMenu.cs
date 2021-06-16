@@ -2,7 +2,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class InitMenu : BaseGame
-{
+{   
+    // Elementos de la interfaz
+    [SerializeField] private GameObject menu;
+    [SerializeField] private GameObject controles;
+
     // For Load and Save Status
     private DataSaveLoad saveLoad;
     private InventoryStatus inventoryStatus;
@@ -13,6 +17,7 @@ public class InitMenu : BaseGame
         // For Load and Save Status
         inventoryStatus = new InventoryStatus();
         saveLoad = new DataSaveLoad();
+        Cursor.visible = true;
     }
 
     public void NewGame()
@@ -31,7 +36,8 @@ public class InitMenu : BaseGame
 
     public void Controls()
     {
-
+        menu.SetActive(false);
+        controles.SetActive(true);
     }
 
     public void Exit()

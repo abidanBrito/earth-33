@@ -7,6 +7,8 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject UI_Menu;
     [SerializeField] private GameObject UI_Shop;
+    [SerializeField] private GameObject UI_Controles;
+
     public static bool menuOpened = false;
     void Update()
     {
@@ -21,11 +23,11 @@ public class PauseMenu : MonoBehaviour
 
     }
     public void Controls(){
-        // Nuevo Hud Controls
+        UI_Menu.SetActive(false);
+        UI_Controles.SetActive(true);
     }
     public void ReturnIntroMenu(){
         ResumeGame();
-        //faltaria guardar partida
         SceneManager.LoadScene("Intro", LoadSceneMode.Single);
     }
     public void ExitGame(){
