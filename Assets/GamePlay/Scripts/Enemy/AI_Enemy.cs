@@ -316,11 +316,6 @@ public class AI_Enemy : BaseGame
                         GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactControl, energyBall.transform.position, transform.rotation);
                         Destroy(vfx, 2f);
                     }
-                    if(energyBall.modes == 2){
-                        GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactPosession, energyBall.transform.position, transform.rotation);
-                        Destroy(vfx, 2f);
-                    }
-
 
                     //Sufre daño
                     takeDamage(other.GetComponent<EnergyBall>());

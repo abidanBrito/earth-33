@@ -168,7 +168,10 @@ public class Pet : BaseGame
             if(agent.enabled){
                 //si la bola esta en modo controlar
                 if(sphere.modes == 2 && sphere.movements != 1){
+                    GameObject vfx = GameObject.Instantiate(sphere.vfxImpactPosession, sphere.transform.position, transform.rotation);
+                    Destroy(vfx, 2f);
                     ControlingEnemy();
+                    
                 }
             }
         }
