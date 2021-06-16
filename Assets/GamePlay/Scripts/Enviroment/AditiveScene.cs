@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class AditiveScene : MonoBehaviour
 {
     [SerializeField] private Transform player;
+    
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == player.tag){

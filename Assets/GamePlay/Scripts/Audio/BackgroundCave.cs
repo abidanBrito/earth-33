@@ -9,7 +9,7 @@ public class BackgroundCave : MonoBehaviour
     public AudioSource audioSourceAmbient;
     public AudioSource audioSourceCave;
     
-    private void Start()
+    private void Awake()
     {
         audioSourceCave.volume = 0;
     }

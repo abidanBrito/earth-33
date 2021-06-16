@@ -27,6 +27,7 @@ public class PauseMenu : MonoBehaviour
         ResumeGame();
         //faltaria guardar partida
         SceneManager.LoadScene("Intro", LoadSceneMode.Single);
+        Cursor.visible = true;
     }
     public void ExitGame(){
         

@@ -18,7 +18,9 @@ public class InitMenu : BaseGame
     public void NewGame()
     {
         saveLoad.Clear(KEYNAME_NUTS_AND_BOLTS);
+        ResetEnergyBalls();
         SceneManager.LoadScene("Demo", LoadSceneMode.Single);
+        ResetEnergyBalls();
     }
 
     public void Continue()
@@ -26,7 +28,9 @@ public class InitMenu : BaseGame
         // For Load and Save Status
         NutsAndBoltsLoadStatus();
         Debug.Log("Continuando juego");
+        ResetEnergyBalls();
         SceneManager.LoadScene("Demo", LoadSceneMode.Single);
+        ResetEnergyBalls();
     }
 
     public void Controls()

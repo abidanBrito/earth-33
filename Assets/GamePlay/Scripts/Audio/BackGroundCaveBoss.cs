@@ -9,7 +9,7 @@ public class BackGroundCaveBoss : MonoBehaviour
     public AudioSource audioSourceCave;
     private bool entered = false;
     
-    private void Start()
+    private void Awake()
     {
         audioSourceCave.volume = 0;
     }
