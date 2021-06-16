@@ -15,17 +15,17 @@ public class InitTutorial : MonoBehaviour
 
     void Start()
     {
-        ClearText();
-        if (tabActivated == false)
-        {
-            ChangeText("Pulsa 'Tab' para alternar entre el modo de las esferas.");
-        }
+
     }
 
     void Update()
     {
         if (exit == false)
         {
+            if (tabActivated == false)
+            {
+                ChangeText("Pulsa 'Tab' para alternar entre el modo de las esferas.");
+            }
             if (Input.GetKeyDown(KeyCode.Tab) && tabActivated == false)
             {
                 tabActivated = true;
