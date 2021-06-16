@@ -24,6 +24,7 @@ public class CharHealth : BaseGame
     {
         if (health <= 0) 
         { 
+            health = 0;
             playerAnimator.SetBool("DEAD", true);
             if(!resetingScene)
                 Invoke("ResetScene", 3f);//this will happen after 2 seconds

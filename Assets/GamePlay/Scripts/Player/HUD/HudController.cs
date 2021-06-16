@@ -160,7 +160,7 @@ public class HudController : BaseGame
             {
                 UI_Attack_Pet_Health.SetActive(true);
                 UI_Attack_Pet_Life = GameObject.Find("UI_Attack_Pet_Life").GetComponent<Text>();
-                UI_Attack_Pet_Life.text = petHealth + "%";
+                UI_Attack_Pet_Life.text = petHealth + "HP";
             }
             else
             {
@@ -173,7 +173,7 @@ public class HudController : BaseGame
             {
                 UI_Control_Pet_Health.SetActive(true);
                 UI_Control_Pet_Life = GameObject.Find("UI_Control_Pet_Life").GetComponent<Text>();
-                UI_Control_Pet_Life.text = petHealth + "%";
+                UI_Control_Pet_Life.text = petHealth + "HP";
             }
             else
             {
@@ -186,7 +186,7 @@ public class HudController : BaseGame
             {
                 UI_Posesion_Pet_Health.SetActive(true);
                 UI_Posesion_Pet_Life = GameObject.Find("UI_Posesion_Pet_Life").GetComponent<Text>();
-                UI_Posesion_Pet_Life.text = petHealth + "%";
+                UI_Posesion_Pet_Life.text = petHealth + "HP";
             }
             else
             {
