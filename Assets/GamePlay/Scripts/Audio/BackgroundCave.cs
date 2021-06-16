@@ -8,8 +8,7 @@ public class BackgroundCave : MonoBehaviour
     public const float TRANSITION_TIME = 0.5f;
     public AudioSource audioSourceAmbient;
     public AudioSource audioSourceCave;
-    public AudioClip rabo;
-
+    
     private void Start()
     {
         audioSourceCave.volume = 0;
