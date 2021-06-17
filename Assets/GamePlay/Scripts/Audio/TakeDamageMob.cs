@@ -4,47 +4,51 @@ using UnityEngine;
 
 public class TakeDamageMob : MonoBehaviour
 {
-    public AudioClip sphereDamageSFX;
-    public AudioClip projectileDamageSFX;
-    public AudioClip rockDamageSFX;
-    public AudioClip meleeDamageSFX;
+    public enum enemyType { Healer, Ranger, Golem, Boss }
+    public enemyType type;
+    public AudioClip healerDamageSFX;
+    public AudioClip rangerDamageSFX;
+    public AudioClip golemDamageSFX;
+    public AudioClip bossDamageSFX;
     private AudioSource audioSource;
 
-    void Awake(){
+    void Awake()
+    {
         audioSource = GetComponent<AudioSource>();
     }
-    
-    private void OnTriggerEnter(Collider other) //Comprobado
-    {
-        if(BaseGame.pet == null){
-            //Si se detecta una colision...
-            switch (other.gameObject.tag) 
-            {
-                //Si la colision es un proyectil de un Enemy...
-                case GameConstants.PROJECTILE_TAG:
-                    audioSource.clip = projectileDamageSFX;
-                    audioSource.Play(0);
-                    break;
-                
-                //Si la colision es un objeto movible por el jugador
-                case GameConstants.MOVABLE_OBJECTS_TAG:
-                    audioSource.clip = rockDamageSFX;
-                    audioSource.Play(0); 
-                    break;
 
-                case GameConstants.ESFERA_TAG:
-                    EnergyBall esfera = other.gameObject.GetComponent<EnergyBall>();
-                    if(esfera.modes == 0 && esfera.movements != -1 && esfera.movements != -2){
-                        audioSource.clip = sphereDamageSFX;
-                        audioSource.Play(0); 
-                    }
-                    break;
-                    
-                case GameConstants.MELEE_WEAPON:
-                    audioSource.clip = meleeDamageSFX;
-                    audioSource.Play(0); 
-                    break;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (BaseGame.pet == null)
+        {
+
+            EnergyBall esfera = other.gameObject.GetComponent<EnergyBall>();
+            if (other.gameObject.tag == GameConstants.ESFERA_TAG && esfera.modes == 0 && esfera.movements != -1 && esfera.movements != -2)
+            {
+                switch (type)
+                {
+                    case enemyType.Healer:
+                        audioSource.clip = healerDamageSFX;
+                        audioSource.Play(0);
+                        break;
+
+                    case enemyType.Golem:
+                        audioSource.clip = golemDamageSFX;
+                        audioSource.Play(0);
+                        break;
+
+                    case enemyType.Ranger:
+                        audioSource.clip = rangerDamageSFX;
+                        audioSource.Play(0);
+                        break;
+
+                    case enemyType.Boss:
+                        audioSource.clip = bossDamageSFX;
+                        audioSource.Play(0);
+                        break;
+                }
             }
+
         }
     }
 }

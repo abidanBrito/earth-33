@@ -40,6 +40,7 @@ public class AI_Enemy : BaseGame
     private Animator animatorController;
     private bool isDead = false;
     private WeaponMelee meleeWeapon;
+    private RangerShoot rangerSound;
 
     private void Awake() // Comprobado
     {
@@ -55,6 +56,7 @@ public class AI_Enemy : BaseGame
 
         animatorController = GetComponentInChildren<Animator>();
         meleeWeapon = GetComponentInChildren<WeaponMelee>();
+        rangerSound = GetComponent<RangerShoot>();
     }
 
     void Update() //Comprobado
@@ -203,6 +205,13 @@ public class AI_Enemy : BaseGame
                     shootPosition.LookAt(objectTransform);
                     //Instancia un proyectil y le aplica una fuerza con direccion al objetivo
                     GameObject rb = Instantiate(projectile, shootPosition.position ,shootPosition.rotation);
+                    rangerSound.PlaySound();
+
+                    AudioSource audios = rb.AddComponent<AudioSource>();
+                    //audios.outputAudioMixerGroup = ;
+                    ProjectileImpact proyectil = rb.AddComponent<ProjectileImpact>();
+                    AudioClip clip = Resources.Load<AudioClip>("ImpactoProyectil");
+                    proyectil.impact = clip;
                     //Señala que acaba de atacar
                     alreadyAttacked = true;
 
