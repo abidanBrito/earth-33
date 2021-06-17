@@ -97,6 +97,20 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &-4318714966325238715
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 7152a8af588685f43ab1cc7a3eb4db26
+  m_EffectName: Attenuation
+  m_MixLevel: 0e6f5aa80be2c0b4c92891d7c70c1d49
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!243 &-4001682395128017277
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -109,6 +123,7 @@ AudioMixerGroupController:
   m_Children:
   - {fileID: -7933804037211582843}
   - {fileID: 4993626867051129789}
+  - {fileID: 1158970380436745640}
   m_Volume: 874f07eeffa8541cfbed8ca44189aa70
   m_Pitch: 739593835060646e48c211c7711964a8
   m_Send: 00000000000000000000000000000000
@@ -212,6 +227,7 @@ AudioMixerController:
     - a49a693f1e426492a965929ac8c577a6
     - 63f28ba7c1a5c48a6bb621efa4add456
     - 427f0411cf03846ff94af4fc6b9c6318
+    - 11049d58d66611941bf7759a8081cb63
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -266,7 +282,7 @@ AudioMixerSnapshotController:
     d6fe34e405aba45419a992612b522501: 280
     f19c780714f47427dbb13a64bb5d8bd8: -9.332112
     277bac58defcbb84eb59937bdc83500a: 0.525
-    03daaa98b4b6d42ea9d4e31e5e217d8e: -8.841784
+    03daaa98b4b6d42ea9d4e31e5e217d8e: -22.003613
     5e34c7b8b69f4a448a59f96afb81ccb3: 0.096
     605b7a0a6195daf4c8ec8e9b48406a51: 22000
     43c3b34be9d5d024d86797621e33a190: 0.04171297
@@ -275,9 +291,29 @@ AudioMixerSnapshotController:
     79dbf58e43da946e498afe7ed0fb5c8b: 0.27000841
     874f07eeffa8541cfbed8ca44189aa70: -0.025776558
     344bcb5f19b0b419bb1fb9f370400b6f: -2.018037
+    4e5ab66ff6ca1a34db078ce6b774482e: -17.938717
     5cf57f6f155bc4fe38ac878e040ab4bb: -6.133707
     87c67adf5bb1d4553b3acfabe907d106: 0.13552584
   m_TransitionOverrides: {}
+--- !u!243 &1158970380436745640
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Tornillos
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 11049d58d66611941bf7759a8081cb63
+  m_Children: []
+  m_Volume: 4e5ab66ff6ca1a34db078ce6b774482e
+  m_Pitch: 4a7a85b0c03e3cc44b6d2489b159f99e
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -4318714966325238715}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!243 &1219092804891388884
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
