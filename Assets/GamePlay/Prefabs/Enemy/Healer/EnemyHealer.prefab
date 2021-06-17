@@ -19,6 +19,9 @@ GameObject:
   - component: {fileID: 384221692876744715}
   - component: {fileID: 384221692876744709}
   - component: {fileID: 384221692876744764}
+  - component: {fileID: 8990552723168482580}
+  - component: {fileID: 5357865372446043486}
+  - component: {fileID: 2227453963096893679}
   m_Layer: 0
   m_Name: EnemyHealer
   m_TagString: Healer
@@ -4922,6 +4925,132 @@ MonoBehaviour:
   sightRange: 10
   attackRange: 5
   explosionEffect: {fileID: 4017264033081383540, guid: c597cff731175af4a99a1b169ab70519, type: 3}
+--- !u!82 &8990552723168482580
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384221692876744707}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -7620000485480921727, guid: a9c2a8f717d67a0478d588c6ea5b9c2f, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 5353f447537aa4e4e92a9e41c1ec87b5, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 0.25
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &5357865372446043486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384221692876744707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd975d410074f14a8faa47605cc1524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  healerDamageSFX: {fileID: 8300000, guid: 0f3ae69b1bc071c4da82c2196b331276, type: 3}
+  rangerDamageSFX: {fileID: 0}
+  golemDamageSFX: {fileID: 0}
+  bossDamageSFX: {fileID: 0}
+--- !u!114 &2227453963096893679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384221692876744707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3116a35fcf983fb46b4837a1c5ccbd98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sonidoHeal: {fileID: 8300000, guid: 66f97d584ceaeb747a03bb72b3d984b5, type: 3}
 --- !u!1 &384221693364599774
 GameObject:
   m_ObjectHideFlags: 0

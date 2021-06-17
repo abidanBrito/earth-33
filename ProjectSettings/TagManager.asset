@@ -23,6 +23,7 @@ TagManager:
   - Archer
   - Bullet
   - MeleeWeapon
+  - Foot
   layers:
   - Default
   - TransparentFX

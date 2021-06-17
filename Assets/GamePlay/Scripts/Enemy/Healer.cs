@@ -13,14 +13,16 @@ public class Healer : BaseGame
     private float playerHealth;
     AI_Enemy aiController;
     ParticleSystem particlesController;
+    private Healing healingSound;
     
-    void Start()
+    void Awake()
     {
         petController = GetComponent<Pet>();
         aiController = GetComponent<AI_Enemy>();
         particlesController = GetComponent<ParticleSystem>();
         particlesController.Stop();
         aiController.health = mobHealth;
+        healingSound = GetComponent<Healing>();
     }
 
     // Update is called once per frame
@@ -64,6 +66,7 @@ public class Healer : BaseGame
         playerHealth += healingValue;
         if(playerHealth >= 100) playerHealth = 100;
         GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
+        healingSound.PlaySoundHealer();
         alreadyHealed = true;
         Invoke(nameof(ResetHeal),timeBetweenHeals);
     }
