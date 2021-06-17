@@ -19,4 +19,11 @@ public class GameConstants
     public const string PLAYER_SPHERE= "Esfera";
     public const string MELEE_WEAPON= "MeleeWeapon";
     public const string BULLET = "Bullet";
+    //
+    public const string KEYNAME_NUTS_AND_BOLTS = "inventory_status";
+    public const string KEYNAME_ABILITIES = "abilities_status";
+    public const string KEYNAME_PLAYER = "player_status";
+    //
+    public const string ACTION_NEW_GAME = "NewGame";
+    public const string ACTION_CONTINUE = "Continue";
 }

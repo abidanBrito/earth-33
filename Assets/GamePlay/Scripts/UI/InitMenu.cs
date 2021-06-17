@@ -1,41 +1,29 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class InitMenu : BaseGame
-{   
+{
     // Elementos de la interfaz
     [SerializeField] private GameObject menu;
     [SerializeField] private GameObject controles;
-
-    // For Load and Save Status
     private DataSaveLoad saveLoad;
-    private InventoryStatus inventoryStatus;
-    private const string KEYNAME_NUTS_AND_BOLTS = "inventory_status";
 
     private void Start()
     {
-        // For Load and Save Status
-        inventoryStatus = new InventoryStatus();
-        saveLoad = new DataSaveLoad();
         Cursor.visible = true;
+        saveLoad = new DataSaveLoad();
     }
 
     public void NewGame()
     {
-        saveLoad.Clear(KEYNAME_NUTS_AND_BOLTS);
-        ResetEnergyBalls();
-        SceneManager.LoadScene("Demo", LoadSceneMode.Single);
-        ResetEnergyBalls();
+        saveLoad.Clear(GameConstants.KEYNAME_NUTS_AND_BOLTS);
+        saveLoad.Clear(GameConstants.KEYNAME_ABILITIES);
+        saveLoad.Clear(GameConstants.KEYNAME_PLAYER);
+        GameManager.Instance.LoadScene("Demo", GameConstants.ACTION_NEW_GAME);
     }
 
     public void Continue()
     {
-        // For Load and Save Status
-        NutsAndBoltsLoadStatus();
-        Debug.Log("Continuando juego");
-        ResetEnergyBalls();
-        SceneManager.LoadScene("Demo", LoadSceneMode.Single);
-        ResetEnergyBalls();
+        GameManager.Instance.LoadScene("Demo", GameConstants.ACTION_CONTINUE);
     }
 
     public void Controls()
@@ -46,23 +34,14 @@ public class InitMenu : BaseGame
 
     public void Exit()
     {
-        NutsAndBoltsSaveStatus();
+        // ForSave NutsAndBoltsSaveStatus
+        GameManager.Instance.NutsAndBoltsSaveStatus();
+        // For Save NutsAndBoltsSaveStatus
+        GameManager.Instance.AbilitiesShopSaveStatus();
+        // For Save PlayerSaveStatus
+        GameManager.Instance.PlayerSaveStatus();
         Application.Quit();
     }
 
-    // For Load NutsAndBoltsLoadStatus
-    private void NutsAndBoltsLoadStatus()
-    {
-        saveLoad.Load(KEYNAME_NUTS_AND_BOLTS, ref inventoryStatus);
-        Inventory.nutsQuantity = inventoryStatus.nutsQuantity;
-        Debug.Log(KEYNAME_NUTS_AND_BOLTS + " cargado");
-    }
 
-    // For Save NutsAndBoltsLoadStatus
-    private void NutsAndBoltsSaveStatus()
-    {
-        inventoryStatus.nutsQuantity = Inventory.nutsQuantity;
-        saveLoad.Save(KEYNAME_NUTS_AND_BOLTS, inventoryStatus);
-        Debug.Log(KEYNAME_NUTS_AND_BOLTS + " guardado");
-    }
 }
