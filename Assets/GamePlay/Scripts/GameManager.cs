@@ -1,10 +1,10 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : BaseGame
 {
-    static GameManager instance;
-
     //marca los puntos que lleva el jugador
     //recoger tornillos, guardar partidas pasar de nivel, etc.
     private int nuts = 0;
@@ -15,39 +15,49 @@ public class GameManager : MonoBehaviour
     // For AutoSave
     private DataSaveLoad saveLoad;
     private InventoryStatus inventoryStatus;
+    private AbilitiesStatus abilitiesStatus;
+    private PlayerStatus playerStatus;
     private DateTime start;
     private DateTime end;
-    private int minutesToStartSaved = 5;
+    private int minutesToStartSaved = 2; // Minutos que pasan entre guardados automáticos
     private int minutes;
+    private GameObject player;
+    private AbilitiesShop abilitiesShop;
     public bool savedLocked = false;
-    //
-    private const string KEYNAME_NUTS_AND_BOLTS = "inventory_status";
 
+    static GameManager instance;
     public static GameManager Instance { get => instance; set => instance = value; }
 
     private void Start()
     {
+        // For AutoSave
+        saveLoad = new DataSaveLoad();
+        inventoryStatus = new InventoryStatus();
+        abilitiesStatus = new AbilitiesStatus();
+        player = GameObject.FindWithTag(GameConstants.PLAYER_TAG);
+        abilitiesShop = player.GetComponent<AbilitiesShop>();
+        playerStatus = new PlayerStatus();
+        start = DateTime.Now;
+
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             //se destruye para que no haya mas de un objeto con este script
             DestroyImmediate(gameObject);
         }
-
-        // For AutoSave
-        inventoryStatus = new InventoryStatus();
-        saveLoad = new DataSaveLoad();
-        start = DateTime.Now;
     }
 
     private void Update()
     {
         if (ItsTimeToSave())
         {
-            SaveNutsAndBoltsStatus();
+            NutsAndBoltsSaveStatus();
+            AbilitiesShopSaveStatus();
+            PlayerSaveStatus();
         }
     }
 
@@ -69,12 +79,120 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    // For Save NutsAndBoltsStatus
-    public void SaveNutsAndBoltsStatus()
+    public void LoadScene(string name, string action)
+    {
+        SceneManager.LoadScene(name, LoadSceneMode.Single);
+        StartCoroutine(SceneLoadAction(action));
+    }
+
+    IEnumerator SceneLoadAction(string action)
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        switch (action)
+        {
+            case GameConstants.ACTION_NEW_GAME:
+                Debug.Log(GameConstants.ACTION_NEW_GAME + " ...");
+                Debug.Log("Cargando...");
+                ResetEnergyBalls();
+                Debug.Log("Cargado...");
+                break;
+            case GameConstants.ACTION_CONTINUE:
+                Debug.Log(GameConstants.ACTION_CONTINUE + " ...");
+                Debug.Log("Cargando...");
+                ResetEnergyBalls();
+                LoadAll();
+                Debug.Log("Cargado...");
+                break;
+            default:
+                Debug.Log("Default ...");
+                yield return null;
+                break;
+        }
+    }
+
+    public void SaveAll()
+    {
+        NutsAndBoltsSaveStatus();
+        AbilitiesShopSaveStatus();
+        PlayerSaveStatus();
+    }
+
+    public void LoadAll()
+    {
+        NutsAndBoltsLoadStatus();
+        AbilitiesShopLoadStatus();
+         PlayerLoadStatus();
+    }
+
+    // For Load NutsAndBoltsLoadStatus
+    public void NutsAndBoltsLoadStatus()
+    {
+        saveLoad.Load(GameConstants.KEYNAME_NUTS_AND_BOLTS, ref inventoryStatus);
+        Inventory.nutsQuantity = inventoryStatus.nutsQuantity;
+        Nuts = inventoryStatus.nutsQuantity;
+        Debug.Log(GameConstants.KEYNAME_NUTS_AND_BOLTS + " cargado");
+    }
+
+    // For Save NutsAndBoltsSaveStatus
+    public void NutsAndBoltsSaveStatus()
     {
         inventoryStatus.nutsQuantity = Inventory.nutsQuantity;
-        saveLoad.Save(KEYNAME_NUTS_AND_BOLTS, inventoryStatus);
-        Debug.Log(KEYNAME_NUTS_AND_BOLTS + " guardado");
+        saveLoad.Save(GameConstants.KEYNAME_NUTS_AND_BOLTS, inventoryStatus);
+        Debug.Log(GameConstants.KEYNAME_NUTS_AND_BOLTS + " guardado");
+    }
+
+    // For Load AbilitiesShopLoadStatus
+    public void AbilitiesShopLoadStatus()
+    {
+        if (player == null)
+        {
+            player = GameObject.FindWithTag(GameConstants.PLAYER_TAG);
+            abilitiesShop = player.GetComponent<AbilitiesShop>();
+        }
+        saveLoad.Load(GameConstants.KEYNAME_ABILITIES, ref abilitiesStatus);
+        Debug.Log(abilitiesStatus);
+        abilitiesStatus.boughtGranadeAttack = abilitiesShop.BoughtGranadeAttack;
+        abilitiesStatus.boughtThrowObjects = abilitiesShop.BoughtThrowObjects;
+        abilitiesStatus.boughtExplodeEnemy = abilitiesShop.BoughtExplodeEnemy;
+        Debug.Log(GameConstants.KEYNAME_ABILITIES + " cargado");
+    }
+
+    // For Save AbilitiesShopSaveStatus
+    public void AbilitiesShopSaveStatus()
+    {
+        abilitiesStatus.boughtGranadeAttack = abilitiesShop.BoughtGranadeAttack;
+        abilitiesStatus.boughtThrowObjects = abilitiesShop.BoughtThrowObjects;
+        abilitiesStatus.boughtExplodeEnemy = abilitiesShop.BoughtExplodeEnemy;
+        saveLoad.Save(GameConstants.KEYNAME_ABILITIES, abilitiesStatus);
+        Debug.Log(GameConstants.KEYNAME_ABILITIES + " guardado");
+    }
+
+    // For Load PlayerLoadStatus
+    public void PlayerLoadStatus()
+    {
+        if (player == null)
+        {
+            player = GameObject.FindWithTag(GameConstants.PLAYER_TAG);
+            abilitiesShop = player.GetComponent<AbilitiesShop>();
+        }
+        saveLoad.Load(GameConstants.KEYNAME_PLAYER, ref playerStatus);
+        Vector3 newPosition = new Vector3(
+            (float)playerStatus.positionPlayerX,
+            (float)playerStatus.positionPlayerY,
+            (float)playerStatus.positionPlayerZ);
+        player.transform.position = newPosition;
+        Debug.Log(GameConstants.KEYNAME_PLAYER + " cargado");
+    }
+
+    // For Save PlayerSaveStatus
+    public void PlayerSaveStatus()
+    {
+        playerStatus.positionPlayerX = player.transform.position.x;
+        playerStatus.positionPlayerY = player.transform.position.y;
+        playerStatus.positionPlayerZ = player.transform.position.z;
+        saveLoad.Save(GameConstants.KEYNAME_PLAYER, playerStatus);
+        Debug.Log(GameConstants.KEYNAME_PLAYER + " guardado");
     }
 
 }
