@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public class Boss : BaseGame
 {
     private BossShiled shield;
-    public BossShiled GetShield{
+    public BossShiled GetShield
+    {
         get => shield;
     }
     private NavMeshAgent agent;
@@ -21,7 +22,7 @@ public class Boss : BaseGame
 
     public GameObject shipPart;
     public GameObject bolts;
-    
+
     //  Patroling
     private Vector3 walkPoint;
     bool walkPointSet;
@@ -35,7 +36,7 @@ public class Boss : BaseGame
     public WeaponMelee weaponBasic;
 
     //  States
-    public float sightRange = 10, attackRange = 5, attackRangeMelee =3;
+    public float sightRange = 10, attackRange = 5, attackRangeMelee = 3;
     private bool playerInSightRange, playerInAttackRange, petInSightRange, petInAttackRange;
     private Vector3 defaultPosition;
 
@@ -43,6 +44,10 @@ public class Boss : BaseGame
     private Transform BossHead;
     private LaserControls laserControls;
     private Animator bossAnimator;
+
+    private RangerShoot rangerSound;
+    private DeathMob deathMob;
+
 
     private void Awake()
     {
@@ -53,81 +58,105 @@ public class Boss : BaseGame
         laserControls = GetComponent<LaserControls>();
         shield = GetComponentInChildren<BossShiled>();
         bossAnimator = GetComponentInChildren<Animator>();
+        rangerSound = GetComponent<RangerShoot>();
+        deathMob = GetComponent<DeathMob>();
     }
     void Start()
     {
         defaultPosition = transform.position;
     }
-    
+
 
     private void chase(Transform objectTransform)
     {
-        if(agent){
+        if (agent)
+        {
             transform.LookAt(objectTransform);
             BossHead.LookAt(objectTransform);
-            if(!laserControls.getActiveLaser){
+            if (!laserControls.getActiveLaser)
+            {
                 agent.SetDestination(objectTransform.position);
             }
         }
     }
 
-    private void goDefaultPos(){
-        if(agent){
+    private void goDefaultPos()
+    {
+        if (agent)
+        {
             agent.SetDestination(defaultPosition);
         }
     }
     private void attack(Transform objectTransform)
     {
 
-        if(shield){
-            if(agent){
+        if (shield)
+        {
+            if (agent)
+            {
                 transform.LookAt(objectTransform);
                 BossHead.LookAt(objectTransform);
-                if(!laserControls.getActiveLaser){
+                if (!laserControls.getActiveLaser)
+                {
                     agent.SetDestination(transform.position);
 
-                    if(!alreadyAttacked)
+                    if (!alreadyAttacked)
                     {
                         shootPosition.LookAt(player);
                         //Attack Code
-                        GameObject gObj = Instantiate(projectile, shootPosition.position ,shootPosition.rotation);
+                        GameObject gObj = Instantiate(projectile, shootPosition.position, shootPosition.rotation);
+
+                        rangerSound.PlaySound();
+                        AudioSource audios = gObj.AddComponent<AudioSource>();
+                        ProjectileImpact proyectil = gObj.AddComponent<ProjectileImpact>();
+                        AudioClip clip = Resources.Load<AudioClip>("ImpactoProyectil");
+                        proyectil.impact = clip;
 
                         alreadyAttacked = true;
                         bossAnimator.SetBool("AttackDistance", true);
                         Invoke(nameof(ResetAttack), timeBetweenAttacks);
-                    }else{
+                    }
+                    else
+                    {
                         bossAnimator.SetBool("AttackDistance", false);
                     }
                 }
-            }    
-        }else 
+            }
+        }
+        else
         {
             transform.LookAt(objectTransform);
             BossHead.LookAt(objectTransform);
-            if(!laserControls.getActiveLaser){
-                if(agent){
+            if (!laserControls.getActiveLaser)
+            {
+                if (agent)
+                {
                     agent.SetDestination(transform.position);
-                    if(!abilityUsed)
+                    if (!abilityUsed)
                     {
                         abilityUsed = true;
                         bossAnimator.SetBool("AbilityAttack", true);
                         weaponHability.impacted = false;
                         Invoke(nameof(ResetAbility), 10);
-                    }else{
+                    }
+                    else
+                    {
                         bossAnimator.SetBool("AbilityAttack", false);
-                        if(!alreadyAttacked)
+                        if (!alreadyAttacked)
                         {
                             bossAnimator.SetBool("AttackMelee", true);
                             alreadyAttacked = true;
                             weaponBasic.impacted = false;
                             Invoke(nameof(ResetAttack), timeBetweenAttacks);
-                            
-                        }else{
+
+                        }
+                        else
+                        {
                             bossAnimator.SetBool("AttackMelee", false);
                         }
                     }
                 }
-                
+
             }
         }
     }
@@ -136,31 +165,37 @@ public class Boss : BaseGame
     {
         abilityUsed = false;
     }
-    
-    private void ResetAttack(){
+
+    private void ResetAttack()
+    {
         alreadyAttacked = false;
     }
 
     public void CreateDrop()
     {
-        
-        GameObject itemSpaceShip =  Instantiate(shipPart, gameObject.transform) as GameObject;
+
+        GameObject itemSpaceShip = Instantiate(shipPart, gameObject.transform) as GameObject;
         itemSpaceShip.transform.parent = null;
 
-        Vector3 deadPosition = new Vector3(transform.position.x, transform.position.y-1.5f, transform.position.z);
+        Vector3 deadPosition = new Vector3(transform.position.x, transform.position.y - 1.5f, transform.position.z);
         transform.position = deadPosition;
         bossAnimator.SetFloat("Boss_HP", -1);
         Destroy(agent);
         Destroy(GetComponent<Boss>());
-        Destroy(gameObject,15f);
+        Destroy(gameObject, 15f);
         Destroy(GetComponent<Collider>());
     }
+
     private void TakeDamage(EnergyBall esfera)
     {
-        if(esfera.modes == 0){
+        if (esfera.modes == 0)
+        {
             health -= 30f;
         }
-        if(health <= 0) CreateDrop();  
+        if (health <= 0){
+            deathMob.PlaySoundOnDeath();
+            CreateDrop();
+        } 
     }
 
     //Gizmos
@@ -174,17 +209,18 @@ public class Boss : BaseGame
         Gizmos.DrawWireSphere(transform.position, walkPointRange);
     }
     void Update()
-    {   
-        if(!shield){
+    {
+        if (!shield)
+        {
             attackRange = attackRangeMelee;
         }
         player = GameObject.Find("Neck").transform;
-        if(health <= 0) CreateDrop();  
-        
+        if (health <= 0) CreateDrop();
+
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-        
-        if(!playerInSightRange && !playerInAttackRange) goDefaultPos();
+
+        if (!playerInSightRange && !playerInAttackRange) goDefaultPos();
         enemyFunctions(playerInSightRange, playerInAttackRange, player);
     }
 
@@ -197,45 +233,52 @@ public class Boss : BaseGame
         if (inSightRange && inAttackRange)
         {
             attack(objectTransform);
-        }    
+        }
     }
-    public void OnTriggerEnter(Collider other) 
+    public void OnTriggerEnter(Collider other)
     {
-        if(!shield)
+        if (!shield)
         {
-            if(other.gameObject.tag == GameConstants.ESFERA_TAG)
+            if (other.gameObject.tag == GameConstants.ESFERA_TAG)
             {
-                if(!pet)
+                if (!pet)
                 {
                     EnergyBall energyBall = other.GetComponent<EnergyBall>();
 
-                    if(energyBall.modes == 0){
+                    if (energyBall.modes == 0)
+                    {
                         GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactAttack, energyBall.transform.position, transform.rotation);
                         Destroy(vfx, 2f);
                     }
-                    if(energyBall.modes == 1){
+                    if (energyBall.modes == 1)
+                    {
                         GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactControl, energyBall.transform.position, transform.rotation);
                         Destroy(vfx, 2f);
                     }
-                    if(energyBall.modes == 2){
+                    if (energyBall.modes == 2)
+                    {
                         GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactPosession, energyBall.transform.position, transform.rotation);
                         Destroy(vfx, 2f);
                     }
 
                     TakeDamage(other.GetComponent<EnergyBall>());
-                }else if(pet != gameObject)
+                }
+                else if (pet != gameObject)
                 {
                     EnergyBall energyBall = other.GetComponent<EnergyBall>();
 
-                    if(energyBall.modes == 0){
+                    if (energyBall.modes == 0)
+                    {
                         GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactAttack, energyBall.transform.position, transform.rotation);
                         Destroy(vfx, 2f);
                     }
-                    if(energyBall.modes == 1){
+                    if (energyBall.modes == 1)
+                    {
                         GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactControl, energyBall.transform.position, transform.rotation);
                         Destroy(vfx, 2f);
                     }
-                    if(energyBall.modes == 2){
+                    if (energyBall.modes == 2)
+                    {
                         GameObject vfx = GameObject.Instantiate(energyBall.vfxImpactPosession, energyBall.transform.position, transform.rotation);
                         Destroy(vfx, 2f);
                     }
@@ -246,10 +289,10 @@ public class Boss : BaseGame
     }
     private void OnCollisionEnter(Collision other)
     {
-        if(!shield)
+        if (!shield)
         {
             Projectile projectile = other.gameObject.GetComponent<Projectile>();
-            if(projectile != null)
+            if (projectile != null)
             {
                 health -= 2f;
                 Destroy(projectile);
@@ -257,9 +300,9 @@ public class Boss : BaseGame
         }
 
         MovableObjects movableObject = other.gameObject.GetComponent<MovableObjects>();
-        if(movableObject != null)
+        if (movableObject != null)
         {
-            health -= movableObject.ShotDamage+10;
+            health -= movableObject.ShotDamage + 10;
         }
     }
 }

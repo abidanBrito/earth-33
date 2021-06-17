@@ -78,6 +78,8 @@ GameObject:
   - component: {fileID: 8423851587508772637}
   - component: {fileID: 2087710008942277969}
   - component: {fileID: 5835524387463147263}
+  - component: {fileID: 8089739967202567112}
+  - component: {fileID: 659213529982118855}
   m_Layer: 10
   m_Name: EnemyRanger
   m_TagString: Enemy
@@ -421,6 +423,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sonidoDisparo: {fileID: 8300000, guid: 9b605aaef6b4b204a8fb372fcd3c6183, type: 3}
+--- !u!114 &8089739967202567112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2879352937899274004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf8d598dfe663ae448bfb093039856b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeOfMob: 1
+  bossDeath: {fileID: 0}
+  mobDeath: {fileID: 8300000, guid: e2534e4c6fd1f74498a11bafdf59940c, type: 3}
+  healerDeath: {fileID: 0}
+--- !u!114 &659213529982118855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2879352937899274004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b3289fdb377374d90788e75c38f6b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ultimate: {fileID: 8300000, guid: 62fa28d4694a9944e8259af588e01cc7, type: 3}
 --- !u!1 &2879352938384506057
 GameObject:
   m_ObjectHideFlags: 0

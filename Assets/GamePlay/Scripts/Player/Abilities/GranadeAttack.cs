@@ -48,6 +48,7 @@ public class GranadeAttack : BaseGame
     }
     private void ResetSphere()
     {
+        //GameObject.Find("hitGranade").GetComponent<UltimateSound>().PlayUltimateSound();
         GameObject explosionPrefab = sphere.explosionVFX;
         ExplosionVFX(explosionPrefab);
         ExplosionAttack(transform, radius, damage, power);

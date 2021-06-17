@@ -26,14 +26,14 @@ public class ReduceSoundOnPause : MonoBehaviour
             /*transiciones[0] = 0.0f;
             transiciones[1] = 1.0f;
             mixer.TransitionToSnapshots(snapshots, transiciones, 1.0f);*/
-            mixer.SetFloat("ReducirVolume", Mathf.Log10(0.3f)*20);
+            mixer.SetFloat("ReducirVolume", Mathf.Log10(0.15f)*20);
             mixer.SetFloat("Lowpass", 800.0f);
         } else {
             juegoActivo.TransitionTo(.01f);
             /*transiciones[0] = 1.0f;
             transiciones[1] = 0.0f;
             mixer.TransitionToSnapshots(snapshots, transiciones, 1.0f);*/
-            mixer.SetFloat("ReducirVolume", Mathf.Log10(0.35f)*20);
+            mixer.SetFloat("ReducirVolume", Mathf.Log10(0.2f)*20);
             mixer.SetFloat("Lowpass", 22000.0f);
         }
     }

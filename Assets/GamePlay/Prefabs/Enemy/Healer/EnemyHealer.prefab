@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 8990552723168482580}
   - component: {fileID: 5357865372446043486}
   - component: {fileID: 2227453963096893679}
+  - component: {fileID: 3784519047325722977}
+  - component: {fileID: 4336511522148893503}
   m_Layer: 0
   m_Name: EnemyHealer
   m_TagString: Healer
@@ -4934,7 +4936,7 @@ AudioSource:
   m_GameObject: {fileID: 384221692876744707}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -7620000485480921727, guid: a9c2a8f717d67a0478d588c6ea5b9c2f, type: 2}
+  OutputAudioMixerGroup: {fileID: -4922528594620971603, guid: a9c2a8f717d67a0478d588c6ea5b9c2f, type: 2}
   m_audioClip: {fileID: 8300000, guid: 5353f447537aa4e4e92a9e41c1ec87b5, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -5051,6 +5053,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sonidoHeal: {fileID: 8300000, guid: 66f97d584ceaeb747a03bb72b3d984b5, type: 3}
+--- !u!114 &3784519047325722977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384221692876744707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf8d598dfe663ae448bfb093039856b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeOfMob: 0
+  bossDeath: {fileID: 0}
+  mobDeath: {fileID: 0}
+  healerDeath: {fileID: 8300000, guid: 892c22c601410f544bdc0f2ee22ee251, type: 3}
+--- !u!114 &4336511522148893503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384221692876744707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b3289fdb377374d90788e75c38f6b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healerUltimate: {fileID: 8300000, guid: 6c5ea8070c7fe414ba6e723d5e99dc56, type: 3}
 --- !u!1 &384221693364599774
 GameObject:
   m_ObjectHideFlags: 0

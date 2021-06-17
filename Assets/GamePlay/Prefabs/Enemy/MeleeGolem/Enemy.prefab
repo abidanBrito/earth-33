@@ -240,7 +240,9 @@ GameObject:
   - component: {fileID: 6650561335774964462}
   - component: {fileID: 4606798277524078204}
   - component: {fileID: 5062276584397824879}
+  - component: {fileID: 3912622715188180946}
   - component: {fileID: 8483971182392916067}
+  - component: {fileID: 5104563843406010732}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -499,6 +501,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3912622715188180946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2304045652235704297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf8d598dfe663ae448bfb093039856b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeOfMob: 2
+  bossDeath: {fileID: 0}
+  mobDeath: {fileID: 8300000, guid: e2534e4c6fd1f74498a11bafdf59940c, type: 3}
+  healerDeath: {fileID: 0}
 --- !u!114 &8483971182392916067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,6 +534,19 @@ MonoBehaviour:
   rangerDamageSFX: {fileID: 0}
   golemDamageSFX: {fileID: 8300000, guid: 84da5e9124e9f5f4f8f2c2d5272f0cfa, type: 3}
   bossDamageSFX: {fileID: 0}
+--- !u!114 &5104563843406010732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2304045652235704297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b3289fdb377374d90788e75c38f6b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ultimate: {fileID: 8300000, guid: 62fa28d4694a9944e8259af588e01cc7, type: 3}
 --- !u!1 &3385821517320979902
 GameObject:
   m_ObjectHideFlags: 0

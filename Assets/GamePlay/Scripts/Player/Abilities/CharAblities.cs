@@ -25,9 +25,11 @@ public class CharAblities : BaseGame
 
     // Shop Controller
     private AbilitiesShop shopController;
+    private UltimateSound ultiSound;
 
     private void Start()
     {
+        ultiSound = GetComponent<UltimateSound>();
         shopController = GetComponent<AbilitiesShop>();
     }
     // Update is called once per frame
@@ -103,7 +105,10 @@ public class CharAblities : BaseGame
                 } else {
                     GameObject.Find("Player").GetComponent<CharHealth>().health = 100;
                 }
+
+                pet.GetComponent<UltimateSound>().PlayUltimateSound();
                 ExploteEnemy();
+
                 // ExploteEnemy(); // no deberia gastar la misma funcion
                 // Pet petController = pet.GetComponent<Pet>();
                 // GameObject healerPet = pet;
@@ -114,6 +119,7 @@ public class CharAblities : BaseGame
                 
             } else if(pet.gameObject.tag == GameConstants.ENEMY_TAG)
             {
+                pet.GetComponent<UltimateSound>().PlayUltimateSound();
                 ExploteEnemy();
                 canUseExplosionEnemy = false;
                 cooldownExplodeEnemy = awaitTimeExplodeEnemy;
