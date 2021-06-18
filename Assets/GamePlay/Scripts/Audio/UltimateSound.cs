@@ -5,7 +5,7 @@ using UnityEngine;
 public class UltimateSound : MonoBehaviour
 {
     public AudioClip ultimate;
-    private static AudioSource audioUltimate;
+    private AudioSource audioUltimate;
 
     void Awake()
     {
@@ -13,7 +13,8 @@ public class UltimateSound : MonoBehaviour
     }
 
     public void PlayUltimateSound(){
-        audioUltimate.PlayOneShot(ultimate);
+        audioUltimate.clip = ultimate;
+        audioUltimate.Play(0);
         //StartCoroutine(WaitSeconds(secs));
     }
 

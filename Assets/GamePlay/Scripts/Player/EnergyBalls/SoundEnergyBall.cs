@@ -12,19 +12,16 @@ public class SoundEnergyBall : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == GameConstants.ENVIROMENT_TAG || other.GetComponent<BossShiled>() || other.gameObject.tag == "Grass" || other.gameObject.tag == "Sand" || other.GetComponent<AI_Enemy>())
+        
+        if(energyBall.movements != 1)
         {
-            if(energyBall.movements != 1)
+            if(energyBall.movements != 2)
             {
-                if(energyBall.movements != 2)
+                if(energyBall.movements != -2)
                 {
-                    if(energyBall.movements != -2)
-                    {
-                        audioSource.Play(0);
-                    }
+                    audioSource.Play(0);
                 }
             }
         }
-        
     }
 }
