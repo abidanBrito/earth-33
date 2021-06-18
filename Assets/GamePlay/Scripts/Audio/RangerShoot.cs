@@ -12,6 +12,7 @@ public class RangerShoot : MonoBehaviour
     }
 
     public void PlaySound(){
+        disparo.volume = 1;
         disparo.clip = sonidoDisparo;
         disparo.Play(0);
     }

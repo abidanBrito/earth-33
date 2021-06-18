@@ -25,8 +25,12 @@ public class LaserControls : MonoBehaviour {
     public Transform Player;
     private int counterActivationLaser = 0;
     private Animator bossAnimator;
+    private BossLaserSound laserSound;
+    public bool laserSoundActivated = false;
 
-    
+    private void Awake() {
+        laserSound = GetComponent<BossLaserSound>();
+    }    
     void Start()
     {
         crystals = pilarsController.crystals;
@@ -83,6 +87,9 @@ public class LaserControls : MonoBehaviour {
     {
         if(crystalsCounter == counterActivationLaser){
             bossAnimator.SetBool("LaserAttack", true);
+            if(!laserSoundActivated)
+                laserSound.PlayLaserSound();
+                laserSoundActivated = true;
             Invoke(nameof(ActivateLaser), 1.5f);
         }else{
             laserScript.UpdateLaser();
@@ -104,6 +111,7 @@ public class LaserControls : MonoBehaviour {
         shooting = false;
         activatedLaser = false;
         laserScript.DisableLaserCaller(laserScript.disableDelay);
+        laserSoundActivated = false;
         bossAnimator.SetBool("LaserAttack", false);
     }
 	

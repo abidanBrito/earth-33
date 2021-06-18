@@ -115,7 +115,7 @@ public class EnergyBall : BaseGame
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == GameConstants.ENVIROMENT_TAG || other.GetComponent<BossShiled>())
+        if(other.gameObject.tag == GameConstants.ENVIROMENT_TAG || other.GetComponent<BossShiled>() || other.gameObject.tag == "Grass" || other.gameObject.tag == "Sand")
         {
             if(movements != 1)
             {

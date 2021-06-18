@@ -19,7 +19,7 @@ public class GameManager : BaseGame
     private PlayerStatus playerStatus;
     private DateTime start;
     private DateTime end;
-    private int minutesToStartSaved = 2; // Minutos que pasan entre guardados automáticos
+    private int minutesToStartSaved = 2; // Minutos que pasan entre guardados automï¿½ticos
     private int minutes;
     private GameObject player;
     private AbilitiesShop abilitiesShop;
@@ -188,11 +188,12 @@ public class GameManager : BaseGame
     // For Save PlayerSaveStatus
     public void PlayerSaveStatus()
     {
-        playerStatus.positionPlayerX = player.transform.position.x;
-        playerStatus.positionPlayerY = player.transform.position.y;
-        playerStatus.positionPlayerZ = player.transform.position.z;
-        saveLoad.Save(GameConstants.KEYNAME_PLAYER, playerStatus);
-        Debug.Log(GameConstants.KEYNAME_PLAYER + " guardado");
+        if(playerStatus != null)
+            playerStatus.positionPlayerX = player.transform.position.x;
+            playerStatus.positionPlayerY = player.transform.position.y;
+            playerStatus.positionPlayerZ = player.transform.position.z;
+            saveLoad.Save(GameConstants.KEYNAME_PLAYER, playerStatus);
+            Debug.Log(GameConstants.KEYNAME_PLAYER + " guardado");
     }
 
 }

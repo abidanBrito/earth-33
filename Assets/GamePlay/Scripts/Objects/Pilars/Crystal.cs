@@ -12,6 +12,8 @@ public class Crystal : BaseGame
     private bool active = true;
     private MeshCollider cd;
     private BoxCollider boxCollider;
+
+    private SFXQuitarCristal sFX;
     
     private void Awake() {
         spherePosition = transform.GetChild(0).transform;
@@ -19,7 +21,7 @@ public class Crystal : BaseGame
         pilarsController.crystals.Add(gameObject);
         cd = GetComponent<MeshCollider>();
         boxCollider = GetComponent<BoxCollider>();
-        
+        sFX = GetComponent<SFXQuitarCristal>();
     }
     void Update()
     {
@@ -84,6 +86,7 @@ public class Crystal : BaseGame
                         {
                             Destroy(GetComponent<ParticleSystem>());
                         }
+                        sFX.PlaySound();
                         pilarsController.crystals.Remove(gameObject);
                         active = false;
                     }

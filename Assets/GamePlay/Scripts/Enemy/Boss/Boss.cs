@@ -49,6 +49,8 @@ public class Boss : BaseGame
     private DeathMob deathMob;
 
 
+
+
     private void Awake()
     {
         player = GameObject.Find("Neck").transform;
@@ -105,16 +107,16 @@ public class Boss : BaseGame
                         shootPosition.LookAt(player);
                         //Attack Code
                         GameObject gObj = Instantiate(projectile, shootPosition.position, shootPosition.rotation);
+                        if(!laserControls.laserSoundActivated)
+                            rangerSound.PlaySound();
+                            AudioSource audios = gObj.AddComponent<AudioSource>();
+                            ProjectileImpact proyectil = gObj.AddComponent<ProjectileImpact>();
+                            AudioClip clip = Resources.Load<AudioClip>("ImpactoProyectil");
+                            proyectil.impact = clip;
 
-                        rangerSound.PlaySound();
-                        AudioSource audios = gObj.AddComponent<AudioSource>();
-                        ProjectileImpact proyectil = gObj.AddComponent<ProjectileImpact>();
-                        AudioClip clip = Resources.Load<AudioClip>("ImpactoProyectil");
-                        proyectil.impact = clip;
-
-                        alreadyAttacked = true;
-                        bossAnimator.SetBool("AttackDistance", true);
-                        Invoke(nameof(ResetAttack), timeBetweenAttacks);
+                            alreadyAttacked = true;
+                            bossAnimator.SetBool("AttackDistance", true);
+                            Invoke(nameof(ResetAttack), timeBetweenAttacks);
                     }
                     else
                     {

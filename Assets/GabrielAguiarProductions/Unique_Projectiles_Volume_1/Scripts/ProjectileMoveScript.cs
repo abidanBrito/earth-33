@@ -95,6 +95,8 @@ public class ProjectileMoveScript : MonoBehaviour {
 				var ps = hitVFX.GetComponent<ParticleSystem> ();
 				if (ps == null) {
 					var psChild = hitVFX.transform.GetChild (0).GetComponent<ParticleSystem> ();
+					GetComponent<AudioSource> ().Play(0);
+
 					Destroy (hitVFX, psChild.main.duration);
 				} else
 					Destroy (hitVFX, ps.main.duration);
