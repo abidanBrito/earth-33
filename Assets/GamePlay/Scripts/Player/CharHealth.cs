@@ -95,8 +95,6 @@ public class CharHealth : BaseGame
     {
         if(health <= 0){
             playerSound.PlayDieSound();
-        } else {
-            playerSound.PlayDamageSound();
-        }
+        } 
     }
 }
