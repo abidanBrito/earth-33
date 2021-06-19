@@ -11,7 +11,7 @@ public class Boss : BaseGame
         get => shield;
     }
     private NavMeshAgent agent;
-    private Transform player;
+    [SerializeField] private Transform player;
 
     public LayerMask whatIsGround, whatIsPlayer, whatIsPet;
 
@@ -53,7 +53,6 @@ public class Boss : BaseGame
 
     private void Awake()
     {
-        player = GameObject.Find("Neck").transform;
         BossHead = player = GameObject.Find("Cabeza_Hueso").transform;
         agent = GetComponent<NavMeshAgent>();
         shootPosition = transform.GetChild(2).transform;
@@ -216,7 +215,6 @@ public class Boss : BaseGame
         {
             attackRange = attackRangeMelee;
         }
-        player = GameObject.Find("Neck").transform;
         if (health <= 0) CreateDrop();
 
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);

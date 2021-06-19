@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharAblities : BaseGame
 {
-
+    private CharHealth charHealth;
     // Ability Exploting Pet Enemy
     private ExploteEnemy explodeEnemyController;
     [SerializeField]
@@ -26,6 +26,9 @@ public class CharAblities : BaseGame
     // Shop Controller
     private AbilitiesShop shopController;
 
+    private void Awake() {
+        charHealth = GetComponent<CharHealth>();
+    }
     private void Start()
     {
         shopController = GetComponent<AbilitiesShop>();
@@ -96,23 +99,18 @@ public class CharAblities : BaseGame
             // Reseting cooldown
             if(pet.gameObject.tag == GameConstants.HEALER_TAG)
             {
-                if((GameObject.Find("Player").GetComponent<CharHealth>().health += pet.GetComponent<Healer>().getMobHealerHealth()) <= 100 )
+                if((charHealth.health += pet.GetComponent<Healer>().getMobHealerHealth()) <= 100 )
                 {
-                    GameObject.Find("Player").GetComponent<CharHealth>().health += pet.GetComponent<Healer>().getMobHealerHealth(); 
-                    if( GameObject.Find("Player").GetComponent<CharHealth>().health >= 100)  GameObject.Find("Player").GetComponent<CharHealth>().health = 100;
+                    charHealth.health += pet.GetComponent<Healer>().getMobHealerHealth(); 
+                    if( charHealth.health >= 100)  charHealth.health = 100;
                 } else {
-                    GameObject.Find("Player").GetComponent<CharHealth>().health = 100;
+                    charHealth.health = 100;
                 }
 
                 UltimateSound u = pet.GetComponent<UltimateSound>();
                 u.PlayUltimateSound();
                 ExploteEnemy();
 
-                // ExploteEnemy(); // no deberia gastar la misma funcion
-                // Pet petController = pet.GetComponent<Pet>();
-                // GameObject healerPet = pet;
-                // petController.StopControlingEnemy(); // lo dejo de controlar para que vuelva la esfera
-                // Destroy(healerPet); //destruyo el pet anterior guardado, no puedo poner el pet por que no existiria despues de controlarlo
                 canUseExplosionEnemy = false;
                 cooldownExplodeEnemy = awaitTimeExplodeEnemy;
                 

@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/GamePlay/Scenes/Intro/Intro.unity
+    guid: 89934d7cf15ba9d4ea2143359f7688ff
+  - enabled: 1
     path: Assets/GamePlay/Scenes/Sandbox/Demo.unity
     guid: 2fc1de2602c572f42aec2348483faa59
   - enabled: 1
     path: Assets/GamePlay/Scenes/EscenaAditivaBoss/BossScene.unity
     guid: 1789cdccfae8c0c469ed270e30596f55
-  - enabled: 1
-    path: Assets/GamePlay/Scenes/Intro/Intro.unity
-    guid: 89934d7cf15ba9d4ea2143359f7688ff
   m_configObjects: {}

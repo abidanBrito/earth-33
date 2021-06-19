@@ -188,12 +188,11 @@ public class GameManager : BaseGame
     // For Save PlayerSaveStatus
     public void PlayerSaveStatus()
     {
-        if(playerStatus != null)
-            playerStatus.positionPlayerX = player.transform.position.x;
-            playerStatus.positionPlayerY = player.transform.position.y;
-            playerStatus.positionPlayerZ = player.transform.position.z;
-            saveLoad.Save(GameConstants.KEYNAME_PLAYER, playerStatus);
-            Debug.Log(GameConstants.KEYNAME_PLAYER + " guardado");
+        playerStatus.positionPlayerX = player.transform.position.x;
+        playerStatus.positionPlayerY = player.transform.position.y;
+        playerStatus.positionPlayerZ = player.transform.position.z;
+        saveLoad.Save(GameConstants.KEYNAME_PLAYER, playerStatus);
+        Debug.Log(GameConstants.KEYNAME_PLAYER + " guardado");
     }
 
 }
