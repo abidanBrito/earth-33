@@ -8,7 +8,7 @@ public class CheckPointBoss : MonoBehaviour
     {
         if (other.gameObject.tag == GameConstants.PLAYER_TAG)
         {
-            Debug.Log("Guardando en zona boos");
+            // Debug.Log("Guardando en zona boos");
             GameManager.Instance.SaveAll();
         }
     }

@@ -68,9 +68,9 @@ public class GameManager : BaseGame
         minutes = end.Minute - start.Minute;
         if (!savedLocked && (minutes >= minutesToStartSaved))
         {
-            Debug.Log("Tiempo de guardar");
-            Debug.Log("Pasados " + minutes + " minutos");
-            Debug.Log("Desde " + start.Hour + ":" + start.Minute + " Hasta " + end.Hour + ":" + end.Minute);
+            // Debug.Log("Tiempo de guardar");
+            // Debug.Log("Pasados " + minutes + " minutos");
+            // Debug.Log("Desde " + start.Hour + ":" + start.Minute + " Hasta " + end.Hour + ":" + end.Minute);
             start = DateTime.Now;
 
             return true;
@@ -92,20 +92,20 @@ public class GameManager : BaseGame
         switch (action)
         {
             case GameConstants.ACTION_NEW_GAME:
-                Debug.Log(GameConstants.ACTION_NEW_GAME + " ...");
-                Debug.Log("Cargando...");
+                // Debug.Log(GameConstants.ACTION_NEW_GAME + " ...");
+                // Debug.Log("Cargando...");
                 ResetEnergyBalls();
-                Debug.Log("Cargado...");
+                // Debug.Log("Cargado...");
                 break;
             case GameConstants.ACTION_CONTINUE:
-                Debug.Log(GameConstants.ACTION_CONTINUE + " ...");
-                Debug.Log("Cargando...");
+                // Debug.Log(GameConstants.ACTION_CONTINUE + " ...");
+                // Debug.Log("Cargando...");
                 ResetEnergyBalls();
                 LoadAll();
-                Debug.Log("Cargado...");
+                // Debug.Log("Cargado...");
                 break;
             default:
-                Debug.Log("Default ...");
+                // Debug.Log("Default ...");
                 yield return null;
                 break;
         }
@@ -131,7 +131,7 @@ public class GameManager : BaseGame
         saveLoad.Load(GameConstants.KEYNAME_NUTS_AND_BOLTS, ref inventoryStatus);
         Inventory.nutsQuantity = inventoryStatus.nutsQuantity;
         Nuts = inventoryStatus.nutsQuantity;
-        Debug.Log(GameConstants.KEYNAME_NUTS_AND_BOLTS + " cargado");
+        // Debug.Log(GameConstants.KEYNAME_NUTS_AND_BOLTS + " cargado");
     }
 
     // For Save NutsAndBoltsSaveStatus
@@ -139,7 +139,7 @@ public class GameManager : BaseGame
     {
         inventoryStatus.nutsQuantity = Inventory.nutsQuantity;
         saveLoad.Save(GameConstants.KEYNAME_NUTS_AND_BOLTS, inventoryStatus);
-        Debug.Log(GameConstants.KEYNAME_NUTS_AND_BOLTS + " guardado");
+        // Debug.Log(GameConstants.KEYNAME_NUTS_AND_BOLTS + " guardado");
     }
 
     // For Load AbilitiesShopLoadStatus
@@ -151,11 +151,11 @@ public class GameManager : BaseGame
             abilitiesShop = player.GetComponent<AbilitiesShop>();
         }
         saveLoad.Load(GameConstants.KEYNAME_ABILITIES, ref abilitiesStatus);
-        Debug.Log(abilitiesStatus);
+        // Debug.Log(abilitiesStatus);
         abilitiesStatus.boughtGranadeAttack = abilitiesShop.BoughtGranadeAttack;
         abilitiesStatus.boughtThrowObjects = abilitiesShop.BoughtThrowObjects;
         abilitiesStatus.boughtExplodeEnemy = abilitiesShop.BoughtExplodeEnemy;
-        Debug.Log(GameConstants.KEYNAME_ABILITIES + " cargado");
+        // Debug.Log(GameConstants.KEYNAME_ABILITIES + " cargado");
     }
 
     // For Save AbilitiesShopSaveStatus
@@ -165,7 +165,7 @@ public class GameManager : BaseGame
         abilitiesStatus.boughtThrowObjects = abilitiesShop.BoughtThrowObjects;
         abilitiesStatus.boughtExplodeEnemy = abilitiesShop.BoughtExplodeEnemy;
         saveLoad.Save(GameConstants.KEYNAME_ABILITIES, abilitiesStatus);
-        Debug.Log(GameConstants.KEYNAME_ABILITIES + " guardado");
+        // Debug.Log(GameConstants.KEYNAME_ABILITIES + " guardado");
     }
 
     // For Load PlayerLoadStatus
@@ -193,7 +193,7 @@ public class GameManager : BaseGame
             playerStatus.positionPlayerY = player.transform.position.y;
             playerStatus.positionPlayerZ = player.transform.position.z;
             saveLoad.Save(GameConstants.KEYNAME_PLAYER, playerStatus);
-            Debug.Log(GameConstants.KEYNAME_PLAYER + " guardado");
+            // Debug.Log(GameConstants.KEYNAME_PLAYER + " guardado");
     }
 
 }
