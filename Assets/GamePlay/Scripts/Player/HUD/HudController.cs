@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class HudController : BaseGame
 {
     Text text;
-
+    
+    [SerializeField] private CharHealth charHealth;
+    [SerializeField] private CharAblities charAblities;
     float playerHealth;
     Text sphereMode;
     Text itemSpaceship;
@@ -23,15 +25,15 @@ public class HudController : BaseGame
     }
 
     // UI Sphere Counter
-    private Text UI_Attack_Ammo_Number;
-    private Text UI_Control_Ammo_Number;
-    private Text UI_Posesion_Ammo_Number;
+    [SerializeField] private Text UI_Attack_Ammo_Number;
+    [SerializeField] private Text UI_Control_Ammo_Number;
+    [SerializeField] private Text UI_Posesion_Ammo_Number;
 
     // UI Health Player % / HealthBar
     private int maxHealthPlayer = 100;
-    private Text UI_Attack_Percentage;
-    private Text UI_Control_Percentage;
-    private Text UI_Posesion_Percentage;
+    [SerializeField] private Text UI_Attack_Percentage;
+    [SerializeField] private Text UI_Control_Percentage;
+    [SerializeField] private Text UI_Posesion_Percentage;
 
     private GameObject UI_Attack_HealthBar;
     private GameObject UI_Control_HealthBar;
@@ -39,9 +41,9 @@ public class HudController : BaseGame
 
     // UI Counter Bolts
 
-    private Text UI_Attack_Bolt_Counter;
-    private Text UI_Control_Bolt_Counter;
-    private Text UI_Posesion_Bolt_Counter;
+    [SerializeField] private Text UI_Attack_Bolt_Counter;
+    [SerializeField] private Text UI_Control_Bolt_Counter;
+    [SerializeField] private Text UI_Posesion_Bolt_Counter;
     private int boltsCounter;
 
     // Pet Health Object && HealthBar
@@ -49,9 +51,9 @@ public class HudController : BaseGame
     private GameObject UI_Control_Pet_Health;
     private GameObject UI_Posesion_Pet_Health;
     
-    private Text UI_Attack_Pet_Life;
-    private Text UI_Control_Pet_Life;
-    private Text UI_Posesion_Pet_Life;
+    [SerializeField] private Text UI_Attack_Pet_Life;
+    [SerializeField] private Text UI_Control_Pet_Life;
+    [SerializeField] private Text UI_Posesion_Pet_Life;
 
     // Abilitie Cooldown
     
@@ -62,6 +64,9 @@ public class HudController : BaseGame
 
     // Skills Shop
     private GameObject UI_Shop;
+    [SerializeField] private GameObject shop_Attack_Buy_Button;
+    [SerializeField] private GameObject shop_Control_Buy_Button;
+    [SerializeField] private GameObject shop_Posesion_Buy_Button;
     private Text shop_Attack_Button_Price;
     private Text shop_Control_Button_Price;
     private Text shop_Posesion_Button_Price;
@@ -119,9 +124,9 @@ public class HudController : BaseGame
         
         KeysShop(KeyCode.B, KeyCode.Escape);
         if(UI_Shop.activeSelf){
-            if(abilitiesShopController.BoughtGranadeAttack) if(GameObject.Find("Shop_Attack_Buy_Button") != null) GameObject.Find("Shop_Attack_Buy_Button").SetActive(false);
-            if(abilitiesShopController.BoughtThrowObjects) if(GameObject.Find("Shop_Control_Buy_Button") != null) GameObject.Find("Shop_Control_Buy_Button").SetActive(false);
-            if(abilitiesShopController.BoughtExplodeEnemy) if(GameObject.Find("Shop_Posesion_Buy_Button") != null) GameObject.Find("Shop_Posesion_Buy_Button").SetActive(false);
+            if(abilitiesShopController.BoughtGranadeAttack) shop_Attack_Buy_Button.SetActive(false);
+            if(abilitiesShopController.BoughtThrowObjects) shop_Control_Buy_Button.SetActive(false);
+            if(abilitiesShopController.BoughtExplodeEnemy) shop_Posesion_Buy_Button.SetActive(false);
             
         }
     }
@@ -159,7 +164,6 @@ public class HudController : BaseGame
             if(pet)
             {
                 UI_Attack_Pet_Health.SetActive(true);
-                UI_Attack_Pet_Life = GameObject.Find("UI_Attack_Pet_Life").GetComponent<Text>();
                 UI_Attack_Pet_Life.text = petHealth + "HP";
             }
             else
@@ -172,7 +176,6 @@ public class HudController : BaseGame
             if(pet)
             {
                 UI_Control_Pet_Health.SetActive(true);
-                UI_Control_Pet_Life = GameObject.Find("UI_Control_Pet_Life").GetComponent<Text>();
                 UI_Control_Pet_Life.text = petHealth + "HP";
             }
             else
@@ -185,7 +188,6 @@ public class HudController : BaseGame
             if(pet)
             {
                 UI_Posesion_Pet_Health.SetActive(true);
-                UI_Posesion_Pet_Life = GameObject.Find("UI_Posesion_Pet_Life").GetComponent<Text>();
                 UI_Posesion_Pet_Life.text = petHealth + "HP";
             }
             else
@@ -208,7 +210,7 @@ public class HudController : BaseGame
     }
     private void UpdatingPlayerHealth()
     {
-        playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
+        playerHealth = charHealth.health;
         if(UI_Attack_Percentage != null)
         {
             UI_Attack_Percentage.text = Mathf.Round(playerHealth).ToString() + "%";
@@ -233,16 +235,13 @@ public class HudController : BaseGame
     private void ChangeUIModes()
     {
 
-        charAblitiesController = GameObject.Find("Player").GetComponent<CharAblities>();
+        charAblitiesController = charAblities;
 
         if(sphereModes == 0)
         {
             UI_ModeAttack.SetActive(true);
             UI_ModeControl.SetActive(false);
             UI_ModePosesion.SetActive(false);
-            UI_Attack_Ammo_Number = GameObject.Find("UI_Attack_Ammo_Number").GetComponent<Text>();
-            UI_Attack_Percentage = GameObject.Find("UI_Attack_Percentage").GetComponent<Text>();
-            UI_Attack_Bolt_Counter = GameObject.Find("UI_Attack_Bolt_Counter").GetComponent<Text>();
             
             if(abilitiesShopController.BoughtGranadeAttack)
             {
@@ -265,9 +264,6 @@ public class HudController : BaseGame
             UI_ModeAttack.SetActive(false);
             UI_ModeControl.SetActive(true);
             UI_ModePosesion.SetActive(false);
-            UI_Control_Ammo_Number =  GameObject.Find("UI_Control_Ammo_Number").GetComponent<Text>();
-            UI_Control_Percentage = GameObject.Find("UI_Control_Percentage").GetComponent<Text>();
-            UI_Control_Bolt_Counter = GameObject.Find("UI_Control_Bolt_Counter").GetComponent<Text>();
 
             if(abilitiesShopController.BoughtThrowObjects)
             {
@@ -288,9 +284,6 @@ public class HudController : BaseGame
             UI_ModeAttack.SetActive(false);
             UI_ModeControl.SetActive(false);
             UI_ModePosesion.SetActive(true);
-            UI_Posesion_Ammo_Number =  GameObject.Find("UI_Posesion_Ammo_Number").GetComponent<Text>();
-            UI_Posesion_Percentage = GameObject.Find("UI_Posesion_Percentage").GetComponent<Text>();
-            UI_Posesion_Bolt_Counter = GameObject.Find("UI_Posesion_Bolt_Counter").GetComponent<Text>();
         
             if(abilitiesShopController.BoughtExplodeEnemy)
             {

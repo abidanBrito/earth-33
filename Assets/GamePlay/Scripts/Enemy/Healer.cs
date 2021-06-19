@@ -14,6 +14,7 @@ public class Healer : BaseGame
     AI_Enemy aiController;
     ParticleSystem particlesController;
     private Healing healingSound;
+    [SerializeField] private CharHealth charHealth;
     
     void Awake()
     {
@@ -41,7 +42,7 @@ public class Healer : BaseGame
                         particlesController.Stop();
                 }
             }else{
-                playerHealth = GameObject.Find("Player").GetComponent<CharHealth>().health;
+                playerHealth = charHealth.health;
                 petController.FollowPlayer();
                 if(playerHealth < 100){
                     if(!alreadyHealed){
@@ -65,7 +66,7 @@ public class Healer : BaseGame
         aiController.health -= healingValue;
         playerHealth += healingValue;
         if(playerHealth >= 100) playerHealth = 100;
-        GameObject.Find("Player").GetComponent<CharHealth>().health = playerHealth;
+        charHealth.health = playerHealth;
         healingSound.PlaySoundHealer();
         alreadyHealed = true;
         Invoke(nameof(ResetHeal),timeBetweenHeals);

@@ -17,6 +17,9 @@ public class HealthBarBossUI : BaseGame
     //controlador hud crystales
     private GameObject[] crystalHud = new GameObject[3];
 
+    [SerializeField] private GameObject UI_Left_Shield;
+    [SerializeField] private GameObject UI_Mid_Shield;
+    [SerializeField] private GameObject UI_Right_Shield;
     
     private void Start()
     {
@@ -61,9 +64,9 @@ public class HealthBarBossUI : BaseGame
     {
        if(other.tag == GameConstants.PLAYER_TAG){
             hudController.UI_HealthBarBoss.SetActive(true);
-            crystalHud[0] = GameObject.Find("ShieldLeft");
-            crystalHud[1] = GameObject.Find("ShieldCenter");
-            crystalHud[2] = GameObject.Find("ShieldRight");
+            crystalHud[0] = UI_Left_Shield;
+            crystalHud[1] = UI_Mid_Shield;
+            crystalHud[2] = UI_Right_Shield;
         }
     }
     private void OnTriggerStay(Collider other)
@@ -72,9 +75,9 @@ public class HealthBarBossUI : BaseGame
         {
             if(other.tag == GameConstants.PLAYER_TAG){
                 hudController.UI_HealthBarBoss.SetActive(true);
-                crystalHud[0] = GameObject.Find("ShieldLeft");
-                crystalHud[1] = GameObject.Find("ShieldCenter");
-                crystalHud[2] = GameObject.Find("ShieldRight");
+                crystalHud[0] = UI_Left_Shield;
+                crystalHud[1] = UI_Mid_Shield;
+                crystalHud[2] = UI_Right_Shield;
                 CounterCrystalsHud();
                 if(bossEntity.GetComponent<Boss>()){
                     bossHealth = bossEntity.GetComponent<Boss>().health;
