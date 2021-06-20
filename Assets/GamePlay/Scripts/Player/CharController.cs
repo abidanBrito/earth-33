@@ -7,7 +7,13 @@ public class CharController : BaseGame
     //Movement
     private CharacterController controller;
     private Vector3 playerVelocity;
+    public Vector3 getPlayerVelocity{
+        get => playerVelocity;
+    }
     private bool groundedPlayer;
+    public bool getGroundedPlayer{
+        get => groundedPlayer;
+    }
     public float playerSpeed = 3.5f;
     public float jumpHeight = 1.0f;
     public float gravityValue = -9.81f;
@@ -59,6 +65,9 @@ public class CharController : BaseGame
         {
             animator.SetBool("jumping", false);
             playerVelocity.y = -1f;                        
+        }
+        if(!groundedPlayer && playerVelocity.y < -5f){
+            animator.SetBool("jumping", true);
         }
         
         

@@ -38,6 +38,7 @@ public class CharHealth : BaseGame
         {
             health = 100;
         }
+        
     }
 
     private void ResetScene()
