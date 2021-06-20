@@ -11,7 +11,7 @@ public class Boss : BaseGame
         get => shield;
     }
     private NavMeshAgent agent;
-    [SerializeField] private Transform player;
+    private Transform player;
 
     public LayerMask whatIsGround, whatIsPlayer, whatIsPet;
 
@@ -53,7 +53,8 @@ public class Boss : BaseGame
 
     private void Awake()
     {
-        BossHead = player = GameObject.Find("Cabeza_Hueso").transform;
+         player = GameObject.Find("Neck").transform;
+        BossHead = GameObject.Find("Cabeza_Hueso").transform;
         agent = GetComponent<NavMeshAgent>();
         shootPosition = transform.GetChild(2).transform;
         laserControls = GetComponent<LaserControls>();
