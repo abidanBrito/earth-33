@@ -8,7 +8,8 @@ public class CloseControl : MonoBehaviour
     [SerializeField] private GameObject menu;
     [SerializeField] private GameObject controles;
 
-    public void Volver(){
+    public void Volver()
+    {
         menu.SetActive(true);
         controles.SetActive(false);
     }

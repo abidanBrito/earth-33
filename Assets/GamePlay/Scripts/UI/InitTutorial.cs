@@ -13,10 +13,7 @@ public class InitTutorial : MonoBehaviour
     [SerializeField] private Text ayuda;
     [SerializeField] private Transform player;
 
-    void Start()
-    {
-
-    }
+    void Start(){}
 
     void Update()
     {
@@ -26,18 +23,21 @@ public class InitTutorial : MonoBehaviour
             {
                 ChangeText("Pulsa 'Tab' para alternar entre el modo de las esferas.");
             }
+
             if (Input.GetKeyDown(KeyCode.Tab) && tabActivated == false)
             {
                 tabActivated = true;
                 ClearText();
                 ChangeText("En modo Control, puedes disparar sobre objetos para moverlos.");
             }
+
             if (tabActivated == true && BaseGame.collectedObject != null && controlModeActivated == false)
             {
                 controlModeActivated = true;
                 ClearText();
                 ChangeText("Pulsa 'E' para soltar el objeto.");
             }
+            
             if (controlModeActivated == true && Input.GetKeyDown(KeyCode.E) && releaseActivated == false)
             {
                 releaseActivated = true;

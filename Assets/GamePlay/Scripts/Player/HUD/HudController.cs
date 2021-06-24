@@ -117,50 +117,57 @@ public class HudController : BaseGame
         UpdatingBoltsCounter();
         UpdatingPetHealth();
         ShopControllerInformationShown();
-        
     }
+
     private void ShopControllerInformationShown()
     {
-        
         KeysShop(KeyCode.B, KeyCode.Escape);
-        if(UI_Shop.activeSelf){
+        
+        if(UI_Shop.activeSelf)
+        {
             if(abilitiesShopController.BoughtGranadeAttack) shop_Attack_Buy_Button.SetActive(false);
             if(abilitiesShopController.BoughtThrowObjects) shop_Control_Buy_Button.SetActive(false);
             if(abilitiesShopController.BoughtExplodeEnemy) shop_Posesion_Buy_Button.SetActive(false);
             
         }
     }
+
     private void KeysShop(KeyCode open, KeyCode close)
     {
         if(Input.GetKeyDown(open))
         {
             OpenSkillShop();
         }
-        if(UI_Shop.activeSelf){
-            if(Input.GetKeyDown(close))
-            {
-                OpenSkillShop();
-            }
+
+        if(UI_Shop.activeSelf)
+        {
+            if(Input.GetKeyDown(close)) OpenSkillShop();
         }
     }
 
-   private void OpenSkillShop()
+    private void OpenSkillShop()
     {
         if(!UI_Shop.activeSelf)
         {
             UI_Shop.SetActive(true);
             Cursor.visible = true;
-        }else{
+        }
+        else
+        {
             UI_Shop.SetActive(false);
             Cursor.visible = false;
         }
     }
+
     private void UpdatingPetHealth()
     {
-        if(pet){
+        if(pet)
+        {
             petHealth = (int) pet.GetComponent<AI_Enemy>().health;
         }
-        if(sphereModes == 0){
+
+        if(sphereModes == 0)
+        {
             if(pet)
             {
                 UI_Attack_Pet_Health.SetActive(true);
@@ -171,6 +178,7 @@ public class HudController : BaseGame
                 UI_Attack_Pet_Health.SetActive(false);
             }
         }
+
         if(sphereModes == 1)
         {
             if(pet)
@@ -183,6 +191,7 @@ public class HudController : BaseGame
                 UI_Control_Pet_Health.SetActive(false);
             }
         }
+
         if(sphereModes == 2)
         {
             if(pet)
@@ -196,6 +205,7 @@ public class HudController : BaseGame
             }
         }
     }
+
     private void UpdatingBoltsCounter()
     {
         boltsCounter = GameManager.Instance.Nuts;
@@ -208,6 +218,7 @@ public class HudController : BaseGame
         if(UI_Posesion_Bolt_Counter != null)
         UI_Posesion_Bolt_Counter.text = boltsCounter.ToString();
     }
+
     private void UpdatingPlayerHealth()
     {
         playerHealth = charHealth.health;
@@ -234,7 +245,6 @@ public class HudController : BaseGame
 
     private void ChangeUIModes()
     {
-
         charAblitiesController = charAblities;
 
         if(sphereModes == 0)
@@ -253,7 +263,9 @@ public class HudController : BaseGame
                 {
                     UI_Attack_Ability.SetActive(false);
                 }
-            }else{
+            }
+            else
+            {
                 if(UI_Attack_Ability != null)
                 UI_Attack_Ability.SetActive(false);
             }
@@ -270,10 +282,14 @@ public class HudController : BaseGame
                 if(charAblitiesController.canUseTrhowObjects)
                 {
                     UI_Control_Ability.SetActive(true);
-                }else{
+                }
+                else
+                {
                     UI_Control_Ability.SetActive(false);
                 }
-            }else{
+            }
+            else
+            {
                 if(UI_Control_Ability != null)
                 UI_Control_Ability.SetActive(false);
             }
@@ -287,27 +303,36 @@ public class HudController : BaseGame
         
             if(abilitiesShopController.BoughtExplodeEnemy)
             {
-                if(charAblitiesController.canUseExplosionEnemy){
+                if(charAblitiesController.canUseExplosionEnemy)
+                {
                     UI_Posesion_Ability.SetActive(true);
-                }else{
+                }
+                else
+                {
                     UI_Posesion_Ability.SetActive(false);
                 }
-            }else{
+            }
+            else
+            {
                 if(UI_Posesion_Ability != null)
                 UI_Posesion_Ability.SetActive(false);
             }
         }
     }
+
     private void CheckingSphereQuantityUI()
     {
         //counter sphere remaining
-        foreach(EnergyBall sphere in esferas){
+        foreach(EnergyBall sphere in esferas)
+        {
             if(sphere.movements == -2){
                 if(!sphereController.Contains(sphere.gameObject))
                 {
                     sphereController.Add(sphere.gameObject);
                 }
-            }else{
+            }
+            else
+            {
                if(sphereController.Contains(sphere.gameObject))
                {
                    sphereController.Remove(sphere.gameObject);

@@ -42,6 +42,4 @@ public class InitMenu : BaseGame
         GameManager.Instance.PlayerSaveStatus();
         Application.Quit();
     }
-
-
 }

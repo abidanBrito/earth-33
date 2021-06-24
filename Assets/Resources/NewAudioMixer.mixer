@@ -349,16 +349,38 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
+  - guid: ba5621c5fe902c64cb74de7729e62139
+    name: EfectosVolAbilidades
   - guid: 03daaa98b4b6d42ea9d4e31e5e217d8e
-    name: ReducirVolume
+    name: MusicaVol
   - guid: 605b7a0a6195daf4c8ec8e9b48406a51
     name: Lowpass
+  - guid: 79dbf58e43da946e498afe7ed0fb5c8b
+    name: EfectosVolSonidos
+  - guid: 55b9fef6681ec90478bff55166547460
+    name: EfectosVolEnemies
+  - guid: 96e5e4608e6b4f54b8b4114fde75b1e3
+    name: EfectosVolHealer
+  - guid: 43c3b34be9d5d024d86797621e33a190
+    name: GeneralVol
   - guid: 5cf57f6f155bc4fe38ac878e040ab4bb
     name: Musica
+  - guid: 0fe23c08c721e4f238fedf451b3c8599
+    name: Musica
+  - guid: 87c67adf5bb1d4553b3acfabe907d106
+    name: EfectosVolOtros
+  - guid: 937a3669f8cc9b147b940be6a1478be5
+    name: EfectosVolProjectile
+  - guid: 9f8003fa20e3af24c8101e226b8c7433
+    name: EfectosVolShot
   - guid: f19c780714f47427dbb13a64bb5d8bd8
     name: ReducirVolumen
   - guid: 7e1b8f852acb99946aaba887a2716379
     name: PasoBajo
+  - guid: 9dcf51540d3fd834db83c25866b4443f
+    name: EfectosVolSpheres
+  - guid: 4e5ab66ff6ca1a34db078ce6b774482e
+    name: EfectosVolTornillos
   m_AudioMixerGroupViews:
   - guids:
     - 33d72a01b0fe5ac4e87c2f1882f4c2c8
@@ -379,7 +401,7 @@ AudioMixerController:
     - b9213bcb7287bd240a3ef1e3b51a2015
     name: View
   m_CurrentViewIndex: 0
-  m_TargetSnapshot: {fileID: -8436375646076791940}
+  m_TargetSnapshot: {fileID: 24500006}
 --- !u!243 &24300002
 AudioMixerGroupController:
   m_ObjectHideFlags: 0

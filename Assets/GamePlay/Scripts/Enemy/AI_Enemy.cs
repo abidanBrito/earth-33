@@ -134,6 +134,8 @@ public class AI_Enemy : BaseGame
         {
             //Utiliza el NavMesh y marca el punto como destino
             if (agent) agent.SetDestination(walkPoint);
+            
+            if(pet) Debug.Log("Nueva Ruta");
         }
 
         //Distancia entre el Enemy y el punto de ruta

@@ -14,14 +14,16 @@ public class ReduceSoundOnPause : MonoBehaviour
     private AudioMixerSnapshot[] snapshots = new AudioMixerSnapshot[2];
     private float[] transiciones = new float[2];
 
-    void Awake(){
+    void Awake()
+    {
         snapshots[0] = juegoActivo;
         snapshots[1] = juegoPausado;
     }
 
     void Update()
     {
-        if(UI_Menu.activeSelf || UI_Controles.activeSelf){
+        if(UI_Menu.activeSelf || UI_Controles.activeSelf)
+        {
             juegoPausado.TransitionTo(.01f);
             /*transiciones[0] = 0.0f;
             transiciones[1] = 1.0f;
@@ -29,7 +31,9 @@ public class ReduceSoundOnPause : MonoBehaviour
             mixer.SetFloat("ReducirVolumen", Mathf.Log10(0.15f)*20);
             mixer.SetFloat("Musica", Mathf.Log10(0.02f)*20);
             mixer.SetFloat("PasoBajo", 800.0f);
-        } else {
+        } 
+        else 
+        {
             juegoActivo.TransitionTo(.01f);
             /*transiciones[0] = 1.0f;
             transiciones[1] = 0.0f;
