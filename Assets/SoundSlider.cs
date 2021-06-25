@@ -13,7 +13,7 @@ public class SoundSlider : MonoBehaviour
 
     public void SetLevelMusica(float SliderValue)
     {
-        mixer.SetFloat("MusicaV", Mathf.Log10(SliderValue) * 20);
+        mixer.SetFloat("MusicaV", Mathf.Log10(SliderValue) * 30);
         mixer.SetFloat("MusicaVol", Mathf.Log10(SliderValue) * 20);
 
     }
