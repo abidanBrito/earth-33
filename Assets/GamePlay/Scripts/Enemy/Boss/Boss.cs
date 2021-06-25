@@ -47,7 +47,7 @@ public class Boss : BaseGame
 
     private RangerShoot rangerSound;
     private DeathMob deathMob;
-
+    public GameObject UI_DemoScene;
 
 
 
@@ -177,6 +177,8 @@ public class Boss : BaseGame
     {
 
         GameObject itemSpaceShip = Instantiate(shipPart, gameObject.transform) as GameObject;
+        ActivateDemoUI controler = itemSpaceShip.AddComponent<ActivateDemoUI>();
+        controler.UI_DemoScreen = UI_DemoScene;
         itemSpaceShip.transform.parent = null;
 
         Vector3 deadPosition = new Vector3(transform.position.x, transform.position.y - 1.5f, transform.position.z);

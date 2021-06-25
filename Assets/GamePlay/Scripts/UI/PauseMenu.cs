@@ -14,11 +14,12 @@ public class PauseMenu : MonoBehaviour
     
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            UI_MenuSonido.SetActive(false);
-            OpenCloseMenu();
-        }
+        if(!UI_Shop.activeSelf)
+            if(Input.GetKeyDown(KeyCode.Backspace))
+            {
+                UI_MenuSonido.SetActive(false);
+                OpenCloseMenu();
+            }
     }
 
     public void Continue()

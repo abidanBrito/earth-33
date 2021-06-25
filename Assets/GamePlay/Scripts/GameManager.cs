@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+
 
 public class GameManager : BaseGame
 {
@@ -24,7 +26,7 @@ public class GameManager : BaseGame
     private GameObject player;
     private AbilitiesShop abilitiesShop;
     public bool savedLocked = false;
-
+    public static List<EnergyBall> ListaEsferas = new List<EnergyBall>();
     static GameManager instance;
     public static GameManager Instance { get => instance; set => instance = value; }
 
@@ -53,6 +55,7 @@ public class GameManager : BaseGame
 
     private void Update()
     {
+        Debug.Log(esferas.Count);
         if (ItsTimeToSave())
         {
             NutsAndBoltsSaveStatus();
@@ -87,7 +90,8 @@ public class GameManager : BaseGame
 
     IEnumerator SceneLoadAction(string action)
     {
-        yield return new WaitForSeconds(1.0f);
+
+        yield return new WaitForSeconds(0.0f);
 
         switch (action)
         {
@@ -95,12 +99,18 @@ public class GameManager : BaseGame
                 // Debug.Log(GameConstants.ACTION_NEW_GAME + " ...");
                 // Debug.Log("Cargando...");
                 ResetEnergyBalls();
+                esferas.Add(GameObject.Find("Posicion 1").GetComponentInChildren<EnergyBall>());
+                esferas.Add(GameObject.Find("Posicion 2").GetComponentInChildren<EnergyBall>());
+                esferas.Add(GameObject.Find("Posicion 3").GetComponentInChildren<EnergyBall>());
                 // Debug.Log("Cargado...");
                 break;
             case GameConstants.ACTION_CONTINUE:
                 // Debug.Log(GameConstants.ACTION_CONTINUE + " ...");
-                // Debug.Log("Cargando...");
                 ResetEnergyBalls();
+                esferas.Add(GameObject.Find("Posicion 1").GetComponentInChildren<EnergyBall>());
+                esferas.Add(GameObject.Find("Posicion 2").GetComponentInChildren<EnergyBall>());
+                esferas.Add(GameObject.Find("Posicion 3").GetComponentInChildren<EnergyBall>());
+                // Debug.Log("Cargando...");
                 LoadAll();
                 // Debug.Log("Cargado...");
                 break;
@@ -122,7 +132,7 @@ public class GameManager : BaseGame
     {
         NutsAndBoltsLoadStatus();
         AbilitiesShopLoadStatus();
-         PlayerLoadStatus();
+        PlayerLoadStatus();
     }
 
     // For Load NutsAndBoltsLoadStatus
@@ -139,6 +149,7 @@ public class GameManager : BaseGame
     {
         inventoryStatus.nutsQuantity = Inventory.nutsQuantity;
         saveLoad.Save(GameConstants.KEYNAME_NUTS_AND_BOLTS, inventoryStatus);
+
         // Debug.Log(GameConstants.KEYNAME_NUTS_AND_BOLTS + " guardado");
     }
 
@@ -151,6 +162,7 @@ public class GameManager : BaseGame
             abilitiesShop = player.GetComponent<AbilitiesShop>();
         }
         saveLoad.Load(GameConstants.KEYNAME_ABILITIES, ref abilitiesStatus);
+        
         // Debug.Log(abilitiesStatus);
         abilitiesStatus.boughtGranadeAttack = abilitiesShop.BoughtGranadeAttack;
         abilitiesStatus.boughtThrowObjects = abilitiesShop.BoughtThrowObjects;

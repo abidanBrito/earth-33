@@ -121,7 +121,7 @@ public class HudController : BaseGame
 
     private void ShopControllerInformationShown()
     {
-        KeysShop(KeyCode.B, KeyCode.Escape);
+        KeysShop(KeyCode.B, KeyCode.Backspace);
         
         if(UI_Shop.activeSelf)
         {

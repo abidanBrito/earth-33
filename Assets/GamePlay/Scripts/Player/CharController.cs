@@ -79,43 +79,44 @@ public class CharController : BaseGame
         }
         // Si la tienda no esta en pantalla puede ejecutar los siguientes movimientos
         if(PauseMenu.menuOpened == false){
-            if(!GameObject.Find("UI_Shop")  ){
-                if(Input.GetKeyDown(KeyCode.Mouse0)){
-                    sphereController.Disparar();
-                }
-
-                if(Input.GetKeyDown(KeyCode.Tab)){
-                    sphereController.CambiarModo();
-                }
-
-                if(collectedObject != null){
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                if (collectedObject.tag == GameConstants.MOVABLE_OBJECTS_TAG)
-                    {
-                        MovableObjects movableObject = collectedObject.GetComponent<MovableObjects>();
-                        movableObject.stopControlingObject();
+            if(!GameObject.Find("UI_DemoScene")) 
+                if(!GameObject.Find("UI_Shop")){
+                    if(Input.GetKeyDown(KeyCode.Mouse0)){
+                        sphereController.Disparar();
                     }
-                    else if (collectedObject.tag == GameConstants.CRYSTAL_TAG)
-                    {
-                        Crystal crystal = collectedObject.GetComponent<Crystal>();
-                        crystal.StopControlingObject();
+
+                    if(Input.GetKeyDown(KeyCode.Tab)){
+                        sphereController.CambiarModo();
                     }
-                }
-                }else{
-                    if(pet != null){
-                        if(Input.GetKeyDown(KeyCode.E)){
-                            Pet petControl = pet.GetComponent<Pet>();
-                            petControl.StopControlingEnemy();
+
+                    if(collectedObject != null){
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                    if (collectedObject.tag == GameConstants.MOVABLE_OBJECTS_TAG)
+                        {
+                            MovableObjects movableObject = collectedObject.GetComponent<MovableObjects>();
+                            movableObject.stopControlingObject();
+                        }
+                        else if (collectedObject.tag == GameConstants.CRYSTAL_TAG)
+                        {
+                            Crystal crystal = collectedObject.GetComponent<Crystal>();
+                            crystal.StopControlingObject();
                         }
                     }
-                }
-                // camara 
-                followGameObject.transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationPowerCam, Vector3.up);
+                    }else{
+                        if(pet != null){
+                            if(Input.GetKeyDown(KeyCode.E)){
+                                Pet petControl = pet.GetComponent<Pet>();
+                                petControl.StopControlingEnemy();
+                            }
+                        }
+                    }
+                    // camara 
+                    followGameObject.transform.rotation *= Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationPowerCam, Vector3.up);
 
-                #region Vertical Rotation
-                followGameObject.transform.rotation *= Quaternion.AngleAxis(-Input.GetAxis("Mouse Y") * rotationPowerCam, Vector3.right);
-            }
+                    #region Vertical Rotation
+                    followGameObject.transform.rotation *= Quaternion.AngleAxis(-Input.GetAxis("Mouse Y") * rotationPowerCam, Vector3.right);
+                }
         }
         
         var angles = followGameObject.transform.localEulerAngles;

@@ -18,12 +18,18 @@ public class InitMenu : BaseGame
         saveLoad.Clear(GameConstants.KEYNAME_NUTS_AND_BOLTS);
         saveLoad.Clear(GameConstants.KEYNAME_ABILITIES);
         saveLoad.Clear(GameConstants.KEYNAME_PLAYER);
+        ResetEnergyBalls();
         GameManager.Instance.LoadScene("Demo", GameConstants.ACTION_NEW_GAME);
+        ResetEnergyBalls();
+
     }
 
     public void Continue()
     {
+        ResetEnergyBalls();
         GameManager.Instance.LoadScene("Demo", GameConstants.ACTION_CONTINUE);
+        ResetEnergyBalls();
+
     }
 
     public void Controls()

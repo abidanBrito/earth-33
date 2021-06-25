@@ -12,16 +12,16 @@ public class SoundEnergyBall : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        
-        if(energyBall.movements != 1)
-        {
-            if(energyBall.movements != 2)
+        if(other.tag != GameConstants.PLAYER_TAG)
+            if(energyBall.movements != 1)
             {
-                if(energyBall.movements != -2)
+                if(energyBall.movements != 2)
                 {
-                    audioSource.Play(0);
+                    if(energyBall.movements != -2)
+                    {
+                        audioSource.Play(0);
+                    }
                 }
             }
-        }
     }
 }
