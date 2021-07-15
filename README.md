@@ -8,4 +8,4 @@ This project is a team effort for our fourth semester class **Videogame Developm
 ![Ingame_screenshot](/img/earth-33.png)
 
 ## LICENSE
-This repository is released under the MIT license. See [LICENSE](LICENSE) for more information.
+This repository is released under the MIT license. See [LICENSE.md](LICENSE.md) for more information.
